@@ -39,6 +39,8 @@ try {
   console.log("DataBase connection failed");
 }
 
+// hallllllllllllllo im barra
+
 app.listen(portNumber, () => {
   console.log(`Back-End is running on port ${portNumber}`);
 });
