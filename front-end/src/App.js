@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Navbar from "./components/Navbar"
 
 function App() {
   const [data, setData] = useState(null);
@@ -11,13 +12,9 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
+      <Navbar/>
+      <p>{!data ? "Loading..." : data}</p>
+
     </div>
   );
 }

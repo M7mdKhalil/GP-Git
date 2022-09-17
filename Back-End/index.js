@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.json({ message: "Hello from the server1!" });
+  res.json({ message: "Hello from server!" });
 });
 
 const DBusername = "mkhalil";
