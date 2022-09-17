@@ -19,6 +19,6 @@ modify:
 "dev": "concurrently \"npm run server\" \"npm run client\""
 },
 
-/GP/Back-End/package.json
+/GP/front-end/package.json
 add:
 "proxy": "http://localhost:5000"
