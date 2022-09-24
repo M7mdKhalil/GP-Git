@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import logo from "./myLogo.svg";
 import "./App.css";
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
+import Container from "./components/Container";
+import Card from "./components/Card";
 
 function App() {
   const [data, setData] = useState(null);
@@ -12,9 +14,24 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Navbar/>
-      <p>{!data ? "Loading..." : data}</p>
-
+      <Navbar />
+      <div className="main-content">
+        <Container>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </Container>
+        {/* <p>{!data ? "Loading..." : data}</p> */}
+      </div>
     </div>
   );
 }
