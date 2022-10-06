@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,29 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# GP
-
-This is our Graduation Project on GitHub
-
-###For startup project in your pc:
-
-####/GP/Back-End/
-npm init -y
-npm install express mongoose nodemon path body-parser cors
-
-#####modify:
-/GP/package.json
-modify:
-"scripts": {
-"test": "echo \"Error: no test specified\" && exit 1",
-"start": "nodemon back-end/index.js",
-"server": "nodemon back-end/index.js",
-"client": "npm start --prefix front-end",
-"dev": "concurrently \"npm run server\" \"npm run client\""
-},
-
-/GP/front-end/package.json
-add:
-"proxy": "http://localhost:5000"
->>>>>>> e45cc9e425a5f3880afe6c15a0cca442c1030a6a
