@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "grad-proj",
   "version": "0.1.0",
   "private": true,
@@ -35,8 +34,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-=======
+  },
   "dependencies": {
     "axios": "^0.27.2",
     "babel-cli": "^6.26.0",
@@ -72,5 +70,4 @@
     "url": "https://github.com/M7mdKhalil/GP-Git/issues"
   },
   "homepage": "https://github.com/M7mdKhalil/GP-Git#readme"
->>>>>>> e45cc9e425a5f3880afe6c15a0cca442c1030a6a
 }
