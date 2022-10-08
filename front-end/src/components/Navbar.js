@@ -26,8 +26,8 @@ const Navbar = () => {
           <SearchBar />
         </div>
         <div className={scrollPos < 50 ? classes.log : classes.scrollLog}>
-          <a className={classes.loginButton}>Login</a>
-          <a className={classes.registerButton}>Register</a>
+          <a className={classes.loginButton} href='/login'>Login</a>
+          <a className={classes.registerButton} href='/register'>Register</a>
         </div>
       </div>
 
