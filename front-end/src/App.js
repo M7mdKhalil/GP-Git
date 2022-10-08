@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import {Route, Routes} from 'react-router-dom'
-import Home from "./components/Home";
+import Home from "./components/home";
 import Login from "./components/login&register/Login";
 import Register from "./components/login&register/Register";
 
