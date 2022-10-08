@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className={classes.header}>
       <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
-        <h1>HireHub</h1>
+        <h1><a href="/">HireHub</a></h1>
       </nav>
       <div className={scrollPos < 50 && classes.bar}>
         <div className={scrollPos > 50 && classes.search}>
