@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import classes from "../stylesheets/Navbar.module.css";
 import SearchBar from "./SearchBar";
-
+import {useSessionStorage} from 'react-use-storage'
 const Navbar = () => {
+  const [islogin,setislogin,removeislogin]=useSessionStorage('islogin',false);
+  const [Username,setUsername,removeUsername]=useSessionStorage('Username','');
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
@@ -26,8 +28,11 @@ const Navbar = () => {
           <SearchBar />
         </div>
         <div className={scrollPos < 50 ? classes.log : classes.scrollLog}>
+          <h3>hi {Username}</h3>
+          {!islogin && <>
           <a className={classes.loginButton} href='/login'>Login</a>
-          <a className={classes.registerButton} href='/register'>Register</a>
+          <a className={classes.registerButton} href='/register'>Register</a></>}
+          {islogin&& <a className={classes.loginButton} href='/login' onClick={()=>{setislogin(false)}}>Logout</a> }
         </div>
       </div>
 
