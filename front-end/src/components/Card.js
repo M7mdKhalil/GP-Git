@@ -1,13 +1,13 @@
 import React from "react";
 import classes from "../stylesheets/Card.module.css";
 
-const Card = () => {
-  return <div className={classes.container}>
+const Card = (props) => {
+  return <div className={classes.container} onClick={props.onClick}>
     <div className={classes.cardHeader}>
-        <h3></h3>
+        <h3>{props.title}</h3>
     </div>
     <div className={classes.cardBody}>
-      <div className={classes.title}>QA Engineer</div>
+      <div className={classes.title}>{}{props.title}</div>
     </div>
   </div>;
 };

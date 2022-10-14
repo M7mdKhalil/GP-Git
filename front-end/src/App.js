@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import logo from "./myLogo.svg";
+import {Route, Routes} from 'react-router-dom'
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Container from "./components/Container";
-import Card from "./components/Card";
-import SideBar from "./components/SideBar";
+import Home from "./components/home";
+import Login from "./components/login&register/Login";
+import Register from "./components/login&register/Register";
+import OfferDetails from "./components/offer/OfferDetails";
 
 function App() {
   const [data, setData] = useState(null);
@@ -18,26 +19,14 @@ function App() {
 
   return (
     <div className="App">
+      
       <Navbar />
-      <div className="main-content">
-        <SideBar/>
-
-        <Container>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </Container>
-        {/* <p>{!data ? "Loading..." : data}</p> */}
-      </div>
+      <Routes>
+        <Route path="/"  element={<Home/>}></Route>
+        <Route path="/login"  element={<Login/>}></Route>
+        <Route path="/register"  element={<Register/>}></Route>
+        <Route path="/offer/:id"  element={<OfferDetails/>}></Route>
+      </Routes>
     </div>
   );
 }
