@@ -12,12 +12,12 @@
 .container * {
     margin: 10px 0;
 }
-.container section{
+.container .myForm{
     border-bottom: 1px solid #dbdbdb;
     padding: 10px;
 }
 
-.container section h3 {
+.container .myForm h3 {
     color: gray;
     margin: 10px 0;
 }
