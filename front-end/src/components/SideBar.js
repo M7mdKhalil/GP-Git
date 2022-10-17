@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import FormFilter from "./FormFilter";
 import classes from "../stylesheets/SideBar.module.css";
 import Input from "./Input";
 
 const SideBar = (props) => {
   return (
     <div className={classes.container}>
-      <section>
-        <h3>Filter</h3>
-        <Input/>
-        <Input/>
-        <Input/>
-      </section>
+      <FormFilter className={classes.myForm} value={props.value} sValue={props.sValue} />
     </div>
   );
 };

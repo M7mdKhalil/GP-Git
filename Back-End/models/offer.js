@@ -10,7 +10,7 @@ const offerSchema = new schema({
         type:schema.Types.ObjectId,ref:'User' 
     },
     author:String,
-    date:Date,
+    date:String,
     image:{url:String,
         filename:String}
 })

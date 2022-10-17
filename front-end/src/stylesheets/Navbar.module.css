@@ -8,6 +8,13 @@
     z-index: 11;
 }
 
+.header h3{
+    position: fixed;
+    left: 5%;
+    top: 70px;
+    color: rgba(14, 173, 0, 0.521);
+}
+
 .nav {
     background: white;
     padding: 20px;
