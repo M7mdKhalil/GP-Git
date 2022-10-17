@@ -6,6 +6,7 @@ const path = require("path");
 const app = express();
 const User = require('./models/user');
 const Offer = require('./models/offer');
+const bcrypt = require('bcryptjs');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -29,13 +30,15 @@ app.get('/user',async(req,res)=>{
   const allusers = await User.find({});
   res.send(allusers)
 })
+//register
 app.post('/user',async(req,res)=>{
   const {username,password,email,cv,Kind,image,filename,location,phonenumber,}= req.body;
   const isfound = await User.findOne({username});
+  const hashedPassword = await bcrypt.hashSync(password,10);
  if(!isfound){
   const newUser = await User.create({
     username,
-    password,
+    password:hashedPassword,
     email,
     cv,
     Kind,
@@ -89,7 +92,7 @@ app.delete('/offer',async(req,res)=>{
 app.get('/offer/:id',async(req,res)=>{
   const id = req.params.id;
   const offer = await Offer.findById(id);
-  console.log(offer.title)
+  console.log();
   res.send(offer);
 })
 
@@ -97,12 +100,18 @@ app.get('/offer/:id',async(req,res)=>{
 
 app.post('/user/login',async(req,res)=>{
   const {username,password}=req.body;
-  const userfound = await User.findOne({username,password});
+  const userfound = await User.findOne({username});
   if(userfound){
-     res.send({ok:true,msg:'found',_id:userfound._id,username})
-  }else{
+    const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
+    if(passwordiscorrect){ 
+    res.send({ok:true,msg:'found',_id:userfound._id,username})}
+  else{
+    res.send({ok:false,msg:'wrong password'})
+  }}
+  else{
     res.send({ok:false,msg:'not found'})
   }
+
 })
 
 
