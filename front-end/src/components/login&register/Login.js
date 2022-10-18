@@ -9,23 +9,25 @@ const Login = (props)=>{
 	const [stateMsg,setstateMsg]=useState('');
 	const [username,setusername]=useState('');
     const [password,setpassword]=useState('');
+	const [kind,setkind,removekind]=useSessionStorage('kind',false);
 	const [islogin,setislogin,removeislogin]=useSessionStorage('islogin',false);
 	const [userid,setuserid,removeuserid]=useSessionStorage('userid','');
 	const [Username,setUsername,removeUsername]=useSessionStorage('Username','');
 	const submitHandler = async(event)=>{
 		event.preventDefault();
 		const userData =await post('/user/login',{username,password});
-		setstateMsg(userData.msg);
+		setstateMsg(userData?.msg);
 		if(userData.ok){
 			setislogin(true);
 			setuserid(userData._id);
 			setUsername(userData.username);
+			setkind(userData.kind)
 			window.location= '/';
 			setstateMsg('');
 		}
 		}    
     return <div className='main-content'>
-		{stateMsg&&<h1>{stateMsg}</h1>}
+		{stateMsg &&<h1>{stateMsg}</h1>}
      <Container>
 	<div className="screen">
 		<div className="screen__content">

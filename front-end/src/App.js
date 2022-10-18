@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/login&register/Login";
 import Register from "./components/login&register/Register";
 import OfferDetails from "./components/offer/OfferDetails";
+import AddOffer from "./components/offer/AddOffer";
 
 function App() {
   const [data, setData] = useState(null);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login"  element={<Login/>}></Route>
         <Route path="/register"  element={<Register/>}></Route>
         <Route path="/offer/:id"  element={<OfferDetails/>}></Route>
+        <Route path="/addoffer"  element={<AddOffer/>}></Route>
       </Routes>
     </div>
   );

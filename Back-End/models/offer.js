@@ -9,15 +9,17 @@ const offerSchema = new schema({
     applaiers:{
         type:schema.Types.ObjectId,ref:'User' 
     },
-    author:String,
+    author:{
+        type:schema.Types.ObjectId,ref:'Company' 
+    },
     date:String,
-    image:{url:String,
-        filename:String}
-})
+    image:{
+        type:schema.Types.ObjectId,ref:'Company' 
+    }})
     
 const population =[{
     path : 'applaiers'
 }]
 
-offerSchema.plugin(deepPopulate,{});
+offerSchema.plugin(deepPopulate,{populate:{'author':{select:'username'}}});
 module.exports = mongoose.model('Offer',offerSchema)
