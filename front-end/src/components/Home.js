@@ -4,13 +4,13 @@ import SideBar from "./SideBar";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const showfiltered = useSelector(state=>state.filtered.filteredOffers)
+  const showfiltered = useSelector(state => state.filtered.filteredOffers)
 
   return (
     <div className="main-content">
-      <SideBar/>
+      <SideBar />
       <Container>
-        {showfiltered? showfiltered.map((offer) => (
+        {showfiltered ? showfiltered.map((offer) => (
           <Card
             key={offer._id}
             title={offer.title}

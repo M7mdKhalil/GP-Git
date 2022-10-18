@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "../stylesheets/SearchBar.css";
 
 const SearchBar = (props) => {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <>
       <div class="search">
-        <input type="text" placeholder="search" />
+        <input
+          type="text"
+          placeholder="search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
         <div class="symbol">
           <svg class="lens">
             <use xlinkHref="#lens" />
