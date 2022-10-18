@@ -8,6 +8,7 @@ const app = express();
 const User = require('./models/user');
 const Offer = require('./models/offer');
 const bcrypt = require('bcryptjs');
+const Company = require("./models/company");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -50,11 +51,39 @@ app.post("/user", async (req, res) => {
       password:hashedPassword,
       email,
       cv,
-      Kind,
+      kind:'user',
       image,
       filename,
       location,
       phonenumber,
+      createdat: new Date(),
+    });
+    return res.send({ ok: true, msg: "welcome" });
+  } else {
+    res.send({ ok: false, msg: "is already registrated" });
+  }
+});
+app.post("/company", async (req, res) => {
+  const {
+    username,
+    password,
+    email,
+    image,
+    filename,
+    location
+  } = req.body;
+  const isfound = await Company.findOne({ username });
+  const hashedPassword = await bcrypt.hashSync(password,10);
+  const kind = "company"
+  if (!isfound) {
+    const newCompany = await Company.create({
+      username,
+      password:hashedPassword,
+      email,
+      kind,
+      image,
+      filename,
+      location,
       createdat: new Date(),
     });
     return res.send({ ok: true, msg: "welcome" });
@@ -73,7 +102,7 @@ app.delete("/user", async (req, res) => {
 });
 //offers routs
 app.get("/offer", async (req, res) => {
-  const allOffers = await Offer.find({});
+  const allOffers = await Offer.find({}).populate('author');
   res.send(allOffers);
 });
 
@@ -102,18 +131,20 @@ function formatDate(date) {
 }
 
 app.post("/offer", async (req, res) => {
-  const { title, description, location, applaiers, author, image } =
+  const { title, description, location ,author} =
     req.body;
+    console.log('hallo',author);
   const newOffer = await Offer.create({
     title,
     description,
     location,
-    applaiers,
     author,
     date: formatDate(new Date()),
-    image,
   });
-  res.send(newOffer);
+  const addOfferToCompany = await Company.findById(author);
+  addOfferToCompany.offers.push(newOffer._id);
+  console.log(addOfferToCompany.offers)
+  res.send({newOffer,ok:true});
 });
 
 app.put("/offer", async (req, res) => {
@@ -134,8 +165,6 @@ app.delete("/offer", async (req, res) => {
 app.get("/offer/:id", async (req, res) => {
   const id = req.params.id;
   const offer = await Offer.findById(id);
-  console.log();
-  console.log(offer.title);
   res.send(offer);
 });
 
@@ -147,15 +176,23 @@ app.post('/user/login',async(req,res)=>{
   if(userfound){
     const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
     if(passwordiscorrect){ 
-    res.send({ok:true,msg:'found',_id:userfound._id,username})}
+    res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
   else{
     res.send({ok:false,msg:'wrong password'})
   }}
+  else{const userfound = await Company.findOne({username});
+  if(userfound){
+    const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
+    if(passwordiscorrect){ 
+    res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
   else{
+    res.send({ok:false,msg:'wrong password'})
+  }}
     res.send({ok:false,msg:'not found'})
   }
 
 })
+
 
 
 

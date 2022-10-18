@@ -8,7 +8,7 @@ const Card = (props) => {
     <div className={classes.cardBody}>
       <h4 className={classes.title}>{props.title}</h4>
       <h4 className={classes.location}>{props.location}</h4>
-      <h4 className={classes.author}>{props.author}</h4>
+      <h4 className={classes.author}>{props.author.username}</h4>
       <p className={classes.date}>{props.date}</p>
     </div>
   </div>;
