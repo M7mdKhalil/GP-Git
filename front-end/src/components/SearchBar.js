@@ -6,15 +6,15 @@ const SearchBar = (props) => {
 
   return (
     <>
-      <div class="search">
+      <div className="search">
         <input
           type="text"
           placeholder="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <div class="symbol">
-          <svg class="lens">
+        <div className="symbol">
+          <svg className="lens">
             <use xlinkHref="#lens" />
           </svg>
         </div>

@@ -9,7 +9,10 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const showfiltered = useSelector(state=>state.filtered.filteredOffers)
-
+  
+  useEffect(() => {
+    
+  })
   return (
     <div className="main-content">
       <SideBar />
