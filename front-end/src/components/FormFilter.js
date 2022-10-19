@@ -15,7 +15,7 @@ const FormFilter = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const offer = await get("/offer");
-      await setOffers(offer);
+      setOffers(offer);
       console.log(offer);
       return offer;
     };
