@@ -17,7 +17,7 @@ const Register = (props)=>{
 const submitHandler =async (event)=>{
     event.preventDefault();
 const userData = await post('/user',{username,email,cv,password,image,phonenumber,location,kind});
-setstateMsg(userData.msg);
+await setstateMsg(userData.msg);
 if(userData.ok){
     window.location= '/login';
 }

@@ -27,6 +27,7 @@ const Home = () => {
         {showfiltered? showfiltered.map((offer) => (
           <Card
             key={offer._id}
+            _id={offer._id}
             title={offer.title}
             location={offer.location}
             author={offer.author}

@@ -16,7 +16,7 @@ const AddOffer = (props)=>{
 		event.preventDefault();
         console.log('hallo',userid);
         const author=userid;
-		const offerdata =await post('/offer',{title,description,location,author});
+		const offerdata =await post('/offer',{title,description,location,author,userid});
 		if(offerdata.ok){
 			window.location= '/';
 		}

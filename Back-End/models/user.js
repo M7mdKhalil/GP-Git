@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
-const deepPopulate = require('mongoose-deep-populate')(mongoose);
+
 
 const userSchema = new schema({
   username: String,
@@ -16,5 +16,5 @@ const userSchema = new schema({
 },
   createdat: Date,
 });
-userSchema.plugin(deepPopulate,{});
+
 module.exports = mongoose.model("User", userSchema);

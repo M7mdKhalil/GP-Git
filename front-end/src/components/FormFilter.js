@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import  { filteredActions } from "../store/filteredSlice";
 
 const FormFilter = (props) => {
-  const { get} = useFetch(
+  const { get,post} = useFetch(
     "http://localhost:5000"
   );
   const [title, setTitle] = useState("");
@@ -13,14 +13,14 @@ const FormFilter = (props) => {
   const [author, setAuthor] = useState("");
   const [offers, setOffers] = useState([]);
   const dispatch = useDispatch();
-  
 
   useEffect(() => {
     const fetchData = async () => {
       const offer = await get("/offer");
-      setOffers(offer);
+      await setOffers(offer);
+      console.log(offer);
       return offer;
-    };
+   }
 
     fetchData();
   }, [get]);
@@ -28,7 +28,6 @@ const FormFilter = (props) => {
   useEffect(() => {
     const func = async() => {
       const newOffers =await offers?.filter((offer) => offer.title.toLowerCase().includes(title)&&offer.location.toLowerCase().includes(location)&&offer.author.username.toLowerCase().includes(author));
-      console.log(offers)
       dispatch(filteredActions.addfilteredoffer(newOffers));
     };
      func();

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
-const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const offerSchema = new schema({
     title:String,
@@ -17,9 +16,6 @@ const offerSchema = new schema({
         type:schema.Types.ObjectId,ref:'Company' 
     }})
     
-const population =[{
-    path : 'applaiers'
-}]
 
-offerSchema.plugin(deepPopulate,{populate:{'author':{select:'username'}}});
+
 module.exports = mongoose.model('Offer',offerSchema)

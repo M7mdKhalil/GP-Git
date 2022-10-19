@@ -149,13 +149,13 @@ app.post("/offer", async (req, res) => {
 
 app.put("/offer", async (req, res) => {
   const { _id } = req.body;
-  const { title, description, location, author } = req.body;
+  const { title, description, location } = req.body;
   const newOffer = await Offer.findByIdAndUpdate(
     _id,
-    { title, description, location, author },
+    { title, description, location },
     { new: true }
   );
-  res.send(newOffer);
+  res.send({newOffer,ok:true});
 });
 app.delete("/offer", async (req, res) => {
   const newOffer = await Offer.findByIdAndDelete(req.body._id);
@@ -187,8 +187,8 @@ app.post('/user/login',async(req,res)=>{
     res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
   else{
     res.send({ok:false,msg:'wrong password'})
-  }}
-    res.send({ok:false,msg:'not found'})
+  }}else{
+    res.send({ok:false,msg:'not found'})}
   }
 
 })
