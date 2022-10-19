@@ -15,7 +15,7 @@ npm i react-router-dom
 -------------------------------------------------------------
 
 ##### modify:
-/GP-Git/package.json
+#### /GP-Git/package.json
 modify:
 "scripts": {
 "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,6 +25,6 @@ modify:
 "dev": "concurrently \"npm run server\" \"npm run client\""
 },
 
-/GP-Git/front-end/package.json
+#### /GP-Git/front-end/package.json
 add:
 "proxy": "http://localhost:5000"
