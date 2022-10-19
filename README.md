@@ -2,19 +2,19 @@
 
 This is our Graduation Project on GitHub
 
-###For startup project in your pc:
+### For startup project in your pc:
 
-####/GP-Git/
+#### /GP-Git/
 npm install express mongoose nodemon path body-parser cors
 
 -------------------------------------------------------------
 
-####/GP-Git/front-end
+#### /GP-Git/front-end
 npm i react-router-dom
 
 -------------------------------------------------------------
 
-#####modify:
+##### modify:
 /GP-Git/package.json
 modify:
 "scripts": {
