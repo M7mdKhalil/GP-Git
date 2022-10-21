@@ -26,7 +26,7 @@ const Login = (props)=>{
 			setstateMsg('');
 		}
 		}    
-    return <div className='main-content'>
+    return <>{islogin? window.location='/':<div className='main-content'>
 		{stateMsg &&<h1>{stateMsg}</h1>}
      <Container>
 	<div className="screen">
@@ -56,7 +56,7 @@ const Login = (props)=>{
 		
 	</div></div>
 </Container>
-</div>
+</div>}</>
 }
 
 export default Login;

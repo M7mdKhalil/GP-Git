@@ -10,7 +10,6 @@ module.exports.getAllOffers = async (req, res) => {
 module.exports.addOffer = async (req, res) => {
     const { title, description, location ,author} =
       req.body;
-      console.log('hallo',author);
     const newOffer = await Offer.create({
       title,
       description,

@@ -8,12 +8,15 @@ import { useEffect, useState } from "react";
 
 
 const Home = () => {
-  const showfiltered = useSelector(state=>state.filtered.filteredOffers)
-
+  const showfiltered = useSelector(state=>state.filtered.filteredOffers);
+  const [kind,setkind,removekind]=useSessionStorage('kind',false);
   return (
     <div className="main-content">
       <SideBar />
       <Container>
+        {kind==='company'&&<button onClick={()=>{
+        window.location='/addoffer'
+        }}>Add Offer</button>}
         {showfiltered? showfiltered.map((offer) => (
           <Card
             key={offer._id}

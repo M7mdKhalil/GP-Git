@@ -2,9 +2,11 @@ import { useState } from 'react';
 import '../../stylesheets/login&register.css'
 import Container from '../Container';
 import { useFetch } from 'use-http';
+import {useSessionStorage} from 'react-use-storage'
 
 const Register = (props)=>{
     const {get,post,response,loading,error}=useFetch('http://localhost:5000');
+    const [islogin,setislogin,removeislogin]=useSessionStorage('islogin',false);
     const [stateMsg,setstateMsg]=useState('')
     const [username,setusername]=useState('');
     const [password,setpassword]=useState('');
@@ -22,7 +24,7 @@ if(userData.ok){
     window.location= '/login';
 }
 }    
-    return <div className='main-content'>
+    return <>{islogin?window.location='/':<div className='main-content'>
     <Container>
         {stateMsg && <h1>{stateMsg}</h1>}
    <div className="screen">
@@ -68,7 +70,7 @@ if(userData.ok){
        
    </div></div>
 </Container>
-</div>
+</div>}</>
 }
 
 export default Register;

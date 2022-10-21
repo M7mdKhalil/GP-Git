@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { useFetch } from "use-http";
 import { useParams } from "react-router-dom";
 import Container from '../Container';
+import PageNotFound from '../error/PageNotFound';
 
 const EditOffer = (props)=>{
+  const [islogin,setislogin,removeislogin]=useSessionStorage('islogin',false);
+  const [kind,setkind,removekind]=useSessionStorage('kind',false);
+  const [userid,setuserid,removeuserid]=useSessionStorage('userid','');
     const params = useParams();
     const [title,settitle]=useState('');
     const [description,setdescription]=useState('');
@@ -27,13 +31,13 @@ const EditOffer = (props)=>{
       const submitHandler = async(e)=>{
         e.preventDefault();
         const _id = offer._id;
-        const offerdata =await put('/offer',{title,description,location,_id});
+        const offerdata =await put('/offer',{title,description,location,_id,userid});
 		if(offerdata.ok){
 			window.location= '/';
 		}
       }
 
-return <form className='main-content'>
+return <>{!islogin||kind!=='company'?<PageNotFound/>:<form className='main-content'>
   <Container><label htmlFor="title">title</label>
     <input type='text' placeholder={offer?.title} id="title" onChange={e=>{settitle(e.target.value)}} />
     <label htmlFor="description">description</label>
@@ -43,7 +47,7 @@ return <form className='main-content'>
     <button type="submit" onClick={submitHandler}>Edit Offer</button>
     </Container>
 
-</form>
+</form>}</>
 }
 
 export default EditOffer;
