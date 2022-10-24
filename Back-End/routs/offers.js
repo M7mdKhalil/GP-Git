@@ -2,15 +2,16 @@ const express = require('express')
 const router = express.Router({mergeParams:true});
 const offers = require('../controllers/offers');
 router.use(express.urlencoded({extended:true}))
+const {isLogged,isAuthor}=require('../middlewares');
 
-router.get("/", offers.getAllOffers);
+router.get("/",offers.getAllOffers);
 
-router.post("/",offers.addOffer );
+router.post("/",isLogged,offers.addOffer);
 
-router.put("/", offers.editOffer);
+router.put("/",isLogged,offers.editOffer);
 
-router.delete("/", offers.deleteOffer);
+router.delete("/",isLogged, offers.deleteOffer);
 
-router.get("/:id", offers.getOfferDetails);
+router.get("/:id",offers.getOfferDetails);
 
 module.exports= router;

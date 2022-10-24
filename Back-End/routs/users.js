@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router({mergeParams:true});
 const users = require('../controllers/users')
 router.use(express.urlencoded({extended:true}))
+const {isLogged,isntLogged} = require('../middlewares');
 
 router.post("/company",users.companyRegisterForm );
 
@@ -9,8 +10,8 @@ router.post("/company",users.companyRegisterForm );
 
   router.post('/login', users.loginForm)
 
-  router.put("/",users.editForm);
+  router.put("/",isLogged,users.editForm);
 
-  router.delete("/", users.deleteForm);
+  router.delete("/",isLogged, users.deleteForm);
 
 module.exports= router;

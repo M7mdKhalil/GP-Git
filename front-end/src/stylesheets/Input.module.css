@@ -17,6 +17,7 @@
 }
 
 .inputLabel{
+    font-size: 14px;
     display: flex;
     margin: 10px 0 0 5px !important;
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "use-http";
+import classes from "./offerStyleSheets/OfferDetails.module.css";
 import Card from "../Card";
 import Container from "../Container";
 
@@ -23,9 +24,16 @@ const OfferDetails = (props) => {
   return (
     <div className="main-content">
       <Container>
-        <div>{offerdetails?.title}</div>
-        <div>{offerdetails?.description}</div>
-        <div>{offerdetails?.location}</div>
+        <div className={classes.main}>
+          <div className={classes.head}>
+            <h3>{offerdetails?.title}</h3>
+            <div>{offerdetails?.location}</div>
+          </div>
+          <div className={classes.description}>
+            <label>Description</label>
+            <p>{offerdetails?.description}</p>
+          </div>
+        </div>
       </Container>
     </div>
   );

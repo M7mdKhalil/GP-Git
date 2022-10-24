@@ -9,6 +9,7 @@ const FormFilter = (props) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [author, setAuthor] = useState("");
+  const [date, setDate] = useState("");
   const [offers, setOffers] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,16 +26,17 @@ const FormFilter = (props) => {
 
   useEffect(() => {
     const func = async () => {
-      const newOffers = await offers?.filter(
+      const newOffers = await offers?.reverse().filter(
         (offer) =>
           offer.title.toLowerCase().includes(title) &&
           offer.location.toLowerCase().includes(location) &&
-          offer.author.username.toLowerCase().includes(author)
-      );
+          offer.author.username.toLowerCase().includes(author) &&
+          offer.date.includes(date)
+      )
       dispatch(filteredActions.addfilteredoffer(newOffers));
-    };
+    }
     func();
-  }, [title, offers, location, author]);
+  }, [title, offers, location, author, date]);
 
   return (
     <form className={props.className}>
@@ -58,6 +60,12 @@ const FormFilter = (props) => {
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
       />
+      {/* <Input
+        label="Date"
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      /> */}
     </form>
   );
 };

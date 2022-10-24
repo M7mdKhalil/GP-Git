@@ -6,6 +6,7 @@ const path = require("path");
 const app = express();
 const usersRoutes = require('./routs/users')
 const offersRoutes = require('./routs/offers')
+const cookieparser =require('cookie-parser');
 
 
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieparser());
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../front-end"));

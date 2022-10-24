@@ -2,22 +2,19 @@ import Card from "./Card";
 import Container from "./Container";
 import SideBar from "./SideBar";
 import { useSelector } from "react-redux";
-import {useSessionStorage} from 'react-use-storage'
+import { useSessionStorage } from "react-use-storage";
 import { useEffect, useState } from "react";
-
-
+import Spinner from "./Spinner";
 
 const Home = () => {
-  const showfiltered = useSelector(state=>state.filtered.filteredOffers)
+  const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   
-  useEffect(() => {
-    
-  })
   return (
-    <div className="main-content">
+    <Container>
       <SideBar />
-      <Container>
-        {showfiltered? showfiltered.map((offer) => (
+      
+      {showfiltered ? (
+        showfiltered.map((offer) => (
           <Card
             key={offer._id}
             _id={offer._id}
@@ -29,8 +26,11 @@ const Home = () => {
               window.location = `/offer/${offer._id}`;
             }}
           />
-        )) : <p>Loading...</p>}
-        {/* {offers ? (
+        ))
+      ) : (
+        <Spinner />
+      )}
+      {/* {offers ? (
           offers.map((offer) => (
             <Card
               key={offer._id}
@@ -46,9 +46,8 @@ const Home = () => {
         ) : (
           <p>loading...</p>
         )} */}
-      </Container>
       {/* <p>{!data ? "Loading..." : data}</p> */}
-    </div>
+    </Container>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "../stylesheets/Navbar.module.css";
 import SearchBar from "./SearchBar";
 import { useSessionStorage } from "react-use-storage";
+import Button from "./Button";
 
 const Navbar = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
@@ -31,25 +32,19 @@ const Navbar = () => {
         <h1>
           <a href="/">HireHub</a>
         </h1>
-      </nav>
-      {islogin && <h3>Hi, {Username}</h3>}
-      <div className={scrollPos < 50 && classes.bar}>
-        <div className={scrollPos > 50 && classes.search}>
-          <SearchBar />
-        </div>
-        <div className={scrollPos < 50 ? classes.log : classes.scrollLog}>
+        <div className={classes.scrollLog}>
           {!islogin && (
             <>
-              <a className={classes.loginButton} href="/login">
+              <Button className={classes.loginButton} href="/login">
                 Login
-              </a>
-              <a className={classes.registerButton} href="/register">
+              </Button>
+              <Button className={classes.registerButton} href="/register">
                 Register
-              </a>
+              </Button>
             </>
           )}
           {islogin && (
-            <a
+            <Button
               className={classes.loginButton}
               href="/login"
               onClick={() => {
@@ -57,10 +52,11 @@ const Navbar = () => {
               }}
             >
               Logout
-            </a>
+            </Button>
           )}
         </div>
-      </div>
+      </nav>
+      {islogin && <h3>Hi, {Username}</h3>}
 
       {/* <h3>{scrollPos}</h3> */}
     </div>

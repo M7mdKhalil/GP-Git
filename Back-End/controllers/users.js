@@ -1,6 +1,7 @@
 const Company =require('../models/company');
 const User =require('../models/user');
 const bcrypt =require('bcrypt');
+const cookieparser =require('cookie-parser');
 
 module.exports.companyRegisterForm = async (req, res) => {
     const {
@@ -69,6 +70,9 @@ module.exports.companyRegisterForm = async (req, res) => {
     if(userfound){
       const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
       if(passwordiscorrect){ 
+      res.cookie('userid',userfound._id);
+      res.cookie('islogin',true);
+      console.log(req.cookie);
       res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
     else{
       res.send({ok:false,msg:'wrong password'})
@@ -77,6 +81,8 @@ module.exports.companyRegisterForm = async (req, res) => {
     if(userfound){
       const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
       if(passwordiscorrect){ 
+        res.cookie('userid',userfound._id);
+        res.cookie('islogin',true);
       res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
     else{
       res.send({ok:false,msg:'wrong password'})
