@@ -29,6 +29,7 @@ const Navbar = () => {
   return (
     <div className={classes.header}>
       <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
+        {islogin && <h3 className={classes.profile}>Hi, {Username}</h3>}
         <h1>
           <a href="/">HireHub</a>
         </h1>
@@ -56,7 +57,6 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      {islogin && <h3>Hi, {Username}</h3>}
 
       {/* <h3>{scrollPos}</h3> */}
     </div>

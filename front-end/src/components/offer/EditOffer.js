@@ -49,6 +49,7 @@ const EditOffer = (props) => {
     }
   };
 
+
   return (
     <>
       {!islogin || kind !== "company" ? (
@@ -69,7 +70,7 @@ const EditOffer = (props) => {
 
                   <Input
                     type="text"
-                    value={offer?.location}
+                    placeholder={offer?.location}
                     onChange={(e) => {
                       setlocation(e.target.value);
                     }}
@@ -78,7 +79,7 @@ const EditOffer = (props) => {
                 <div className={classes.description}>
                   <Input
                     label="Description"
-                    value={offer?.description}
+                    placeholder={offer?.description}
                     onChange={(e) => {
                       setdescription(e.target.value);
                     }}
