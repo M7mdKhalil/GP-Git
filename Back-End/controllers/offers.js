@@ -19,7 +19,8 @@ module.exports.addOffer = async (req, res) => {
     });
     const addOfferToCompany = await Company.findById(author);
     addOfferToCompany.offers.push(newOffer._id);
-    console.log(addOfferToCompany.offers)
+    addOfferToCompany.save();
+    console.log('companyoffers',addOfferToCompany.offers)
     res.send({newOffer,ok:true});
   }
 
@@ -41,6 +42,6 @@ module.exports.addOffer = async (req, res) => {
 
   module.exports.getOfferDetails=async (req, res) => {
     const id = req.params.id;
-    const offer = await Offer.findById(id);
+    const offer = await Offer.findById(id).populate('appliers');
     res.send(offer);
   }

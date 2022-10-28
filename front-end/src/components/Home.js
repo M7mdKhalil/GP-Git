@@ -8,6 +8,7 @@ import Spinner from "./Spinner";
 
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
+  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   
   return (
     <Container>
@@ -22,6 +23,8 @@ const Home = () => {
             location={offer.location}
             author={offer.author}
             date={offer.date}
+            visible={!offer.appliers.includes(userid)}
+            length={offer.appliers.length}
             onClick={() => {
               window.location = `/offer/${offer._id}`;
             }}

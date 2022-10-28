@@ -5,12 +5,9 @@ import EditOffer from "./offer/EditOffer";
 import Button from "./Button";
 
 const Card = (props) => {
-  const [islogin, setislogin, removeislogin] = useSessionStorage(
-    "islogin",
-    false
-  );
+  const [islogin, setislogin, removeislogin] = useSessionStorage("islogin",false);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
-
+  const [numOfAppliers,setnumOfAppliers]=useState(props.length);
   const id = props._id;
 
   return (
@@ -32,10 +29,12 @@ const Card = (props) => {
           <h4 className={classes.location}>{props.location}</h4>
           <h4 className={classes.author}>{props.author.username}</h4>
           <p className={classes.date}>{props.date}</p>
+          <p>{numOfAppliers} appliers</p>
         </div>
       </div>
     </div>
-  );
-};
+  );}
+
+
 
 export default Card;

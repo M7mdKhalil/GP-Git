@@ -11,9 +11,9 @@ const userSchema = new schema({
   image: { url: String, filename: String },
   location: String,
   phonenumber: String,
-  offers:{
+  offers:[{
     type:schema.Types.ObjectId,ref:'Offer' 
-},
+}],
   createdat: Date,
 });
 

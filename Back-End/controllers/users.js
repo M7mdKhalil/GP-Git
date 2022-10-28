@@ -1,7 +1,7 @@
 const Company =require('../models/company');
 const User =require('../models/user');
+const Offer=require('../models/offer')
 const bcrypt =require('bcrypt');
-const cookieparser =require('cookie-parser');
 
 module.exports.companyRegisterForm = async (req, res) => {
     const {
@@ -81,8 +81,6 @@ module.exports.companyRegisterForm = async (req, res) => {
     if(userfound){
       const passwordiscorrect = bcrypt.compareSync(password,userfound.password);
       if(passwordiscorrect){ 
-        res.cookie('userid',userfound._id);
-        res.cookie('islogin',true);
       res.send({ok:true,msg:'found',_id:userfound._id,username,kind:userfound.kind})}
     else{
       res.send({ok:false,msg:'wrong password'})
@@ -109,5 +107,37 @@ module.exports.companyRegisterForm = async (req, res) => {
     else{
         const newCompany = await Company.findByIdAndDelete(req.body._id);
         res.send(newCompany)
+    }
+  }
+
+  module.exports.applyuser=async(req,res)=>{
+    const offer = await Offer.findById(req.body._id);
+    const user = await User.findById(req.body.userid);
+    console.log(offer.appliers.includes(req.body.userid))
+    if(offer&&user){
+     if(!offer.appliers.includes(req.body.userid)){
+    offer.appliers.push(req.body.userid);
+    offer.save();
+    user.offers.push(req.body._id);
+    user.save();
+  res.send({ok:true,appliers:offer.appliers})}
+else res.send({ok:false,msg:'alreadyapplied'})}
+    else{
+res.send({ok:false,msg:'something error'})
+    }
+  }
+
+  module.exports.unapplyuser=async(req,res)=>{
+    const offer = await Offer.findById(req.body._id);
+    const user = await User.findById(req.body.userid);
+    if(offer&&user){
+      console.log(offer.appliers.includes(req.body.userid))
+     if(offer.appliers.includes(req.body.userid)){
+  const offer=await Offer.findByIdAndUpdate(req.body._id,{$pull :{appliers:req.body.userid}});
+    const user =await User.findByIdAndUpdate(req.body.userid,{$pull :{offers:req.body._id}});
+  res.send({ok:true,appliers:offer.appliers})}
+else res.send({ok:false,msg:'alreadynotapplied'})}
+    else{
+res.send({ok:false,msg:'something error'})
     }
   }
