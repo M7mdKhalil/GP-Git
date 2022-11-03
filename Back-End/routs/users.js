@@ -14,4 +14,8 @@ router.post("/company",users.companyRegisterForm );
 
   router.delete("/",isLogged, users.deleteForm);
 
+  router.post("/apply",users.applyuser)
+  
+  router.post("/unapply",users.unapplyuser)
+
 module.exports= router;

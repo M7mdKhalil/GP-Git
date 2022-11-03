@@ -5,14 +5,23 @@ import { useSelector } from "react-redux";
 import { useSessionStorage } from "react-use-storage";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import Gg from "./Gg";
+import { Button } from "react-bootstrap";
 
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
-  
+  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+  const [basicModal, setBasicModal] = useState(false);
+  const toggleShow = () => setBasicModal(!basicModal);
   return (
     <Container>
-      <SideBar />
-      
+      <SideBar list={null}/>
+      {/* <Button onClick={toggleShow}>Add problem</Button>
+              <Gg
+                basicModal={basicModal}
+                toggleShow={toggleShow}
+                setBasicModal={setBasicModal}
+              /> */}
       {showfiltered ? (
         showfiltered.map((offer) => (
           <Card
@@ -22,6 +31,8 @@ const Home = () => {
             location={offer.location}
             author={offer.author}
             date={offer.date}
+            visible={!offer.appliers.includes(userid)}
+            length={offer.appliers.length}
             onClick={() => {
               window.location = `/offer/${offer._id}`;
             }}

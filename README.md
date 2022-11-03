@@ -10,7 +10,7 @@ npm install express mongoose nodemon path body-parser cors
 -------------------------------------------------------------
 
 #### /GP-Git/front-end
-npm i react-router-dom
+npm i react-router-dom react-icons
 
 -------------------------------------------------------------
 

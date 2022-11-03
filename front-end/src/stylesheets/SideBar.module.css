@@ -1,43 +1,84 @@
-.container{
-    position: fixed;
-    left: 0;
-    top: 10px;
-    width: 23%;
-    height: 100vh;
-    padding: 65px 10px;
-    /* border-right: 1px solid #f1f1f1; */
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.container {
+  position: fixed;
+  left: 0;
+  top: 10px;
+  width: 23%;
+  height: 100vh;
+  padding: 65px 10px;
+  /* border-right: 1px solid #f1f1f1; */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container * {
-    margin: 10px 0;
+  margin: 10px 0;
 }
-.container .myForm{
-    /* border-bottom: 1px solid #dbdbdb; */
-    padding: 10px 10px 20px 10px;
-    background: #f5f5f5;
-    border-radius: 20px;
-    /* box-shadow: inset 5px 5px 10px rgb(228, 228, 228); */
+.container .myForm {
+  /* border-bottom: 1px solid #dbdbdb; */
+  padding: 10px 10px 20px 10px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  /* box-shadow: inset 5px 5px 10px rgb(228, 228, 228); */
 }
 
 .container .myForm h3 {
-    color: gray;
-    margin: 10px 0;
+  color: gray;
+  margin: 10px 0;
 }
 
-.container .list{
-    border-top: 1px solid #c8c8c8;
-    padding: 20px 0;
+.container .list {
+  border-top: 1px solid #c8c8c8;
+  padding: 20px 0;
 }
 
+.myForm h4 {
+  margin-bottom: 30px;
+  color: gray;
+}
 
+.myForm .applierCard {
+  background: #c4c4c4;
+  border-radius: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.3s;
+}
 
+.myForm .applierCard:hover {
+  scale: 1.05;
+  background: #1f1f1fd8;
+  color: white;
+  border-radius: 0;
+}
 
-@media screen and (max-width : 800px) {
-    .container{
-        position: static;
-    }
+.myForm:has(> .applierCard:hover) {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.myForm:has(> .applierCard:hover) h4 {
+  color: gray;
+  text-shadow: none;
+}
+
+.myForm .applierCard p {
+  width: 70%;
+  text-align: start;
+}
+
+.myForm .applierCard:hover .add {
+  color: lightgreen;
+}
+
+.myForm .applierCard:hover .remove {
+    color: red;
+  }
+
+@media screen and (max-width: 800px) {
+  .container {
+    position: static;
+  }
 }

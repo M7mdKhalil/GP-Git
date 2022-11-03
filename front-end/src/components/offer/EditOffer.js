@@ -24,7 +24,7 @@ const EditOffer = (props) => {
     "http://localhost:5000"
   );
   const [offer, setoffer] = useState({});
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const offerdetail = await get(`/offer/${params.id}`);
@@ -62,7 +62,7 @@ const EditOffer = (props) => {
                 <div className={classes.head}>
                   <Input
                     type="text"
-                    value={offer?.title}
+                    value="pp"
                     onChange={(e) => {
                       settitle(e.target.value);
                     }}

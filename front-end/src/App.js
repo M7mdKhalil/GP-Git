@@ -8,6 +8,7 @@ import Register from "./components/login&register/Register";
 import OfferDetails from "./components/offer/OfferDetails";
 import AddOffer from "./components/offer/AddOffer";
 import EditOffer from "./components/offer/EditOffer";
+import Gg from "./components/Gg"
 
 function App() {
   const [data, setData] = useState(null);
@@ -30,6 +31,7 @@ function App() {
        <Route path="/offer/:id"  element={<OfferDetails/>}></Route>
        <Route path="/addoffer"  element={<AddOffer/>}></Route>
       <Route path="/editoffer/:id"  element={<EditOffer/>}></Route>
+      <Route path="/gg"  element={<Gg/>}></Route>
       </Routes>
     </div>
   );

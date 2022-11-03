@@ -1,0 +1,14 @@
+span {
+  font-size: 0.8rem;
+  color: #222222;
+  background: white;
+  padding: 3px 5px;
+  border-radius: 10px;
+  box-shadow: #cdcdcd 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  align-self: center;
+}
+
+span * {
+  margin: 0 3px;
+}
