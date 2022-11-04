@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.41-1",
     "axios": "^0.27.2",
     "babel-cli": "^6.26.0",
     "bcrypt": "^5.1.0",
@@ -11,10 +12,13 @@
     "cros": "^1.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "mdb-react-ui-kit": "^5.0.0",
     "mongoose": "^6.6.5",
     "mongoose-deep-populate": "^3.2.0",
     "nodemon": "^2.0.19",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "react-bootstrap": "^2.5.0",
+    "zlib-browserify": "^0.0.3"
   },
   "name": "gp",
   "description": "This is our Graduation Project on GitHub",

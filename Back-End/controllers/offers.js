@@ -1,5 +1,6 @@
 const Company =require('../models/company');
 const Offer = require('../models/offer')
+const User = require('../models/user')
 const formatDate =require('../utils/formatDate')
 
 module.exports.getAllOffers = async (req, res) => {
@@ -36,7 +37,12 @@ module.exports.addOffer = async (req, res) => {
   }
 
   module.exports.deleteOffer = async (req, res) => {
-    const newOffer = await Offer.findByIdAndDelete(req.body._id);
+    const _id = req.params.id;
+    console.log('hallo delete',req.params)
+    const newOffer = await Offer.findByIdAndDelete(_id);
+    for(i=0;i<newOffer.appliers.length;i++){
+    const newUser = await User.findByIdAndUpdate(newOffer.appliers[i]._id,{$pull :{offers:_id}})}
+    const newCompany = await Company.findByIdAndUpdate(newOffer.author._id,{$pull :{offers:_id}})
     res.send(newOffer);
   }
 

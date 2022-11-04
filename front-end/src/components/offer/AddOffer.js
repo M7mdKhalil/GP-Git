@@ -23,8 +23,6 @@ const AddOffer = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const author = userid;
-    console.log("hallo", userid);
-    console.log(author);
     const offerdata = await post("/offer", {
       title,
       description,

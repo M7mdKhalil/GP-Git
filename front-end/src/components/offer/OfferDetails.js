@@ -33,7 +33,6 @@ const OfferDetails = () => {
       await setVisible(
         !offerdetail?.appliers?.some((ele) => ele._id === userid)
       );
-      console.log(!offerdetail?.appliers?.some((ele) => ele._id === userid));
     };
     fetchData();
   }, [get, params.id]);

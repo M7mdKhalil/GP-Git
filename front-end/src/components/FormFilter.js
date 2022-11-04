@@ -17,7 +17,6 @@ const FormFilter = (props) => {
     const fetchData = async () => {
       const offer = await get("/offer");
       setOffers(offer);
-      console.log(offer);
       return offer;
     };
 

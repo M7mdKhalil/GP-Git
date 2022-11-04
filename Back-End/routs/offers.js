@@ -10,7 +10,7 @@ router.post("/",isLogged,offers.addOffer);
 
 router.put("/",isLogged,offers.editOffer);
 
-router.delete("/",isLogged, offers.deleteOffer);
+router.delete("/:id",offers.deleteOffer);
 
 router.get("/:id",offers.getOfferDetails);
 

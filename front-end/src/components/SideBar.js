@@ -11,7 +11,6 @@ import NumOfAppliers from "./offer/NumOfAppliers";
 
 const SideBar = (props) => {
   const usel = useLocation();
-  console.log(usel.pathname === "/");
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
