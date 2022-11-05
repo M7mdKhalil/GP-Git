@@ -3,8 +3,15 @@ const User = require("../models/user");
 const Offer = require("../models/offer");
 const bcrypt = require("bcrypt");
 
+module.exports.userDetails = async (req, res) => {
+  const user = await User.findById(req.params.id)
+  console.log(user)
+  res.send(user)
+}
+
+
 module.exports.companyRegisterForm = async (req, res) => {
-  const { username, password, email, image, filename, location } = req.body;
+  const { username, password, email, image, location } = req.body;
   const isfound = await Company.findOne({ username });
   const hashedPassword = await bcrypt.hashSync(password, 10);
   const kind = "company";
@@ -25,7 +32,8 @@ module.exports.companyRegisterForm = async (req, res) => {
   }
 };
 
-module.exports.userRegisterForm = async (req, res) => {
+module.exports.userRegisterForm = async (req, res,next) => {
+  console.log(req.files)
   const {
     username,
     password,
@@ -44,14 +52,13 @@ module.exports.userRegisterForm = async (req, res) => {
       password: hashedPassword,
       email,
       cv,
-      kind: "user",
       image,
+      kind: "user",
       filename,
       location,
       phonenumber,
       createdat: new Date(),
     });
-
     return res.send({ ok: true, msg: "welcome" });
   } else {
     res.send({ ok: false, msg: "is already registrated" });

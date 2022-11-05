@@ -7,6 +7,9 @@ import { useFetch } from "use-http";
 import DeleteOffer from "./offer/DeleteOffer";
 
 const Card = (props) => {
+  const { del } = useFetch(
+    "http://localhost:5000"
+  );
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -14,6 +17,7 @@ const Card = (props) => {
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const numOfAppliers = props.length;
   const id = props._id;
+
 
   const [deleteOfferShow, setDeleteOfferShow] = useState(false);
 
@@ -25,9 +29,16 @@ const Card = (props) => {
     setDeleteOfferShow(true);
   };
 
+
+  const DeleteOfferHandler = async()=>{
+    const _id = props._id;
+  await del(`/offer/${_id}`);
+  window.location='/';
+  }
+console.log(props.image)
   return (
     <div className={classes.container}>
-      <div className={classes.cardHeader}></div>
+      <div className={classes.cardHeader}><img src={props.image} width='70' height='70'></img></div>
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>

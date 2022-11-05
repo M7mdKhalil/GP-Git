@@ -13,6 +13,8 @@ const Input = (props) => {
         value={props.value}
         onChange={props.onChange}
         placeholder={props.placeholder}
+        id={props.id}
+        name={props.name}
       />
     </>
   );

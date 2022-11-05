@@ -3,10 +3,13 @@ const router = express.Router({mergeParams:true});
 const offers = require('../controllers/offers');
 router.use(express.urlencoded({extended:true}))
 const {isLogged,isAuthor}=require('../middlewares');
+const multer =require('multer')
+const {storage} = require('../cloudinary/index');
+const uploade = multer({storage})
 
-router.get("/",offers.getAllOffers);
+router.get("/",uploade.array('image'),offers.getAllOffers);
 
-router.post("/",isLogged,offers.addOffer);
+router.post("/",isLogged,uploade.array('image'),offers.addOffer);
 
 router.put("/",isLogged,offers.editOffer);
 

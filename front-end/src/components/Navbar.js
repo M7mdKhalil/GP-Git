@@ -3,22 +3,37 @@ import classes from "../stylesheets/Navbar.module.css";
 import SearchBar from "./SearchBar";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
+import useFetch from "use-http";
 
-const Navbar = () => {
+
+const Navbar = (props) => {
+  const { get, post } = useFetch(
+    "http://localhost:5000"
+  );
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
   );
+  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+
   const [Username, setUsername, removeUsername] = useSessionStorage(
     "Username",
     ""
   );
+  const [userDetails,setUserDetails]=useState({});
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
     setScrollPos(pos);
   };
-
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const userdetail = await get(`/user/${userid}`);
+  //     setUserDetails(userdetail);
+  //     // console.log(userdetail)
+  //   };
+  //   fetchData();
+  // }, []);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
@@ -29,7 +44,7 @@ const Navbar = () => {
   return (
     <div className={classes.header}>
       <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
-        {islogin && <h3 className={classes.profile}>Hi, {Username}</h3>}
+        {islogin && <h3 className={classes.profile}>Hi, {Username}</h3> }
         <h1>
           <a href="/">HireHub</a>
         </h1>

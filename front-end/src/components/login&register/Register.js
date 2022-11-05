@@ -19,10 +19,27 @@ const Register = (props) => {
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const [cv, setcv] = useState("");
+  const [imageDone, setimageDone] = useState(false);
   const [phonenumber, setphonenumber] = useState("");
   const [location, setlocation] = useState("");
-  const [image, setimage] = useState("");
+  const [image, setimage] = useState({});
   const [kind, setkind] = useState("");
+
+  const imageHandler = (e)=>{
+    e.preventDefault();
+    var myWidget = window.cloudinary.createUploadWidget({
+      cloudName: 'dar969tda', 
+      uploadPreset: 'test-w',
+    folder:'HireHup'}, (error, result) => { 
+        if (!error && result && result.event === "success") { 
+          setimage({url:result.info.url,public_id:result.info.public_id})
+          setimageDone(true)
+        }
+      }
+    )
+      myWidget.open();
+  }
+
   const submitHandler = async (event) => {
     event.preventDefault();
     const userData = await post("/user", {
@@ -40,6 +57,7 @@ const Register = (props) => {
       window.location = "/login";
     }
   };
+
   return (
     <>
       {islogin ? (
@@ -74,13 +92,11 @@ const Register = (props) => {
                 />
 
                 <Input type="password" placeholder="confirm Password" />
-                <Input
-                  type="file"
-                  placeholder="uploade image"
-                  onChange={(e) => {
-                    setimage(e.target.value);
-                  }}
-                />
+                <button
+                  id="upload_widget" class="cloudinary-button"
+                  onClick={imageHandler}
+                >uploade image</button>
+                {imageDone&&<p>done</p>}
               </div>
               <div>
                 <textarea
@@ -92,7 +108,7 @@ const Register = (props) => {
               </div>
             </div>
             <div className="myButton">
-              <Button onClick={submitHandler}>SignUp</Button>
+              <button  onClick={submitHandler}>SignUp</button>
             </div>
           </form>
           {stateMsg && <h1>{stateMsg}</h1>}

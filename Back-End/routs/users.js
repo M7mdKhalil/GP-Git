@@ -2,11 +2,16 @@ const express = require('express')
 const router = express.Router({mergeParams:true});
 const users = require('../controllers/users')
 router.use(express.urlencoded({extended:true}))
-const {isLogged,isntLogged} = require('../middlewares');
+const {isLogged} = require('../middlewares');
+const multer =require('multer')
+const {storage} = require('../cloudinary/index');
+const uploade = multer({storage});
 
-router.post("/company",users.companyRegisterForm );
+router.get('/:id',users.userDetails)
 
-  router.post("/", users.userRegisterForm);
+router.post("/company",uploade.single('image'),users.companyRegisterForm );
+
+  router.post("/", uploade.single('image'),users.userRegisterForm);
 
   router.post('/login', users.loginForm)
 

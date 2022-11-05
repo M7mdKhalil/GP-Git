@@ -29,7 +29,7 @@ const FormFilter = (props) => {
         (offer) =>
           offer.title.toLowerCase().includes(title) &&
           offer.location.toLowerCase().includes(location) &&
-          offer.author.username.toLowerCase().includes(author) &&
+          offer.author?.username.toLowerCase().includes(author) &&
           offer.date.includes(date)
       )
       dispatch(filteredActions.addfilteredoffer(newOffers));

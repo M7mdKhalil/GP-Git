@@ -12,6 +12,7 @@ const Home = () => {
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [basicModal, setBasicModal] = useState(false);
   const toggleShow = () => setBasicModal(!basicModal);
+  
   return (
     <Container>
       <SideBar list={null} />
@@ -32,6 +33,7 @@ const Home = () => {
             date={offer.date}
             visible={!offer.appliers.includes(userid)}
             length={offer.appliers.length}
+            image={offer.author.image.url}
             onClick={() => {
               window.location = `/offer/${offer._id}`;
             }}

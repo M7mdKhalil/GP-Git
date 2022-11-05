@@ -8,7 +8,7 @@ const userSchema = new schema({
   email: String,
   cv: String,
   kind: String,
-  image: { url: String, filename: String },
+  image: { url: String, public_id: String },
   location: String,
   phonenumber: String,
   offers:[{
