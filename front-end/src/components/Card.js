@@ -4,11 +4,9 @@ import { useSessionStorage } from "react-use-storage";
 import NumOfAppliers from "./offer/NumOfAppliers";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useFetch } from "use-http";
+import DeleteOffer from "./offer/DeleteOffer";
 
 const Card = (props) => {
-  const {del} =useFetch(
-    "http://localhost:5000"
-  );
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -17,21 +15,26 @@ const Card = (props) => {
   const numOfAppliers = props.length;
   const id = props._id;
 
-  const DeleteOfferHandler = async()=>{
-    const _id = props._id;
-  await del(`/offer/${_id}`);
-  window.location='/';
-  }
+  const [deleteOfferShow, setDeleteOfferShow] = useState(false);
+
+  const DeleteOfferCloseHandler = () => {
+    setDeleteOfferShow(false);
+  };
+
+  const DeleteOfferShowHandler = () => {
+    setDeleteOfferShow(true);
+  };
 
   return (
     <div className={classes.container}>
       <div className={classes.cardHeader}></div>
       <div className={classes.cardBody}>
-        {islogin&&userid===props.author._id &&
-        <div className={classes.deleteIcon} onClick={DeleteOfferHandler}>
-          <MdOutlineDeleteOutline />
-        </div>}
-        
+        {islogin && userid === props.author._id && (
+          <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
+            <MdOutlineDeleteOutline />
+          </div>
+        )}
+        {deleteOfferShow && <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />}
         {islogin && userid === props.author._id && (
           <button
             onClick={() => {

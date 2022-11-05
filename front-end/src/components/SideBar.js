@@ -5,9 +5,9 @@ import Input from "./Input";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
 import { useLocation } from "react-router-dom";
-import Gg from "./Gg";
 import { TiUserDeleteOutline, TiUserAddOutline } from "react-icons/ti";
 import NumOfAppliers from "./offer/NumOfAppliers";
+import AddOffer from "./offer/AddOffer";
 
 const SideBar = (props) => {
   const usel = useLocation();
@@ -19,6 +19,8 @@ const SideBar = (props) => {
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const appliers = props.list;
   const numOfAppliers = props.nAppliers;
+
+  const [showAddOffer, setShowAddOffer] = useState(false);
 
   return (
     <div className={classes.container}>
@@ -34,11 +36,14 @@ const SideBar = (props) => {
         <div className={classes.list}>
           <Button
             onClick={() => {
-              window.location = "/addoffer";
+              setShowAddOffer(true);
             }}
           >
             Add Offer
           </Button>
+          {showAddOffer && <AddOffer onClose={() => {
+            setShowAddOffer(false)
+          }}/>}
         </div>
       )}
       {islogin && kind === "company" && appliers && (

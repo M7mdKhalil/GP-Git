@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import { useSessionStorage } from "react-use-storage";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
-import Gg from "./Gg";
-import { Button } from "react-bootstrap";
-
+import Modal from "./UI/Modal";
+import Button from "./Button";
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
@@ -15,7 +14,7 @@ const Home = () => {
   const toggleShow = () => setBasicModal(!basicModal);
   return (
     <Container>
-      <SideBar list={null}/>
+      <SideBar list={null} />
       {/* <Button onClick={toggleShow}>Add problem</Button>
               <Gg
                 basicModal={basicModal}

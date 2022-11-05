@@ -1,0 +1,52 @@
+.footer{
+    text-align: end;
+    margin: 40px 0 10px 0;
+}
+
+.footer *{
+    margin: 5px;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 20px;
+    padding: 10px;
+    /* border-bottom: 1px solid #c8c8c8; */
+}
+
+.description{
+    text-align: start;
+    padding: 20px;
+    background: white;
+    min-height: 70%;
+    border-radius: 10px;
+}
+
+.description p{
+    margin-top: 20px;
+}
+
+.description label{
+    display: block;
+    border-bottom: 1px solid #c8c8c8;
+    color: gray;
+    font-weight: 700;
+    font-size: .9rem;
+    padding: 5px;
+    margin-bottom: 20px !important;
+}
+
+.dataForm{
+    padding: 10px;
+}
+
+.dataForm *{
+    margin: 5px 0 ;
+}
+
+.title {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    text-align: center;
+}
