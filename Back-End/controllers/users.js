@@ -22,7 +22,6 @@ module.exports.companyRegisterForm = async (req, res) => {
       email,
       kind,
       image,
-      filename,
       location,
       createdat: new Date(),
     });

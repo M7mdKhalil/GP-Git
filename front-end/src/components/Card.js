@@ -38,7 +38,7 @@ const Card = (props) => {
 console.log(props.image)
   return (
     <div className={classes.container}>
-      <div className={classes.cardHeader}><img src={props.image} width='70' height='70'></img></div>
+      <img className={classes.cardHeader} src={props.image} width='70' height='70'></img>
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
