@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import Modal from "./UI/Modal";
 import Button from "./Button";
+import logo from "../logo.svg"
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");

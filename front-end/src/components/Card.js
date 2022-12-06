@@ -35,10 +35,10 @@ const Card = (props) => {
   await del(`/offer/${_id}`);
   window.location='/';
   }
-console.log(props.image)
+// console.log(props.image)
   return (
     <div className={classes.container}>
-      <img className={classes.cardHeader} src={props.image} width='70' height='70'></img>
+      <img className={classes.cardHeader} alt=" " src={props.image} width='70' height='70'></img>
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>

@@ -24,7 +24,7 @@ const EditOffer = (props) => {
     "http://localhost:5000"
   );
   const [offer, setoffer] = useState({});
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const offerdetail = await get(`/offer/${params.id}`);
@@ -37,7 +37,7 @@ const EditOffer = (props) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const _id = offer._id;
-    const offerdata = await put("/offer", {
+    const offerdata = await put(`/offer`, {
       title,
       description,
       location,
@@ -45,10 +45,10 @@ const EditOffer = (props) => {
       userid,
     });
     if (offerdata.ok) {
-      window.location = "/";
+      console.log(offerdata)
+      window.location = `/`;
     }
   };
-
 
   return (
     <>
@@ -62,7 +62,7 @@ const EditOffer = (props) => {
                 <div className={classes.head}>
                   <Input
                     type="text"
-                    value="pp"
+                    placeholder={offer?.title}
                     onChange={(e) => {
                       settitle(e.target.value);
                     }}

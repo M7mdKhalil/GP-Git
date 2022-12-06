@@ -93,7 +93,7 @@ const Register = (props) => {
 
                 <Input type="password" placeholder="confirm Password" />
                 <button
-                  id="upload_widget" class="cloudinary-button"
+                  id="upload_widget" className="cloudinary-button"
                   onClick={imageHandler}
                 >uploade image</button>
                 {imageDone&&<p>done</p>}
@@ -108,7 +108,7 @@ const Register = (props) => {
               </div>
             </div>
             <div className="myButton">
-              <button  onClick={submitHandler}>SignUp</button>
+              <Button  onClick={submitHandler}>SignUp</Button>
             </div>
           </form>
           {stateMsg && <h1>{stateMsg}</h1>}

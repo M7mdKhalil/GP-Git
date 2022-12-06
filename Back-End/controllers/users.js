@@ -39,7 +39,6 @@ module.exports.userRegisterForm = async (req, res,next) => {
     email,
     cv,
     image,
-    filename,
     location,
     phonenumber,
   } = req.body;
@@ -53,7 +52,6 @@ module.exports.userRegisterForm = async (req, res,next) => {
       cv,
       image,
       kind: "user",
-      filename,
       location,
       phonenumber,
       createdat: new Date(),

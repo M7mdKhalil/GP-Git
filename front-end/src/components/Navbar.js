@@ -5,11 +5,8 @@ import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
 import useFetch from "use-http";
 
-
 const Navbar = (props) => {
-  const { get, post } = useFetch(
-    "http://localhost:5000"
-  );
+  const { get, post } = useFetch("http://localhost:5000");
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -20,7 +17,7 @@ const Navbar = (props) => {
     "Username",
     ""
   );
-  const [userDetails,setUserDetails]=useState({});
+  const [userDetails, setUserDetails] = useState({});
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
@@ -44,7 +41,18 @@ const Navbar = (props) => {
   return (
     <div className={classes.header}>
       <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
-        {islogin && <h3 className={classes.profile}>Hi, {Username}</h3> }
+        {islogin && (
+          <h3 className={classes.profile}>
+            <img
+              className={classes.cardHeader}
+              alt=" "
+              src={props.image}
+              width="70"
+              height="70"
+            ></img>
+            {Username}
+          </h3>
+        )}
         <h1>
           <a href="/">HireHub</a>
         </h1>
