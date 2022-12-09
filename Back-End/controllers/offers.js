@@ -43,13 +43,12 @@ module.exports.deleteOffer = async (req, res) => {
     const newUser = await User.findByIdAndUpdate(newOffer.appliers[i]._id, {
       $pull: { offers: _id },
     });
-<<<<<<< HEAD
+
     const addOfferToCompany = await Company.findById(author);
     addOfferToCompany.offers.push(newOffer._id);
     addOfferToCompany.save();
     res.send({newOffer,ok:true});
-=======
->>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
+
   }
   const newCompany = await Company.findByIdAndUpdate(newOffer.author._id, {
     $pull: { offers: _id },
