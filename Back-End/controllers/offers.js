@@ -21,7 +21,6 @@ module.exports.addOffer = async (req, res) => {
     const addOfferToCompany = await Company.findById(author);
     addOfferToCompany.offers.push(newOffer._id);
     addOfferToCompany.save();
-    console.log('companyoffers',addOfferToCompany.offers)
     res.send({newOffer,ok:true});
   }
 

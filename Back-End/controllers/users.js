@@ -4,9 +4,10 @@ const Offer = require("../models/offer");
 const bcrypt = require("bcrypt");
 
 module.exports.userDetails = async (req, res) => {
+    console.log(req.params.id);
   const user = await User.findById(req.params.id)
-  console.log(user)
-  res.send(user)
+  console.log('user',user)
+    res.send( user );
 }
 
 
@@ -78,7 +79,8 @@ module.exports.loginForm = async (req, res) => {
         msg: "found",
         _id: userfound._id,
         username,
-        kind: userfound.kind,
+          kind: userfound.kind,
+          userfound
       });
     } else {
       res.send({ ok: false, msg: "wrong password" });
@@ -96,7 +98,8 @@ module.exports.loginForm = async (req, res) => {
           msg: "found",
           _id: userfound._id,
           username,
-          kind: userfound.kind,
+            kind: userfound.kind,
+            userfound
         });
       } else {
         res.send({ ok: false, msg: "wrong password" });
@@ -133,7 +136,6 @@ module.exports.deleteForm = async (req, res) => {
 module.exports.applyuser = async (req, res) => {
   const offer = await Offer.findById(req.body._id);
   const user = await User.findById(req.body.userid);
-  console.log(offer.appliers.includes(req.body.userid));
   if (offer && user) {
     if (!offer.appliers.includes(req.body.userid)) {
       offer.appliers.push(req.body.userid);
@@ -151,7 +153,6 @@ module.exports.unapplyuser = async (req, res) => {
   const offer = await Offer.findById(req.body._id);
   const user = await User.findById(req.body.userid);
   if (offer && user) {
-    console.log(offer.appliers.includes(req.body.userid));
     if (offer.appliers.includes(req.body.userid)) {
       const offer = await Offer.findByIdAndUpdate(req.body._id, {
         $pull: { appliers: req.body.userid },

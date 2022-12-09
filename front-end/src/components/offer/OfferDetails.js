@@ -9,6 +9,7 @@ import styles from "../../stylesheets/SideBar.module.css";
 import NumOfAppliers from "./NumOfAppliers";
 import Button from "../Button";
 import SideBar from "../SideBar";
+import { useNavigate } from 'react-router-dom'
 
 const OfferDetails = () => {
   const { get, post, response, loading, error } = useFetch(
@@ -17,7 +18,8 @@ const OfferDetails = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
+    const navigate = useNavigate();
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [offerdetails, setofferdetails] = useState({});
@@ -40,8 +42,8 @@ const OfferDetails = () => {
   const applyHandler = async () => {
     const _id = params.id;
     const applydata = await post("/user/apply", { _id, userid });
-    if (applydata.ok) {
-      window.location = `/offer/${params.id}`;
+      if (applydata.ok) {
+          navigate(`/offer/${params.id}`);
     }
   };
 
@@ -49,7 +51,7 @@ const OfferDetails = () => {
     const _id = params.id;
     const unapplydata = await post("/user/unapply", { _id, userid });
     if (unapplydata.ok) {
-      window.location = `/offer/${params.id}`;
+      navigate(`/offer/${params.id}`);
     }
   };
 

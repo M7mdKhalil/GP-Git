@@ -7,23 +7,24 @@ import classes from "./offerStyleSheets/AddOffer.module.css";
 import Input from "../Input";
 import Button from "../Button";
 import Modal from "../UI/Modal";
-
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux";
 const AddOffer = (props) => {
-  const { get, post, response, loading, error } = useFetch(
+    const showUser = useSelector((state) => state.user.userDetails);
+  const { post } = useFetch(
     "http://localhost:5000"
-  );
+    );
+    const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
   );
-  const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [location, setlocation] = useState("");
-  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const submitHandler = async (event) => {
-    event.preventDefault();
-    const author = userid;
+      event.preventDefault();
+      const author = showUser._id;
     const offerdata = await post("/offer", {
       title,
       description,
@@ -32,12 +33,12 @@ const AddOffer = (props) => {
       islogin,
     });
     if (offerdata.ok) {
-      window.location = "/";
+     navigate("/");
     }
   };
   return (
-    <div className={classes.main}>
-      {!islogin || kind !== "company" ? (
+      <div className={classes.main}>
+          {!islogin || showUser.kind !== "company" ? (
         <PageNotFound />
       ) : (
         <Modal onClose={props.onClose}>

@@ -4,23 +4,23 @@ import SearchBar from "./SearchBar";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
 import useFetch from "use-http";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchUser } from '../store/userSlice'
 
 
 const Navbar = (props) => {
-  const { get, post } = useFetch(
-    "http://localhost:5000"
-  );
+  const showUser = useSelector((state) => state.user.userDetails);
+    console.log('showuser', showUser);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
-  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
-
-  const [Username, setUsername, removeUsername] = useSessionStorage(
-    "Username",
-    ""
-  );
-  const [userDetails,setUserDetails]=useState({});
+    );
+    const dispatch = useDispatch();
+    const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+    useEffect(() => {
+        dispatch(fetchUser({ userid: userid }));
+    },[])
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
@@ -34,7 +34,7 @@ const Navbar = (props) => {
   //   };
   //   fetchData();
   // }, []);
-  useEffect(() => {
+    useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -43,8 +43,8 @@ const Navbar = (props) => {
 
   return (
     <div className={classes.header}>
-      <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
-        {islogin && <h3 className={classes.profile}>Hi, {Username}</h3> }
+          <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
+              {islogin && <h3 className={classes.profile}>{showUser.username}</h3>}
         <h1>
           <a href="/">HireHub</a>
         </h1>

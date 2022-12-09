@@ -8,12 +8,14 @@ import classes from "./offerStyleSheets/OfferDetails.module.css";
 import Input from "../Input";
 import Spinner from "../Spinner";
 import Button from "../Button";
+import { useNavigate } from 'react-router-dom'
 
 const EditOffer = (props) => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
+    const navigate = useNavigate();
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const params = useParams();
@@ -45,7 +47,7 @@ const EditOffer = (props) => {
       userid,
     });
     if (offerdata.ok) {
-      window.location = "/";
+      navigate("/");
     }
   };
 
