@@ -37,9 +37,13 @@ const Card = (props) => {
   await del(`/offer/${_id}`);
       navigate('/');
   }
+<<<<<<< HEAD
+=======
+// console.log(props.image)
+>>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
   return (
     <div className={classes.container}>
-      <img className={classes.cardHeader} src={props.image} width='70' height='70'></img>
+      <img className={classes.cardHeader} alt=" " src={props.image} width='70' height='70'></img>
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>

@@ -1,7 +1,7 @@
 .container{
     width: 70%;
     height: auto;
-    min-height: 500px;
+    min-height: 80vh;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;

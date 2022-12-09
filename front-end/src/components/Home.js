@@ -7,7 +7,11 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import Modal from "./UI/Modal";
 import Button from "./Button";
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom'
+=======
+import logo from "../logo.svg"
+>>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");

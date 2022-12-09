@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchUser } from '../store/userSlice'
 
-
 const Navbar = (props) => {
+<<<<<<< HEAD
   const showUser = useSelector((state) => state.user.userDetails);
     console.log('showuser', showUser);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
@@ -21,6 +21,20 @@ const Navbar = (props) => {
     useEffect(() => {
         dispatch(fetchUser({ userid: userid }));
     },[])
+=======
+  const { get, post } = useFetch("http://localhost:5000");
+  const [islogin, setislogin, removeislogin] = useSessionStorage(
+    "islogin",
+    false
+  );
+  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+
+  const [Username, setUsername, removeUsername] = useSessionStorage(
+    "Username",
+    ""
+  );
+  const [userDetails, setUserDetails] = useState({});
+>>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
@@ -43,8 +57,24 @@ const Navbar = (props) => {
 
   return (
     <div className={classes.header}>
+<<<<<<< HEAD
           <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
               {islogin && <h3 className={classes.profile}>{showUser.username}</h3>}
+=======
+      <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
+        {islogin && (
+          <h3 className={classes.profile}>
+            <img
+              className={classes.cardHeader}
+              alt=" "
+              src={props.image}
+              width="70"
+              height="70"
+            ></img>
+            {Username}
+          </h3>
+        )}
+>>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
         <h1>
           <a href="/">HireHub</a>
         </h1>

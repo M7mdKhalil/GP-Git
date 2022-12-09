@@ -41,9 +41,13 @@ const SideBar = (props) => {
           >
             Add Offer
           </Button>
-          {showAddOffer && <AddOffer onClose={() => {
-            setShowAddOffer(false)
-          }}/>}
+          {showAddOffer && (
+            <AddOffer
+              onClose={() => {
+                setShowAddOffer(false);
+              }}
+            />
+          )}
         </div>
       )}
       {islogin && kind === "company" && appliers && (
@@ -55,7 +59,7 @@ const SideBar = (props) => {
 
           {appliers
             ? appliers.map((applier) => (
-                <div className={classes.applierCard}>
+                <div key={applier._id} className={classes.applierCard}>
                   <p>{applier.username}</p>
                   <TiUserAddOutline className={classes.add} />
                   <TiUserDeleteOutline className={classes.remove} />
