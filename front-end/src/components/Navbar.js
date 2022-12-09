@@ -3,21 +3,22 @@ import classes from "../stylesheets/Navbar.module.css";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
 import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import { fetchUser } from '../store/userSlice'
 
 const Navbar = (props) => {
+    const dispatch = useDispatch();
   const showUser = useSelector((state) => state.user.userDetails);
     console.log('showuser', showUser);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
+    const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+    useEffect(() => {
+        dispatch(fetchUser({ userid: userid }));
+    }, [userid])
 
-  const [Username, setUsername, removeUsername] = useSessionStorage(
-    "Username",
-    ""
-  );
-  const [userDetails, setUserDetails] = useState({});
   const [scrollPos, setScrollPos] = useState(0);
   const handleScroll = () => {
     const pos = window.pageYOffset;
@@ -52,7 +53,7 @@ const Navbar = (props) => {
               width="70"
               height="70"
                       ></img>
-                      {showUser?.username}
+                      {showUser.username}
           </h3>
         )}
         <h1>
