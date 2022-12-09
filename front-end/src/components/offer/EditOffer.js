@@ -47,12 +47,11 @@ const EditOffer = (props) => {
       userid,
     });
     if (offerdata.ok) {
-<<<<<<< HEAD
       navigate("/");
-=======
+
       console.log(offerdata)
       window.location = `/`;
->>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
+
     }
   };
 

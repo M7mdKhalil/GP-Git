@@ -1,13 +1,14 @@
 import "../../stylesheets/login&register.css";
-import Container from "../Container";
 import { useFetch } from "use-http";
 import { useState } from "react";
 import { useSessionStorage } from "react-use-storage";
 import Button from "../Button";
 import Input from "../Input";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../store/userSlice";
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { fetchUser } from '../../store/userSlice'
+
+
 const Login = (props) => {
   let dispatch = useDispatch();
   const { post} = useFetch(
@@ -40,6 +41,7 @@ const Login = (props) => {
       setuserid(userData._id);
       setUsername(userData.username);
         setkind(userData.kind);
+        dispatch(fetchUser({userid: userData._id }));
         navigate('/');
         setstateMsg("");
       }

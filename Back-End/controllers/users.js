@@ -6,8 +6,14 @@ const bcrypt = require("bcrypt");
 module.exports.userDetails = async (req, res) => {
     console.log(req.params.id);
   const user = await User.findById(req.params.id)
-  console.log('user',user)
-    res.send( user );
+    if (user) {
+        console.log('user', user)
+        res.send(user);
+    }
+    else {
+        const comp = await Company.findById(req.params.id);
+        res.send(comp);
+    }
 }
 
 

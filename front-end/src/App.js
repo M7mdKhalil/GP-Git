@@ -22,13 +22,12 @@ function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
       
           <Navbar />
 
-=======
+
       <Navbar />
->>>>>>> 46474719c851c03f24d8c9943f72f76842e39a44
+
       <Routes>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<Home />}></Route>
