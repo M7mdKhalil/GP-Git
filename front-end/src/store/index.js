@@ -4,7 +4,7 @@ import appliersSlice from "./appliersSlice";
 import loadingBarReducer from "react-redux-loading-bar";
 
 const store = configureStore({
-  reducer: { filtered: filteredSlice.reducer,appliers:appliersSlice.reducer},
+  reducer: { filtered: filteredSlice.reducer },
 });
 
 export default store;

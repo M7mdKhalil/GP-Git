@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   box-sizing: border-box;
 }
@@ -44,11 +44,10 @@
 
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
-.main-content{
-  
+.main-content {
 }
 
-.main-content img{
+.main-content img {
   width: 10%;
   position: relative;
   top: 100px;
