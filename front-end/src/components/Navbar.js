@@ -9,18 +9,21 @@ import { fetchUser } from '../store/userSlice'
 const Navbar = (props) => {
     const dispatch = useDispatch();
   const showUser = useSelector((state) => state.user.userDetails);
-    console.log('showuser', showUser);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
     );
     const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
     useEffect(() => {
-        dispatch(fetchUser({ userid: userid }));
+        const controller = new AbortController();
+        const signal = controller.signal;
+        dispatch(fetchUser({ userid: userid }, { signal }));
+        return () => {
+            controller.abort();
+        }
     }, [userid])
-
   const [scrollPos, setScrollPos] = useState(0);
-  const handleScroll = () => {
+    const handleScroll = () => {
     const pos = window.pageYOffset;
     setScrollPos(pos);
   };
@@ -37,7 +40,7 @@ const Navbar = (props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+    }, []);
 
   return (
     <div className={classes.header}>
@@ -53,7 +56,7 @@ const Navbar = (props) => {
               width="70"
               height="70"
                       ></img>
-                      {showUser.username}
+                      {showUser?.username}
           </h3>
         )}
         <h1>
