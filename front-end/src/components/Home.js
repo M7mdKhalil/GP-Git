@@ -7,13 +7,16 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import Modal from "./UI/Modal";
 import Button from "./Button";
+
+import { useNavigate } from 'react-router-dom'
+
 import logo from "../logo.svg"
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [basicModal, setBasicModal] = useState(false);
   const toggleShow = () => setBasicModal(!basicModal);
-  
+    let navigate = useNavigate();
   return (
     <Container>
       <SideBar list={null} />
@@ -23,21 +26,19 @@ const Home = () => {
                 toggleShow={toggleShow}
                 setBasicModal={setBasicModal}
               /> */}
-      {showfiltered ? (
-        showfiltered.map((offer) => (
-          <Card
-            key={offer._id}
-            _id={offer._id}
-            title={offer.title}
-            location={offer.location}
-            author={offer.author}
-            date={offer.date}
-            visible={!offer.appliers.includes(userid)}
-            length={offer.appliers.length}
-            image={offer.author.image.url}
-            onClick={() => {
-              window.location = `/offer/${offer._id}`;
-            }}
+          {showfiltered ? (
+              showfiltered.map((offer) => (
+                  <Card
+                      key={offer._id}
+                      _id={offer._id}
+                      title={offer.title}
+                      location={offer.location}
+                      author={offer.author}
+                      date={offer.date}
+                      visible={!offer.appliers.includes(userid)}
+                      length={offer.appliers.length}
+                      image={offer.author.image.url}
+                      onClick={()=>navigate(`/offer/${offer._id}`)}
           />
         ))
       ) : (

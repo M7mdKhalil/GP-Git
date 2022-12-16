@@ -3,14 +3,14 @@ import useFetch from "use-http";
 import Button from "../Button";
 import Modal from "../UI/Modal";
 import classes from "./offerStyleSheets/DeleteOffer.module.css";
-
+import { useNavigate } from 'react-router-dom'
 const DeleteOffer = (props) => {
   const { del } = useFetch("http://localhost:5000");
-
+    const navigate = useNavigate();
   const DeleteOfferHandler = async () => {
     const _id = props.cardId;
     await del(`/offer/${_id}`);
-    window.location = "/";
+    navigate("/");
   };
 
   return (

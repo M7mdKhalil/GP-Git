@@ -5,11 +5,13 @@ import { useFetch } from "use-http";
 import { useSessionStorage } from "react-use-storage";
 import Button from "../Button";
 import Input from "../Input";
+import { useNavigate } from 'react-router-dom'
 
 const Register = (props) => {
   const { get, post, response, loading, error } = useFetch(
     "http://localhost:5000"
-  );
+    );
+    const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -54,7 +56,7 @@ const Register = (props) => {
     });
     setstateMsg(userData.msg);
     if (userData.ok) {
-      window.location = "/login";
+        navigate('/login');
     }
   };
 

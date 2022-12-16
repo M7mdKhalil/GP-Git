@@ -5,11 +5,13 @@ import NumOfAppliers from "./offer/NumOfAppliers";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useFetch } from "use-http";
 import DeleteOffer from "./offer/DeleteOffer";
+import { useNavigate } from 'react-router-dom'
 
 const Card = (props) => {
   const { del } = useFetch(
     "http://localhost:5000"
-  );
+    );
+    const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -33,8 +35,9 @@ const Card = (props) => {
   const DeleteOfferHandler = async()=>{
     const _id = props._id;
   await del(`/offer/${_id}`);
-  window.location='/';
+      navigate('/');
   }
+
 // console.log(props.image)
   return (
     <div className={classes.container}>
@@ -49,7 +52,7 @@ const Card = (props) => {
         {islogin && userid === props.author._id && (
           <button
             onClick={() => {
-              window.location = `/editoffer/${id}`;
+              navigate(`/editoffer/${id}`);
             }}
           >
             {/* <img src="icons8-edit.gif" /> */}
