@@ -50,7 +50,7 @@ const EditOffer = (props) => {
       navigate("/");
 
       console.log(offerdata)
-      window.location = `/`;
+      navigate(`/`);
 
     }
   };

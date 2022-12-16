@@ -6,20 +6,23 @@ import Button from "./Button";
 import useFetch from "use-http";
 
 const Navbar = (props) => {
-  const { get, post } = useFetch("http://localhost:5000");
+    const dispatch = useDispatch();
+  const showUser = useSelector((state) => state.user.userDetails);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
-  const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
-
-  const [Username, setUsername, removeUsername] = useSessionStorage(
-    "Username",
-    ""
-  );
-  const [userDetails, setUserDetails] = useState({});
+    );
+    const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        dispatch(fetchUser({ userid: userid }, { signal }));
+        return () => {
+            controller.abort();
+        }
+    }, [userid])
   const [scrollPos, setScrollPos] = useState(0);
-  const handleScroll = () => {
+    const handleScroll = () => {
     const pos = window.pageYOffset;
     setScrollPos(pos);
   };
@@ -36,7 +39,7 @@ const Navbar = (props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+    }, []);
 
   return (
     <div className={classes.header}>
@@ -49,8 +52,8 @@ const Navbar = (props) => {
               src={props.image}
               width="70"
               height="70"
-            ></img>
-            {Username}
+                      ></img>
+                      {showUser?.username}
           </h3>
         )}
         <h1>
