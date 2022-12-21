@@ -60,7 +60,9 @@ module.exports.getOfferDetails = async (req, res) => {
   const id = req.params.id;
   const offer = await Offer.findById(id)
     .populate("appliers")
-    .populate("author")
+      .populate("author")
+      .populate('acceptedAppliers')
+      .populate('regectedAppliers')
     .exec();
   res.send(offer);
 };

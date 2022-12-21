@@ -32,8 +32,8 @@ const AddOffer = (props) => {
       author,
       islogin,
     });
-    if (offerdata.ok) {
-     navigate("/");
+      if (offerdata.ok) {
+          window.location="/";
     }
   };
   return (

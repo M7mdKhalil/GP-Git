@@ -170,3 +170,32 @@ module.exports.unapplyuser = async (req, res) => {
     res.send({ ok: false, msg: "something error" });
   }
 };
+
+module.exports.acceptedstate = async (req, res) => {
+    const user = await User.findById(req.body.applierid);
+    const offer = await Offer.findById(req.body.offerid);
+    const company = await Company.findById(req.body.companyid);
+    console.log('11')
+    if (user && company && offer) {
+        if (req.body.state === 'accept') {
+            console.log('hiiiiiiii')
+            user.notification.push(`Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.`)
+            user.acceptedOffers.push(offer._id);
+            user.save();
+            offer.acceptedAppliers.push(user._id);
+            offer.save();
+            res.send({ ok: true, state: 'accepted' })
+        }
+
+        if (req.body.state === 'regect') {
+            user.notification.push(`Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`)
+            user.regectedOffers.push(offer._id);
+            user.save();
+            offer.regectedAppliers.push(user._id);
+            offer.save();
+            res.send({ ok: true, state: 'regected' })
+        }
+    } else {
+        res.send({ ok: false })
+    }
+};

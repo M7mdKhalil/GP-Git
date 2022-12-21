@@ -1,6 +1,4 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import { loadingBarReducer } from "react-redux-loading-bar";
-import { useFetch } from 'use-http';
 import axios from 'axios';
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (obj) => {
