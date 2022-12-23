@@ -177,7 +177,7 @@ module.exports.acceptedstate = async (req, res) => {
     const company = await Company.findById(req.body.companyid);
     if (user && company && offer) {
         if (req.body.state === 'accept') {
-            user.notification.msg.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.` })
+            user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.`, offerid: req.body.offerid,companyimg:company.image.url })
             user.acceptedOffers.push(offer._id);
             user.save();
             offer.acceptedAppliers.push(user._id);
@@ -186,7 +186,8 @@ module.exports.acceptedstate = async (req, res) => {
         }
 
         if (req.body.state === 'regect') {
-            user.notification.push({msg:`Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`})
+            user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`, offerid: req.body.offerid, companyimg: company.image.url }
+)
             user.regectedOffers.push(offer._id);
             user.save();
             offer.regectedAppliers.push(user._id);
@@ -203,11 +204,34 @@ module.exports.appliedstate = async (req, res) => {
     const offer = await Offer.findById(req.body.offerid);
     const company = await Company.findById(req.body.companyid);
     if (user && company && offer) {
-        company.notification.push({ msg: `${user.username} has applied on your ${offer.title}` });
+        company.notification.push({ msg: `${user.username} has applied on your ${offer.title}`,applierimg:user.image.url,offerid:req.body.offerid });
         company.save();
             res.send({ ok: true })
         }
      else {
         res.send({ ok: false })
     }
+};
+
+module.exports.newnot = async (req, res) => {
+    console.log(req.body.kind)
+    if (req.body.kind === 'user') {
+        const user = await User.findById(req.body._id);
+        for (let i = 0; i < user.notification.length; i++) {
+            if (user.notification[i].new === true) {
+                user.notification[i].new = false;
+            }
+            await user.save();
+        }
+    }
+    if (req.body.kind === 'company') {
+        const company = await Company.findById(req.body._id);
+        for (let i = 0; i < company.notification.length; i++) {
+            if (company.notification[i].new === true) {
+                company.notification[i].new = false;
+            }
+            await company.save();
+        }
+    }
+    
 };

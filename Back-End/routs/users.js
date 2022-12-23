@@ -27,6 +27,11 @@ router.post('/acceptstate', users.acceptedstate);
 
 router.post('/applystate', users.appliedstate);
 
+router.post('/newnot', users.newnot);
+
+
+
+
 
 
 module.exports= router;

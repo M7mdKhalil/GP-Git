@@ -18,7 +18,7 @@ const userSchema = new schema({
     type:schema.Types.ObjectId,ref:'Offer' 
 }],
     createdat: Date,
-    notification: [{ msg: String, new: { type: Boolean, default: true } }],
+    notification: [{ msg: String, new: { type: Boolean, default: true }, offerid : String,companyimg:String }],
     acceptedOffers: [{
         type: schema.Types.ObjectId, ref: 'Offer'
     }],

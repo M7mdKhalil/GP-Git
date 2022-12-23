@@ -63,6 +63,6 @@ module.exports.getOfferDetails = async (req, res) => {
       .populate("author")
       .populate('acceptedAppliers')
       .populate('regectedAppliers')
-    .exec();
+    ;
   res.send(offer);
 };
