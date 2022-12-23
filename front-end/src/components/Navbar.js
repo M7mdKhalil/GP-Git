@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import classes from "../stylesheets/Navbar.module.css";
-import SearchBar from "./SearchBar";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
-import useFetch from "use-http";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchUser } from '../store/userSlice'
 
 const Navbar = (props) => {
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const Navbar = (props) => {
             <img
               className={classes.cardHeader}
               alt=" "
-              src={props.image}
+              src={showUser?.image?.url}
               width="70"
               height="70"
                       ></img>

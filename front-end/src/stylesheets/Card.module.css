@@ -1,10 +1,3 @@
-:root {
-  --primary: #6a5be2;
-  --seconary: #cde9ff;
-  --dark: #1f1f3a;
-  --light: #ebe4f4;
-  --suger: #ffe6e7;
-}
 .container {
   width: 220px;
   height: 220px;
@@ -16,6 +9,9 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  /* border-radius: 47px; */
+  background: linear-gradient(145deg, #fbf4ff, #d4cddc);
+  box-shadow: 5px 5px 11px #d1cbd9, -5px -5px 11px #fffdff;
 }
 
 .container .cardHeader {
@@ -32,7 +28,6 @@
 }
 
 .container .cardBody {
-  background: var(--seconary);
   width: 100%;
   height: 100%;
   border-radius: inherit;
@@ -56,10 +51,11 @@
 }
 
 .container .cardBody:hover {
-  background: var(--dark);
   position: relative;
   box-shadow: none;
   transform: scale(1.1);
+  background: linear-gradient(145deg, #21213e, #1c1c34);
+  /* box-shadow: 5px 5px 11px #1c1c34, -5px -5px 11px #222240; */
 }
 
 .container:hover .cardHeader {

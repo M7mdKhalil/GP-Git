@@ -32,6 +32,7 @@ const AddOffer = (props) => {
       author,
       islogin,
     });
+    console.log("offer added" , offerdata)
     if (offerdata.ok) {
      navigate("/");
     }
