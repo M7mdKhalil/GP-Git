@@ -25,4 +25,8 @@ router.post("/unapply", users.unapplyuser)
 
 router.post('/acceptstate', users.acceptedstate);
 
+router.post('/applystate', users.appliedstate);
+
+
+
 module.exports= router;

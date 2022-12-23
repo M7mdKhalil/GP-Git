@@ -42,8 +42,9 @@ const OfferDetails = () => {
   const applyHandler = async () => {
     const _id = params.id;
       const applydata = await post("/user/apply", { _id, userid });
+      const applystate = await post('/user/applystate', { applierid: userid, offerid: _id, companyid: offerdetails.author._id });
       console.log(applydata.ok);
-      if (applydata.ok) {
+      if (applydata.ok && applystate) {
           window.location=`/offer/${params.id}`;
     }
   };

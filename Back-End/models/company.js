@@ -13,6 +13,6 @@ const companySchema = new schema({
     type:schema.Types.ObjectId,ref:'Offer' 
 }],
     createdat: Date,
-    notification: [{ type: String }]
+    notification: [{ msg: String, new: { type: Boolean, default: true } }]
 });
 module.exports = mongoose.model("Company", companySchema);

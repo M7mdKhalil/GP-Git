@@ -10,7 +10,7 @@ const userSchema = new schema({
     kind: String,
     image: {
         url: { type: String, default: 'https://res.cloudinary.com/dar969tda/image/upload/v1671655008/HireHup/mwh7sh7cifckjsr3kcvz.png' },
-        public_id: { type: String, default: 'mwh7sh7cifckjsr3kcvz' }
+        public_id: { type: String, default: 'mwh7sh7cifckjsr3kcvz'}
     },
   location: String,
   phonenumber: String,
@@ -18,7 +18,7 @@ const userSchema = new schema({
     type:schema.Types.ObjectId,ref:'Offer' 
 }],
     createdat: Date,
-    notification: [{ type: String }],
+    notification: [{ msg: String, new: { type: Boolean, default: true } }],
     acceptedOffers: [{
         type: schema.Types.ObjectId, ref: 'Offer'
     }],
