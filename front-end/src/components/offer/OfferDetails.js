@@ -41,25 +41,28 @@ const OfferDetails = () => {
 
   const applyHandler = async () => {
     const _id = params.id;
-    const applydata = await post("/user/apply", { _id, userid });
-      if (applydata.ok) {
-          navigate(`/offer/${params.id}`);
+      const applydata = await post("/user/apply", { _id, userid });
+      const applystate = await post('/user/applystate', { applierid: userid, offerid: _id, companyid: offerdetails.author._id });
+      console.log(applydata.ok);
+      if (applydata.ok && applystate) {
+          window.location=`/offer/${params.id}`;
     }
   };
 
   const unApplyHandler = async () => {
     const _id = params.id;
-    const unapplydata = await post("/user/unapply", { _id, userid });
+      const unapplydata = await post("/user/unapply", { _id, userid });
+      console.log(unapplydata.ok);
     if (unapplydata.ok) {
-      navigate(`/offer/${params.id}`);
+        window.location = `/offer/${params.id}`;
     }
   };
 
 
   return (
     <div className="main-content">
-      <Container>
-        {offerdetails && <SideBar list={offerdetails.appliers} nAppliers={numOfAppliers} />}
+          <Container>
+              {offerdetails && <SideBar list={offerdetails.appliers} offerdetails={offerdetails} nAppliers={numOfAppliers} offerid={offerdetails?._id} companyid={offerdetails?.author?._id} />}
         <div className={classes.main}>
           <div className={classes.head}>
             <h3>{offerdetails?.title}</h3>
@@ -81,7 +84,7 @@ const OfferDetails = () => {
             ) : (
               ""
             )}
-          </div>
+                  </div>
         </div>
       </Container>
     </div>

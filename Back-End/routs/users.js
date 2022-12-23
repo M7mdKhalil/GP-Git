@@ -21,6 +21,17 @@ router.post("/company",uploade.single('image'),users.companyRegisterForm );
 
   router.post("/apply",users.applyuser)
   
-  router.post("/unapply",users.unapplyuser)
+router.post("/unapply", users.unapplyuser)
+
+router.post('/acceptstate', users.acceptedstate);
+
+router.post('/applystate', users.appliedstate);
+
+router.post('/newnot', users.newnot);
+
+
+
+
+
 
 module.exports= router;

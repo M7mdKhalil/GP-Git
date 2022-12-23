@@ -46,12 +46,9 @@ const EditOffer = (props) => {
       _id,
       userid,
     });
+      console.log(offerdata.ok)
     if (offerdata.ok) {
-      navigate("/");
-
-      console.log(offerdata)
-      navigate(`/`);
-
+        window.location = '/';
     }
   };
 

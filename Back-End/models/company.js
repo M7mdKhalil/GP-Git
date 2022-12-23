@@ -12,6 +12,7 @@ const companySchema = new schema({
   offers:[{
     type:schema.Types.ObjectId,ref:'Offer' 
 }],
-  createdat: Date,
+    createdat: Date,
+    notification: [{ msg: String, new: { type: Boolean, default: true }, applierimg: String, offerid: String }]
 });
 module.exports = mongoose.model("Company", companySchema);
