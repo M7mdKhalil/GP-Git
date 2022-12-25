@@ -29,8 +29,9 @@
 }
 
 .container .list {
-  border-top: 1px solid #c8c8c8;
-  padding: 20px 0;
+  border-top: 1px solid var(--suger);
+  display: flex;
+  justify-content: center;
 }
 
 .myForm h4 {

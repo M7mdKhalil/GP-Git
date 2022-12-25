@@ -3,14 +3,14 @@ import useFetch from "use-http";
 import Button from "../Button";
 import Modal from "../UI/Modal";
 import classes from "./offerStyleSheets/DeleteOffer.module.css";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 const DeleteOffer = (props) => {
   const { del } = useFetch("http://localhost:5000");
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const DeleteOfferHandler = async () => {
     const _id = props.cardId;
     await del(`/offer/${_id}`);
-    navigate("/");
+    window.location = "/";
   };
 
   return (
@@ -20,7 +20,7 @@ const DeleteOffer = (props) => {
         <p>
           This offer will be removed from the offers page and from yours offer.
         </p>
-        <br/>
+        <br />
         <p>Are u sure?</p>
       </div>
       <div className={classes.actions}>

@@ -44,7 +44,7 @@ const Card = (props) => {
       <img className={classes.cardHeader} alt=" " src={props.image} width='70' height='70'></img>
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
-          <div className={classes.deleteIcon} onClick={DeleteOfferHandler}>
+          <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
             <MdOutlineDeleteOutline />
           </div>
         )}

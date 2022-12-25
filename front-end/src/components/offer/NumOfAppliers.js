@@ -4,7 +4,7 @@ import classes from "./offerStyleSheets/NumOfAppliers.module.css"
 
 const NumOfAppliers = (props) => {
   return (
-    <span>
+    <span className={classes.badge}>
       <b>{props.numOfAppliers}</b>
       <BsPeopleFill />
     </span>
