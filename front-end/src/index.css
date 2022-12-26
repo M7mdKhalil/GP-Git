@@ -1,7 +1,7 @@
 :root {
   --primary: #6a5be2;
   --secondary: #cde9ff;
-  --dark: #1f1f3a;
+  --dark: #222246;
   --light: #ebe4f4;
   --suger: #ffe6e7;
 }
@@ -28,4 +28,26 @@ code {
   color: #cde9ff;
   color: #ffe6e7;
   color: #ebe4f4;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--dark);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d67d6;
 }

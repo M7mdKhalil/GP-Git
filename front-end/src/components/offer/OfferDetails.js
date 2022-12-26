@@ -9,7 +9,7 @@ import styles from "../../stylesheets/SideBar.module.css";
 import NumOfAppliers from "./NumOfAppliers";
 import Button from "../Button";
 import SideBar from "../SideBar";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const OfferDetails = () => {
   const { get, post, response, loading, error } = useFetch(
@@ -18,8 +18,8 @@ const OfferDetails = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-    );
-    const navigate = useNavigate();
+  );
+  const navigate = useNavigate();
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [offerdetails, setofferdetails] = useState({});
@@ -41,28 +41,39 @@ const OfferDetails = () => {
 
   const applyHandler = async () => {
     const _id = params.id;
-      const applydata = await post("/user/apply", { _id, userid });
-      const applystate = await post('/user/applystate', { applierid: userid, offerid: _id, companyid: offerdetails.author._id });
-      console.log(applydata.ok);
-      if (applydata.ok && applystate) {
-          window.location=`/offer/${params.id}`;
+    const applydata = await post("/user/apply", { _id, userid });
+    const applystate = await post("/user/applystate", {
+      applierid: userid,
+      offerid: _id,
+      companyid: offerdetails.author._id,
+    });
+    console.log(applydata.ok);
+    if (applydata.ok && applystate) {
+      window.location = `/offer/${params.id}`;
     }
   };
 
   const unApplyHandler = async () => {
     const _id = params.id;
-      const unapplydata = await post("/user/unapply", { _id, userid });
-      console.log(unapplydata.ok);
+    const unapplydata = await post("/user/unapply", { _id, userid });
+    console.log(unapplydata.ok);
     if (unapplydata.ok) {
-        window.location = `/offer/${params.id}`;
+      window.location = `/offer/${params.id}`;
     }
   };
 
-
   return (
     <div className="main-content">
-          <Container>
-              {offerdetails && <SideBar list={offerdetails.appliers} offerdetails={offerdetails} nAppliers={numOfAppliers} offerid={offerdetails?._id} companyid={offerdetails?.author?._id} />}
+      <Container>
+        {offerdetails && (
+          <SideBar
+            list={offerdetails.appliers}
+            offerdetails={offerdetails}
+            nAppliers={numOfAppliers}
+            offerid={offerdetails?._id}
+            companyid={offerdetails?.author?._id}
+          />
+        )}
         <div className={classes.main}>
           <div className={classes.head}>
             <h3>{offerdetails?.title}</h3>
@@ -74,7 +85,6 @@ const OfferDetails = () => {
           </div>
 
           <div className={classes.footer}>
-            <NumOfAppliers numOfAppliers={numOfAppliers} />
             {islogin && kind === "user" ? (
               visible ? (
                 <Button onClick={applyHandler}>apply</Button>
@@ -84,7 +94,8 @@ const OfferDetails = () => {
             ) : (
               ""
             )}
-                  </div>
+            <NumOfAppliers numOfAppliers={numOfAppliers} />
+          </div>
         </div>
       </Container>
     </div>

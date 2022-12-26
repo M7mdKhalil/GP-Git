@@ -1,0 +1,17 @@
+.box .backdrop {
+  background: none;
+  /* backdrop-filter: blur(200px); */
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.box .menuButton button {
+  background: var(--primary);
+  color: white;
+}
+
+.box .menuButton:hover button {
+    background: var(--secondary);
+    color: var(--dark);
+  }
+  

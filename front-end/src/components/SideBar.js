@@ -8,6 +8,8 @@ import { TiUserDeleteOutline, TiUserAddOutline } from "react-icons/ti";
 import AddOffer from "./offer/AddOffer";
 import { useFetch } from "use-http";
 import { PrimaryButton } from "./UI/CustomButton";
+import { DialogButtonToggle } from "./UI/DialogButtonToggle";
+import CreateIcon from "@mui/icons-material/Create";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -74,13 +76,7 @@ const SideBar = (props) => {
           >
             Add Offer
           </Button> */}
-          <PrimaryButton
-            onClick={() => {
-              setShowAddOffer(true);
-            }}
-          >
-            Add Offer
-          </PrimaryButton>
+
           {showAddOffer && (
             <AddOffer
               onClose={() => {
@@ -88,8 +84,18 @@ const SideBar = (props) => {
               }}
             />
           )}
+          <DialogButtonToggle
+            icons={
+              <CreateIcon
+                onClick={() => {
+                  setShowAddOffer(true);
+                }}
+              />
+            }
+          />
         </div>
       )}
+
       {islogin && kind === "company" && appliers && (
         <div className={classes.myForm}>
           <h4>

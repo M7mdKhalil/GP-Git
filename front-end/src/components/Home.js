@@ -11,12 +11,15 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../logo.svg";
+import { DialogButtonToggle } from "./UI/DialogButtonToggle";
+import { Avatar } from "@mui/material";
 const Home = () => {
   const showfiltered = useSelector((state) => state.filtered.filteredOffers);
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [basicModal, setBasicModal] = useState(false);
   const toggleShow = () => setBasicModal(!basicModal);
   let navigate = useNavigate();
+
   return (
     <Container>
       <SideBar list={null} />
@@ -31,7 +34,7 @@ const Home = () => {
             date={offer.date}
             visible={!offer.appliers.includes(userid)}
             length={offer.appliers.length}
-            image={offer.author.image.url}
+            image={offer.author.image?.url}
             onClick={() => navigate(`/offer/${offer._id}`)}
           />
         ))

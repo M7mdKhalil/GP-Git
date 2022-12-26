@@ -24,24 +24,32 @@
   color: #252525;
   justify-content: space-around;
   align-items: center;
+  color: var(--dark);
+  padding: 3px 20px;
+  border-radius: 3px;
+  /* box-shadow: 3px 3px 7px var(--suger), -3px -3px 7px var(--suger); */
+}
+
+.nav .profile .chip{
+  text-transform: uppercase;
+}
+.nav .profile .avatar{
+  color: var(--dark);
+  background: var(--primary);
+}
+
+
+.navScroll .profile {
+  display: flex;
+  position: absolute;
+  left: 30px;
+  color: #252525;
+  justify-content: space-around;
+  align-items: center;
   gap: 10px;
   color: var(--dark);
   padding: 3px 20px;
   border-radius: 3px;
-  box-shadow: 3px 3px 7px var(--suger), -3px -3px 7px var(--suger);
-}
-
-.nav .profile img {
-  border-radius: 50%;
-}
-
-.nav .profile h4 {
-}
-
-.navScroll .profile {
-  position: absolute;
-  left: 10px;
-  color: #252525;
 }
 
 .nav h1 a {

@@ -13,25 +13,14 @@
   align-items: center;
   transition: .2s;
   color: var(--dark);
+  /* padding-left: 15px; */
+  /* border-left: 1px solid var(--suger); */
 }
 
-.icon span {
-    width: 20px;
-    height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  vertical-align: top;
-  top: -2px;
-  margin-left: -8px;
-  background: var(--primary);
-  color: var(--light);
-  /* box-shadow: none; */
-}
-
-.icon ion-icon {
-  scale: 1.5;
+.icon .notifyIcon {
+  color: var(--dark);
   text-align: center;
-  transform: rotate(-20deg);
+  transform: rotate(-15deg);
 }
 
 .icon:hover {
@@ -47,11 +36,13 @@
   display: none;
   background: var(--light);
   position: absolute;
-  top: 45px;
+  top: 55px;
   left: 35px;
   transition: 250ms height;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .notifi-box h2 {

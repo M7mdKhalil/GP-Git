@@ -5,13 +5,12 @@ import NumOfAppliers from "./offer/NumOfAppliers";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useFetch } from "use-http";
 import DeleteOffer from "./offer/DeleteOffer";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { Avatar } from "@mui/material";
 
 const Card = (props) => {
-  const { del } = useFetch(
-    "http://localhost:5000"
-    );
-    const navigate = useNavigate();
+  const { del } = useFetch("http://localhost:5000");
+  const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
@@ -19,7 +18,6 @@ const Card = (props) => {
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const numOfAppliers = props.length;
   const id = props._id;
-
 
   const [deleteOfferShow, setDeleteOfferShow] = useState(false);
 
@@ -31,24 +29,34 @@ const Card = (props) => {
     setDeleteOfferShow(true);
   };
 
-
-  const DeleteOfferHandler = async()=>{
+  const DeleteOfferHandler = async () => {
     const _id = props._id;
-  await del(`/offer/${_id}`);
-      navigate('/');
-  }
+    await del(`/offer/${_id}`);
+    navigate("/");
+  };
 
-// console.log(props.image)
+  // console.log(props.image)
   return (
     <div className={classes.container}>
-      <img className={classes.cardHeader} alt=" " src={props.image} width='70' height='70'></img>
+      {props.image ? (
+        <img
+          className={classes.cardHeader}
+          src={props.image}
+          width="70"
+          height="70"
+        ></img>
+      ) : (
+        <Avatar className={classes.cardAvatar}>{props.author.username[0]}</Avatar>
+      )}
       <div className={classes.cardBody}>
         {islogin && userid === props.author._id && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
             <MdOutlineDeleteOutline />
           </div>
         )}
-        {deleteOfferShow && <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />}
+        {deleteOfferShow && (
+          <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />
+        )}
         {islogin && userid === props.author._id && (
           <button
             onClick={() => {

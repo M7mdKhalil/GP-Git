@@ -10,6 +10,11 @@ import { BsBellFill } from "react-icons/bs";
 import styles from "../stylesheets/Notification.module.css";
 import { useFetch } from "use-http";
 import { TextButton } from "./UI/CustomButton";
+import Badge from "@mui/material/Badge";
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
 
 const Navbar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -73,29 +78,47 @@ const Navbar = (props) => {
 
   return (
     <div className={classes.header}>
-      <nav className={scrollPos < 50 ? classes.nav : classes.navScroll}>
+      <nav className={classes.nav}>
         {islogin && (
           <div className={classes.profile}>
-            <img
+            {/* <img
               className={classes.cardHeader}
               alt=" "
               src={showUser?.image?.url}
               width="30"
               height="30"
             ></img>
-            <h4>{showUser?.username}</h4>
+            <h4>{showUser?.username}</h4> */}
+            <Chip
+              avatar={
+                <Avatar className={classes.avatar}
+                  alt={<Avatar >HH</Avatar>}
+                  src={showUser?.image?.url}
+                />
+              }
+              label={showUser?.username}
+              variant="outlined"
+              className={classes.chip}
+            />
             <div className={styles["icon"]} onClick={toggleNotifi}>
               {calcCounter(showUser) > 0 ? (
-                <ion-icon name="notifications"></ion-icon>
+                <Badge
+                  color="secondary"
+                  badgeContent={calcCounter(showUser)}
+                  max={99}
+                  // variant="dot"
+                >
+                  <NotificationsRoundedIcon className={styles.notifyIcon} />
+                </Badge>
               ) : (
-                <ion-icon name="notifications-outline"></ion-icon>
+                <NotificationsNoneRoundedIcon />
               )}
 
-              {calcCounter(showUser) > 0 ? (
+              {/* {calcCounter(showUser) > 0 ? (
                 <span>{calcCounter(showUser)}</span>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
             <div className={styles["notifi-box"]} id="box">
               <h2>
@@ -131,6 +154,7 @@ const Navbar = (props) => {
         <h1>
           <a href="/">HireHub</a>
         </h1>
+
         <div className={classes.scrollLog}>
           {!islogin && (
             <>

@@ -6,7 +6,8 @@
 
 .main .footer{
     display: flex;
-    justify-content: end;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     padding: 50px 10px;
 }
 

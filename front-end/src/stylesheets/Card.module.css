@@ -27,6 +27,20 @@
   transition: 0.2s;
 }
 
+.container .cardAvatar{
+  color: var(--dark);
+  background: var(--secondary);
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  top: -30px;
+  /* right: 80px; */
+  box-shadow: 0 3px 3px 2px rgb(219, 219, 219);
+  z-index: 1;
+  transition: 0.2s;
+}
+
 .container .cardBody {
   width: 100%;
   height: 100%;
@@ -59,6 +73,9 @@
 }
 
 .container:hover .cardHeader {
+  transform: scale(0);
+}
+.container:hover .cardAvatar {
   transform: scale(0);
 }
 
