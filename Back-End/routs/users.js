@@ -9,7 +9,9 @@ const uploade = multer({storage});
 
 router.get("/:id",users.userDetails)
 
-router.post("/company",uploade.single('image'),users.companyRegisterForm );
+router.post("/company", uploade.single('image'), users.companyRegisterForm);
+
+router.post("/admin", uploade.single('image'), users.addadmin);
 
   router.post("/", uploade.single('image'),users.userRegisterForm);
 
@@ -28,6 +30,8 @@ router.post('/acceptstate', users.acceptedstate);
 router.post('/applystate', users.appliedstate);
 
 router.post('/newnot', users.newnot);
+
+
 
 
 

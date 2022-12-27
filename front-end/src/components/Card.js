@@ -7,8 +7,10 @@ import { useFetch } from "use-http";
 import DeleteOffer from "./offer/DeleteOffer";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Card = (props) => {
+    const showUser = useSelector((state) => state.user.userDetails);
   const { del } = useFetch("http://localhost:5000");
   const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
@@ -48,8 +50,8 @@ const Card = (props) => {
       ) : (
         <Avatar className={classes.cardAvatar}>{props.author.username[0]}</Avatar>
       )}
-      <div className={classes.cardBody}>
-        {islogin && userid === props.author._id && (
+          <div className={classes.cardBody}>
+              {islogin && (userid === props.author._id || showUser.kind==='admin') && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
             <MdOutlineDeleteOutline />
           </div>
@@ -57,7 +59,7 @@ const Card = (props) => {
         {deleteOfferShow && (
           <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />
         )}
-        {islogin && userid === props.author._id && (
+              {islogin && (userid === props.author._id || showUser.kind === 'admin') && (
           <button
             onClick={() => {
               navigate(`/editoffer/${id}`);

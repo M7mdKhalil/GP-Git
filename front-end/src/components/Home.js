@@ -34,7 +34,7 @@ const Home = () => {
             date={offer.date}
             visible={!offer.appliers.includes(userid)}
             length={offer.appliers.length}
-            image={offer.author.image?.url}
+                image={offer.author.image?.url}
             onClick={() => navigate(`/offer/${offer._id}`)}
           />
         ))

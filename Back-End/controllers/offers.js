@@ -43,16 +43,16 @@ module.exports.deleteOffer = async (req, res) => {
     const newUser = await User.findByIdAndUpdate(newOffer.appliers[i]._id, {
       $pull: { offers: _id },
     });
-
-    const addOfferToCompany = await Company.findById(author);
-    addOfferToCompany.offers.push(newOffer._id);
-    addOfferToCompany.save();
-    res.send({newOffer,ok:true});
-
+      newUser.save();
   }
   const newCompany = await Company.findByIdAndUpdate(newOffer.author._id, {
-    $pull: { offers: _id },
+    $pull: { offers: _id }
   });
+    console.log(req.body);
+    if (req.body.admin === true) {
+        newCompany.notification.push({ msg: `${newOffer.title} has been removed Because it is against our policy` });
+    }
+    newCompany.save();
   res.send(newOffer);
 };
 
