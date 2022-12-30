@@ -79,8 +79,8 @@ const Navbar = (props) => {
   return (
     <div className={classes.header}>
       <nav className={classes.nav}>
-        {islogin && (
-          <div className={classes.profile}>
+              {islogin && (
+                  <div className={classes.profile} onClick={() => { window.location='/profile' }}>
             {/* <img
               className={classes.cardHeader}
               alt=" "
