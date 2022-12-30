@@ -31,11 +31,11 @@ const Navbar = (props) => {
     if (down) {
       post("/user/newnot", { kind: showUser?.kind, _id: showUser?._id });
       setRead(true);
-      box.style.height = "0px";
+      box.style.height = "auto";
       box.style.display = "none";
       down = false;
     } else {
-      box.style.height = "510px";
+      box.style.maxHeight = "510px";
       box.style.display = "block";
       down = true;
     }
@@ -158,12 +158,12 @@ const Navbar = (props) => {
         <div className={classes.scrollLog}>
           {!islogin && (
             <>
-              <Button className={classes.loginButton} href="/login">
+              <TextButton onClick={() => window.location = "/login"}>
                 Login
-              </Button>
-              <Button className={classes.registerButton} href="/register">
+              </TextButton>
+              <TextButton onClick={() => window.location = "/register"}>
                 Register
-              </Button>
+              </TextButton>
             </>
           )}
           {islogin && (

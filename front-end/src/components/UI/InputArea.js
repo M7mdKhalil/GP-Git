@@ -95,6 +95,7 @@ export default function InputArea(props) {
   return (
     <CustomInput
       aria-label="Demo input"
+      label={props.label}
       multiline
       placeholder={props.placeholder}
       value={props.value}

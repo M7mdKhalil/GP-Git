@@ -1,11 +1,10 @@
 .footer{
-    text-align: end;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
     margin: 40px 0 10px 0;
 }
 
-.footer *{
-    margin: 5px;
-}
 
 .head{
     display: flex;

@@ -88,10 +88,12 @@
 .scrollLog {
   width: 230px;
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
+  padding-right: 30px;
+  gap: 30px;
   align-items: center;
   position: absolute;
-  right: 20px;
+  right: 0;
   transition: 0.3s;
 }
 

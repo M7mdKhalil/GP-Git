@@ -9,6 +9,10 @@ import Button from "../Button";
 import Modal from "../UI/Modal";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { TextField } from "@mui/material";
+import InputArea from "../UI/InputArea";
+import { TextButton, PrimaryButton } from "../UI/CustomButton";
+
 const AddOffer = (props) => {
   const showUser = useSelector((state) => state.user.userDetails);
   const { post } = useFetch("http://localhost:5000");
@@ -44,36 +48,43 @@ const AddOffer = (props) => {
           <h3 className={classes.title}>Add Offer</h3>
           <form>
             <div className={classes.dataForm}>
-              <Input
+              <TextField
                 label="Title"
-                type="text"
+                sx={{ width: "100%" }}
                 onChange={(e) => {
                   settitle(e.target.value);
                 }}
               />
-              <Input
+              <TextField
                 label="Location"
-                type="text"
-                id="location"
+                sx={{ width: "100%" }}
                 onChange={(e) => {
                   setlocation(e.target.value);
                 }}
               />
-              <Input
-                className={classes.desc}
+              {/* <hr></hr> */}
+              <label
+                style={{
+                  fontSize: "14px",
+                  margin: "20px 0 0 10px",
+                  color: "gray",
+                }}
+              >
+                Description
+              </label>
+              <InputArea
                 label="Description"
-                id="description"
-                value={description}
+                sx={{ width: "100%" }}
                 onChange={(e) => {
                   setdescription(e.target.value);
                 }}
               />
             </div>
             <div className={classes.footer}>
-              <Button onClick={props.onClose}>Cancle</Button>
-              <Button type="submit" onClick={submitHandler}>
+              <TextButton onClick={props.onClose}>Cancle</TextButton>
+              <PrimaryButton type="submit" onClick={submitHandler}>
                 Add Offer
-              </Button>
+              </PrimaryButton>
             </div>
           </form>
         </Modal>

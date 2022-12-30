@@ -32,7 +32,7 @@
 
 .notifi-box {
   width: 350px;
-  height: 0px;
+  height: auto;
   display: none;
   background: var(--light);
   position: absolute;
@@ -43,6 +43,7 @@
   border-radius: 5px;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  padding: 15px 10px;
 }
 
 .notifi-box h2 {

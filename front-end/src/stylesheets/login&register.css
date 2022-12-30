@@ -96,22 +96,29 @@
 
 .login {
 	background: white;
-	padding: 20px;
+	padding: 50px 20px;
 	border-radius: 20px;
 	align-self: center;
 	width: 30%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 	box-shadow: 0px 5px 5px #aeaeae;
 }
 
-.login Input, .register Input{
+/* .login Input, .register Input{
 	margin-bottom: 20px;
 	margin-top: 10px;
+} */
+
+.login, .register{
+	border-top: 1px solid #c8c8c8;
 }
 
 .login .myButton, .register .myButton{
 	margin-top: 20px;
-	border-top: 1px solid #c8c8c8;
 	padding: 20px 0;
+	align-self: center;
 }
 
 .register{
@@ -139,9 +146,6 @@
 	border-left: 1px solid #c8c8c8;
 }
 
-.register button{
-	
-}
 
 .login__field {
 	padding: 20px 0px;	
