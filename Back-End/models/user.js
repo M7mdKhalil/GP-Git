@@ -9,7 +9,7 @@ const userSchema = new schema({
     cv: String,
     kind: String,
     image: {
-        url: { type: String, default: 'https://res.cloudinary.com/dar969tda/image/upload/v1671655008/HireHup/mwh7sh7cifckjsr3kcvz.png' },
+        url: { type: String },
         public_id: { type: String, default: 'mwh7sh7cifckjsr3kcvz'}
     },
   location: String,

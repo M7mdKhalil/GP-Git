@@ -79,27 +79,30 @@ const Navbar = (props) => {
   return (
     <div className={classes.header}>
       <nav className={classes.nav}>
-        {islogin && (
-          <div className={classes.profile}>
+              {islogin && (
+                  <div className={classes.profile}>
+                      <div onClick={() => { window.location = '/profile' }}>
             {/* <img
               className={classes.cardHeader}
               alt=" "
               src={showUser?.image?.url}
               width="30"
               height="30"
-            ></img>
+             ></img>
             <h4>{showUser?.username}</h4> */}
             <Chip
               avatar={
-                <Avatar className={classes.avatar}
-                  alt={<Avatar >HH</Avatar>}
-                  src={showUser?.image?.url}
+                              <Avatar className={classes.avatar}
+                                  alt={<Avatar >HH</Avatar>}
+                                  src={showUser?.image?.url}
+                                  
                 />
               }
               label={showUser?.username}
               variant="outlined"
               className={classes.chip}
-            />
+                          />
+                          </div>
             <div className={styles["icon"]} onClick={toggleNotifi}>
               {calcCounter(showUser) > 0 ? (
                 <Badge

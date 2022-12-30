@@ -2,6 +2,7 @@ const Company = require("../models/company");
 const User = require("../models/user");
 const Offer = require("../models/offer");
 const bcrypt = require("bcrypt");
+const Admin = require("../models/admin");
 
 module.exports.userDetails = async (req, res) => {
     console.log(req.params.id);
@@ -12,7 +13,13 @@ module.exports.userDetails = async (req, res) => {
     }
     else {
         const comp = await Company.findById(req.params.id);
-        res.send(comp);
+        if (comp) {
+            res.send(comp);
+        }
+        else {
+            const admin = await Admin.findById(req.params.id);
+            res.send(admin);
+        }
     }
 }
 
@@ -36,6 +43,24 @@ module.exports.companyRegisterForm = async (req, res) => {
   } else {
     res.send({ ok: false, msg: "is already registrated" });
   }
+};
+
+module.exports.addadmin = async (req, res) => {
+    const { username, password, image } = req.body;
+    const isfound = await Admin.findOne({ username });
+    const hashedPassword = await bcrypt.hashSync(password, 10);
+    const kind = "admin";
+    if (!isfound) {
+        const newAdmin = await Admin.create({
+            username,
+            password: hashedPassword,
+            kind,
+            image
+        });
+        return res.send({ ok: true, msg: "welcome" });
+    } else {
+        res.send({ ok: false, msg: "is already registrated" });
+    }
 };
 
 module.exports.userRegisterForm = async (req, res,next) => {
@@ -72,46 +97,67 @@ module.exports.userRegisterForm = async (req, res,next) => {
 module.exports.loginForm = async (req, res) => {
   const { username, password } = req.body;
   const userfound = await User.findOne({ username });
-  if (userfound) {
-    const passwordiscorrect = bcrypt.compareSync(password, userfound.password);
-    if (passwordiscorrect) {
-      res.cookie("userid", userfound._id);
-      res.cookie("islogin", true);
-      console.log(req.cookie);
-      res.send({
-        ok: true,
-        msg: "found",
-        _id: userfound._id,
-        username,
-          kind: userfound.kind,
-          userfound
-      });
-    } else {
-      res.send({ ok: false, msg: "wrong password" });
-    }
-  } else {
-    const userfound = await Company.findOne({ username });
     if (userfound) {
-      const passwordiscorrect = bcrypt.compareSync(
-        password,
-        userfound.password
-      );
-      if (passwordiscorrect) {
-        res.send({
-          ok: true,
-          msg: "found",
-          _id: userfound._id,
-          username,
-            kind: userfound.kind,
-            userfound
-        });
-      } else {
-        res.send({ ok: false, msg: "wrong password" });
-      }
+        const passwordiscorrect = bcrypt.compareSync(password, userfound.password);
+        if (passwordiscorrect) {
+            res.cookie("userid", userfound._id);
+            res.cookie("islogin", true);
+            console.log(req.cookie);
+            res.send({
+                ok: true,
+                msg: "found",
+                _id: userfound._id,
+                username,
+                kind: userfound.kind,
+                userfound
+            });
+        } else {
+            res.send({ ok: false, msg: "wrong password" });
+        }
     } else {
-      res.send({ ok: false, msg: "not found" });
+        const userfound = await Company.findOne({ username });
+        if (userfound) {
+            const passwordiscorrect = bcrypt.compareSync(
+                password,
+                userfound.password
+            );
+            if (passwordiscorrect) {
+                res.send({
+                    ok: true,
+                    msg: "found",
+                    _id: userfound._id,
+                    username,
+                    kind: userfound.kind,
+                    userfound
+                });
+            } else {
+                res.send({ ok: false, msg: "wrong password" });
+            }
+        } else {
+            const userfound = await Admin.findOne({ username });
+            if (userfound) {
+                const passwordiscorrect = bcrypt.compareSync(
+                    password,
+                    userfound.password
+                );
+                if (passwordiscorrect) {
+                    res.send({
+                        ok: true,
+                        msg: "found",
+                        _id: userfound._id,
+                        username,
+                        kind: userfound.kind,
+                        userfound
+                    });
+                } else {
+                    res.send({ ok: false, msg: "wrong password" });
+                }
+            } else {
+                res.send({ ok: false, msg: "not found" });
+            }
+        
     }
-  }
+    }
 };
 
 module.exports.editForm = async (req, res) => {

@@ -13,7 +13,7 @@ router.post("/",isLogged,uploade.array('image'),offers.addOffer);
 
 router.put("/",offers.editOffer);
 
-router.delete("/:id",offers.deleteOffer);
+router.post("/delete/:id",offers.deleteOffer);
 
 router.get("/:id",offers.getOfferDetails);
 

@@ -64,7 +64,7 @@ const EditOffer = (props) => {
 
   return (
     <>
-      {!islogin || kind !== "company" ? (
+          {!islogin || (kind !== "company" && kind !== 'admin') ? (
         <PageNotFound />
       ) : (
         <form className="main-content">

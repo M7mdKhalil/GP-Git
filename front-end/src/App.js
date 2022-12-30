@@ -10,6 +10,7 @@ import AddOffer from "./components/offer/AddOffer";
 import EditOffer from "./components/offer/EditOffer";
 import Modal from "./components/UI/Modal";
 import PageNotFound from "./components/error/PageNotFound";
+import Profile from './components/Profile';
 
 function App() {
   const [data, setData] = useState(null);
@@ -30,7 +31,8 @@ function App() {
 
       <Routes>
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/" element={<Home />}></Route>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/profile" element={<Profile/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/offer/:id" element={<OfferDetails />}></Route>
