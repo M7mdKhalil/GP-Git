@@ -3,17 +3,18 @@ import CV from "react-cv";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const showUser = useSelector((state) => state.user.userDetails);
+    const showUser = useSelector((state) => state.user.userDetails);
+    console.log(showUser)
   return (
     <CV
       personalData={{
         name: showUser.username,
         title: "Senior Software Developer",
         image: showUser.image?.url,
-        contacts: [
-          { type: "email", value: "barra375432352@gmail.com" },
-          { type: "phone", value: "+00 (123) 456 78 90" },
-          { type: "location", value: "New York" },
+              contacts: [
+                  { type: "email", value: showUser.email },
+                  { type: "phone", value: showUser.phonenumber },
+                  { type: "location", value: showUser?.cv?.country?.label },
           { type: "website", value: "example.com" },
           { type: "linkedin", value: "linkedin.com/in/notexists" },
           { type: "github", value: "github.com/404" },
@@ -24,7 +25,7 @@ const Profile = () => {
           type: "text",
           title: "Career Profile",
           content:
-            "When I was child, I always want to be a developer. I think I am now. Culpa proident ad officia minim Lorem sint excepteur irure culpa nisi aliquip nostrud.Laborum voluptate nostrud fugiat occaecat proident veniam excepteur pariatur amet ex sit.Anim aliquip do in commodo adipisicing.Nulla adipisicing nisi enim ullamco sunt veniam.Ullamco labore sunt Lorem veniam id et Lorem magna eiusmod aute. Aliquip minim est consectetur anim mollit aliqua ex elit do et nulla do. Cupidatat ad sunt cillum sint consectetur sunt cillum eiusmod ad esse aliqua. Aute anim elit amet in duis aute ipsum deserunt qui deserunt officia excepteur veniam. Et laboris nostrud est ipsum nulla fugiat deserunt magna velit irure. Ullamco duis ut magna ea tempor enim in ipsum.",
+              showUser.bio,
           icon: "usertie",
         },
         {
@@ -33,22 +34,17 @@ const Profile = () => {
           icon: "graduation",
           items: [
             {
-              title: "Computer Engineering (BS)",
-              authority: "University",
-              rightSide: "2013 - 2017",
-            },
-            {
-              title: "Some Department (PHD)",
-              authority: "Another University",
-              rightSide: "2017 - Present",
-            },
-          ],
+              title: showUser?.cv?.department?.label,
+                  authority: showUser?.cv?.collage?.label
+            }],
         },
         {
           type: "tag-list",
           title: "Skills Proficiency",
           icon: "rocket",
-          items: ["React", "Javascript", "CSS", "SQL", "SomeTech", "CoolTech"],
+            items:showUser?.cv?.skill?.map(s => {
+                return s.label
+            }),
         },
         {
           type: "experiences-list",
