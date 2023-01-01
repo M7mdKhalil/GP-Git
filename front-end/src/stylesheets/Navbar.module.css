@@ -17,6 +17,22 @@
   align-items: center;
 }
 
+.nav h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
+
+
+.nav h1 a {
+  color: var(--dark);
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+
 .nav .profile {
   display: flex;
   position: absolute;
@@ -30,14 +46,13 @@
   /* box-shadow: 3px 3px 7px var(--suger), -3px -3px 7px var(--suger); */
 }
 
-.nav .profile .chip{
+.nav .profile .chip {
   text-transform: uppercase;
 }
-.nav .profile .avatar{
+.nav .profile .avatar {
   color: var(--dark);
   background: var(--primary);
 }
-
 
 .navScroll .profile {
   display: flex;
@@ -52,11 +67,6 @@
   border-radius: 3px;
 }
 
-.nav h1 a {
-  color: #252525;
-  text-decoration: none;
-  transition: 0.5s;
-}
 
 .navScroll {
   backdrop-filter: blur(100px);

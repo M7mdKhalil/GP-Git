@@ -20,6 +20,7 @@ body {
   background-size: cover;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -33,7 +34,7 @@ code {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 15px;
 }
 
 /* Track */
@@ -45,6 +46,7 @@ code {
 ::-webkit-scrollbar-thumb {
   background: var(--dark);
   border-radius: 10px;
+  border: 5px solid var(--light);
 }
 
 /* Handle on hover */

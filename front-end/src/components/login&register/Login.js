@@ -7,8 +7,17 @@ import Input from "../Input";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../store/userSlice";
-import { TextField } from "@mui/material";
+import {
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
 import { PrimaryButton } from "../UI/CustomButton";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = (props) => {
   let dispatch = useDispatch();
@@ -28,6 +37,13 @@ const Login = (props) => {
     "Username",
     ""
   );
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -56,10 +72,8 @@ const Login = (props) => {
         navigate("/")
       ) : (
         <div className="cusContain">
-          <div>
-            
-          </div>
           <form className="login">
+            <h3 className="formHeader">Login</h3>
             <TextField
               label="Username"
               sx={{ width: "100%" }}
@@ -67,14 +81,39 @@ const Login = (props) => {
                 setusername(e.target.value);
               }}
             ></TextField>
-            <TextField
+            {/* <TextField
               label="Password"
               sx={{ width: "100%" }}
               type="password"
               onChange={(e) => {
                 setpassword(e.target.value);
               }}
-            ></TextField>
+            ></TextField> */}
+            <FormControl>
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
+              />
+            </FormControl>
 
             {stateMsg && <p className="errorMsg">{stateMsg}</p>}
             <div className="myButton">

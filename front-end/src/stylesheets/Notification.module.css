@@ -10,7 +10,7 @@
 .icon {
   cursor: pointer;
   margin-left: 20px;
-  align-items: center;
+  padding-top: 8px;
   transition: .2s;
   color: var(--dark);
   /* padding-left: 15px; */

@@ -100,6 +100,7 @@ export default function InputArea(props) {
       placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
+      sx={props.sx}
     />
   );
 }

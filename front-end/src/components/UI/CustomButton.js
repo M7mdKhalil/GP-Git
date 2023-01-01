@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import { purple } from "@mui/material/colors";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import classes from "../UI/Buttons.module.css"
+import classes from "../UI/Buttons.module.css";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -22,6 +22,8 @@ export function PrimaryButton(props) {
         variant="contained"
         type={props.type}
         onClick={props.onClick}
+        endIcon={props.endIcon}
+        startIcon={props.startIcon}
       >
         {props.children}
       </ColorButton>
@@ -47,7 +49,15 @@ export function LoadButton(props) {
 export function TextButton(props) {
   return (
     <Stack direction="row" spacing={2}>
-      <Button style={{color: "var(--dark)"}}  onClick={props.onClick} type={props.type}>{props.children}</Button>
+      <Button
+        style={{ color: "var(--dark)" }}
+        onClick={props.onClick}
+        type={props.type}
+        endIcon={props.endIcon}
+        startIcon={props.startIcon}
+      >
+        {props.children}
+      </Button>
     </Stack>
   );
 }
