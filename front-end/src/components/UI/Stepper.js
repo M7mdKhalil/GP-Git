@@ -116,6 +116,7 @@ export default function HorizontalLinearStepper(props) {
 
             {activeStep < steps.length - 1 ? (
               <Button
+                color="secondary"
                 onClick={handleNext}
                 endIcon={<KeyboardArrowRightRoundedIcon />}
               >

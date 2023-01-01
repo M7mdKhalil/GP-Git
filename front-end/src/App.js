@@ -12,7 +12,20 @@ import Modal from "./components/UI/Modal";
 import PageNotFound from "./components/error/PageNotFound";
 import Profile from './components/Profile';
 
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import TextEditor from "./components/UI/TextEditor";
+
+
 function App() {
+
+  const [editorState, setEditorState] = useState(
+    () => EditorState.createEmpty(),
+  );
+
+
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -23,12 +36,9 @@ function App() {
 
   return (
     <div className="App">
-      
-          <Navbar />
-
 
       <Navbar />
-
+      
       <Routes>
         <Route path="*" element={<PageNotFound />} />
               <Route path="/" element={<Home />}></Route>

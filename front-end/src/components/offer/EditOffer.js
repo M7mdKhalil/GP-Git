@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import InputArea from "../UI/InputArea";
 import { PrimaryButton, LoadButton } from "../UI/CustomButton";
 
+import TextEditor from "../UI/TextEditor";
 const EditOffer = (props) => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
@@ -44,7 +45,7 @@ const EditOffer = (props) => {
   }, [get, params._id]);
 
   const submitHandler = async (e) => {
-    setLoad(true)
+    setLoad(true);
     e.preventDefault();
     const _id = offer._id;
     const offerdata = await put(`/offer`, {
@@ -64,7 +65,7 @@ const EditOffer = (props) => {
 
   return (
     <>
-          {!islogin || (kind !== "company" && kind !== 'admin') ? (
+      {!islogin || (kind !== "company" && kind !== "admin") ? (
         <PageNotFound />
       ) : (
         <form className="main-content">

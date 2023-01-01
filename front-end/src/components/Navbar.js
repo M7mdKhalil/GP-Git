@@ -79,10 +79,14 @@ const Navbar = (props) => {
   return (
     <div className={classes.header}>
       <nav className={classes.nav}>
-              {islogin && (
-                  <div className={classes.profile}>
-                      <div onClick={() => { window.location = '/profile' }}>
-            {/* <img
+        {islogin && (
+          <div className={classes.profile}>
+            <div
+              onClick={() => {
+                window.location = `/profile`;
+              }}
+            >
+              {/* <img
               className={classes.cardHeader}
               alt=" "
               src={showUser?.image?.url}
@@ -90,19 +94,19 @@ const Navbar = (props) => {
               height="30"
              ></img>
             <h4>{showUser?.username}</h4> */}
-            <Chip
-              avatar={
-                              <Avatar className={classes.avatar}
-                                  alt={<Avatar >HH</Avatar>}
-                                  src={showUser?.image?.url}
-                                  
-                />
-              }
-              label={showUser?.username}
-              variant="outlined"
-              className={classes.chip}
-                          />
-                          </div>
+              <Chip
+                className={classes.chip}
+                avatar={
+                  <Avatar
+                    className={classes.avatar}
+                    alt={<Avatar>HH</Avatar>}
+                    src={showUser?.image?.url}
+                  />
+                }
+                label={showUser?.username}
+                variant="outlined"
+              />
+            </div>
             <div className={styles["icon"]} onClick={toggleNotifi}>
               {calcCounter(showUser) > 0 ? (
                 <Badge
@@ -137,9 +141,9 @@ const Navbar = (props) => {
                 >
                   <img
                     src={
-                      showUser?.kind === "user"
+                      showUser?.kind == "user"
                         ? notifi.companyimg
-                        : showUser?.kind === "company"
+                        : showUser?.kind == "company"
                         ? notifi.applierimg
                         : ""
                     }
@@ -161,10 +165,10 @@ const Navbar = (props) => {
         <div className={classes.scrollLog}>
           {!islogin && (
             <>
-              <TextButton onClick={() => window.location = "/login"}>
+              <TextButton onClick={() => (window.location = "/login")}>
                 Login
               </TextButton>
-              <TextButton onClick={() => window.location = "/register"}>
+              <TextButton onClick={() => (window.location = "/register")}>
                 Register
               </TextButton>
             </>

@@ -49,6 +49,11 @@
 .nav .profile .chip {
   text-transform: uppercase;
 }
+
+.nav .profile .chip:hover {
+  cursor: pointer;
+}
+
 .nav .profile .avatar {
   color: var(--dark);
   background: var(--primary);
