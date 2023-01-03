@@ -10,8 +10,10 @@ import NumOfAppliers from "./NumOfAppliers";
 import Button from "../Button";
 import SideBar from "../SideBar";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const OfferDetails = () => {
+    const showUser = useSelector((state) => state.user.userDetails);
   const { get, post, response, loading, error } = useFetch(
     "http://localhost:5000"
   );
@@ -25,7 +27,24 @@ const OfferDetails = () => {
   const [offerdetails, setofferdetails] = useState({});
   const [visible, setVisible] = useState();
   const [numOfAppliers, setnumOfAppliers] = useState();
-  const params = useParams();
+    const params = useParams();
+    const [acceptstate, setacceptstate] = useState('');
+
+    const acceptstatef=() => {
+
+        for (let i = 0; i < showUser?.acceptedOffers?.length; i++) {
+
+            if (showUser.acceptedOffers[i]._id === params.id) {
+                return setacceptstate('Accepted');
+            }
+        }
+        for (let i = 0; i < showUser?.regectedOffers?.length; i++) {
+            if (showUser.regectedOffers[i]._id === params.id) {
+                return setacceptstate('Regected');
+            }
+        }
+    };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +55,12 @@ const OfferDetails = () => {
         !offerdetail?.appliers?.some((ele) => ele._id === userid)
       );
     };
-    fetchData();
-  }, [get, params.id]);
+      fetchData();
+      acceptstatef();
+  }, [get, params.id, showUser]);
+
+    
+    
 
   const applyHandler = async () => {
     const _id = params.id;
@@ -84,22 +107,24 @@ const OfferDetails = () => {
             <p>{offerdetails?.description}</p>
           </div>
 
-          <div className={classes.footer}>
-            {islogin && kind === "user" ? (
-              visible ? (
-                <Button onClick={applyHandler}>apply</Button>
-              ) : (
-                <Button onClick={unApplyHandler}>unapply</Button>
-              )
-            ) : (
-              ""
-            )}
+                  <div className={classes.footer}>
+                      {islogin && kind === "user" ? (acceptstate === 'Accepted' || acceptstate === 'Regected' ?
+                          <h1>{acceptstate}</h1> :
+                          (
+                              visible ? (
+                                  <Button onClick={applyHandler}>apply</Button>
+                              ) : (
+                                  <Button onClick={unApplyHandler}>unapply</Button>
+                              )
+                          ) ): (
+                              ""
+                          )}
             <NumOfAppliers numOfAppliers={numOfAppliers} />
           </div>
         </div>
       </Container>
     </div>
-  );
+  )
 };
 
 export default OfferDetails;

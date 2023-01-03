@@ -3,7 +3,8 @@ const schema = mongoose.Schema;
 
 const companySchema = new schema({
   username: String,
-  password: String,
+    password: String,
+  bio:String,
   email: String,
   kind: String,
   image: { url: String, public_id: String },
