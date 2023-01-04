@@ -20,10 +20,11 @@ const AddOffer = (props) => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
-  const [location, setlocation] = useState("");
+    const [location, setlocation] = useState("");
+    const [date, setDate] = useState('');
   const submitHandler = async (event) => {
     event.preventDefault();
     const author = showUser._id;
@@ -31,6 +32,7 @@ const AddOffer = (props) => {
       title,
       description,
       location,
+      date,
       author,
       islogin,
     });
@@ -80,12 +82,24 @@ const AddOffer = (props) => {
                 }}
               />
             </div>
-            <div className={classes.footer}>
-              <TextButton onClick={props.onClose}>Cancle</TextButton>
-              <PrimaryButton type="submit" onClick={submitHandler}>
-                Add Offer
-              </PrimaryButton>
-            </div>
+                          <label
+                              style={{
+                                  fontSize: "14px",
+                                  margin: "20px 0 0 10px",
+                                  color: "gray",
+                              }}
+                          >
+                              End Date
+                          </label>
+                          <input type='date' on onChange={(e) => {
+                              setDate(e.target.value);
+                          }} />
+                          <div className={classes.footer}>
+                              <TextButton onClick={props.onClose}>Cancle</TextButton>
+                              <PrimaryButton type="submit" onClick={submitHandler}>
+                                  Add Offer
+                              </PrimaryButton>
+                          </div>
           </form>
         </Modal>
       )}

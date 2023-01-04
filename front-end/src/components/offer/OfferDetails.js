@@ -104,10 +104,11 @@ const OfferDetails = () => {
           </div>
           <div className={classes.description}>
             <label>Description</label>
-            <p>{offerdetails?.description}</p>
-          </div>
+                      <p>{offerdetails?.description}</p>
+                  </div>
 
                   <div className={classes.footer}>
+                      <p>end date : {offerdetails?.endDate}</p>
                       {islogin && kind === "user" ? (acceptstate === 'Accepted' || acceptstate === 'Regected' ?
                           <h1>{acceptstate}</h1> :
                           (

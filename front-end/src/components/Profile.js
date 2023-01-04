@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CV from "react-cv";
 import { useSelector } from "react-redux";
 import classes from "../stylesheets/Profile.module.css";
@@ -7,13 +7,29 @@ import { Avatar, Badge } from "@mui/material";
 import { PrimaryButton, TextButton } from "./UI/CustomButton";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import NavTabs from "./UI/NavTabs";
-
+import { useFetch } from "use-http";
+import { useParams } from "react-router";
+import { useState } from "react";
+import Spinner from "./Spinner";
+import axios from 'axios';
 const Profile = () => {
-  const showUser = useSelector((state) => state.user.userDetails);
-  console.log(showUser);
-  return (
-    <div className={classes.container}>
-      <div className={classes.info}>
+    const params = useParams();
+    const [userdetails, setuserdetails] = useState({});
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(params)
+            const userdetails = await axios.get(`http://localhost:5000/user/${params.id}`).then(function (response) {
+                // handle success
+                setuserdetails(response.data);
+            });
+        };
+        fetchData();
+    }, [params]);
+
+
+    return (
+        <div className={classes.container}>
+            <div className={classes.info}>
         <Badge
           className={classes.imageBadge}
           color="secondary"
@@ -25,13 +41,13 @@ const Profile = () => {
           }}
         >
           <Avatar
-            sx={{ width: 120, height: 120 }}
-            src={showUser?.image ? showUser.image.url : "/broken-image.jpg"}
+                      sx={{ width: 120, height: 120 }}
+                      src={userdetails?.image ? userdetails.image.url : "/broken-image.jpg"}
           />
         </Badge>
-        <div className={classes.data}>
-          <h2>{showUser?.username}</h2>
-          <p>{showUser?.bio}</p>
+              <div className={classes.data}>
+                  <h2>{userdetails.username}</h2>
+                  <p>{userdetails.bio}</p>
         </div>
         <PrimaryButton
           sx={{ width: 500 }}
@@ -44,10 +60,10 @@ const Profile = () => {
         <CV
           personalData={{
             title: "Senior Software Developer",
-            contacts: [
-              { type: "email", value: showUser.email },
-              { type: "phone", value: showUser.phonenumber },
-              { type: "location", value: showUser?.cv?.country?.label },
+                      contacts: [
+                          { type: "email", value: userdetails.email },
+                          { type: "phone", value: userdetails.phonenumber },
+                          { type: "location", value: userdetails.cv?.country?.label },
               { type: "website", value: "example.com" },
               { type: "linkedin", value: "linkedin.com/in/notexists" },
               { type: "github", value: "github.com/404" },
@@ -56,8 +72,8 @@ const Profile = () => {
           sections={[
             {
               type: "text",
-              title: "Career Profile",
-              content: showUser.bio,
+                  title: "Career Profile",
+                  content: userdetails.bio,
               icon: "usertie",
             },
             {
@@ -65,17 +81,17 @@ const Profile = () => {
               title: "Education",
               icon: "graduation",
               items: [
-                {
-                  title: showUser?.cv?.department?.label,
-                  authority: showUser?.cv?.collage?.label,
+                  {
+                      title: userdetails.cv?.department?.label,
+                      authority: userdetails.cv?.collage?.label,
                 },
               ],
             },
             {
               type: "tag-list",
               title: "Skills Proficiency",
-              icon: "rocket",
-              items: showUser?.cv?.skill?.map((s) => {
+                icon: "rocket",
+                items: userdetails.cv?.skill?.map((s) => {
                 return s.label;
               }),
             },
@@ -128,7 +144,7 @@ const Profile = () => {
           ]}
           branding={false}
         />
-      </div>
+                </div>
     </div>
   );
 };

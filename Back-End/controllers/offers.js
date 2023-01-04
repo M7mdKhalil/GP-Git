@@ -9,12 +9,13 @@ module.exports.getAllOffers = async (req, res) => {
 };
 
 module.exports.addOffer = async (req, res) => {
-  const { title, description, location, author } = req.body;
+    const { title, description, location, author, date } = req.body;
   const newOffer = await Offer.create({
     title,
     description,
     location,
-    author,
+      author,
+      endDate: formatDate(date,'yyyy-mm-dd'),
     date: formatDate(new Date()),
   });
   const addOfferToCompany = await Company.findById(author);

@@ -36,7 +36,6 @@ const Card = (props) => {
     await del(`/offer/${_id}`);
     navigate("/");
   };
-
   // console.log(props.image)
   return (
     <div className={classes.container}>
@@ -51,7 +50,7 @@ const Card = (props) => {
         <Avatar className={classes.cardAvatar}>{props.author.username[0]}</Avatar>
       )}
           <div className={classes.cardBody}>
-              {islogin && (userid === props.author._id || showUser.kind==='admin') && (
+              {islogin && (userid === props.author._id || showUser?.kind==='admin') && (
           <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
             <MdOutlineDeleteOutline />
           </div>
@@ -59,7 +58,7 @@ const Card = (props) => {
         {deleteOfferShow && (
           <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />
         )}
-              {islogin && (userid === props.author._id || showUser.kind === 'admin') && (
+              {islogin && (userid === props.author._id || showUser?.kind === 'admin') && (
           <button
             onClick={() => {
               navigate(`/editoffer/${id}`);
@@ -72,9 +71,10 @@ const Card = (props) => {
         <div onClick={props.onClick}>
           <h4 className={classes.title}>{props.title}</h4>
           <h4 className={classes.location}>{props.location}</h4>
-          <h4 className={classes.author}>{props.author.username}</h4>
-          <p className={classes.footer}>
-            {props.date}
+                  <h4 className={classes.author}>{props.author.username}</h4>
+                  <h4>{props.available ? 'available' : 'not available'}</h4>
+                  <p className={classes.footer}>
+                      {props.date} 
             <NumOfAppliers numOfAppliers={numOfAppliers} />
           </p>
         </div>
