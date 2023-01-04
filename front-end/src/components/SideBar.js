@@ -10,10 +10,12 @@ import { useFetch } from "use-http";
 import { PrimaryButton } from "./UI/CustomButton";
 import { DialogButtonToggle } from "./UI/DialogButtonToggle";
 import CreateIcon from "@mui/icons-material/Create";
+import { ToggleButton } from "@mui/material";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
   const usel = useLocation();
+
   const [acceptState, setAcceptState] = useState("");
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
@@ -98,6 +100,7 @@ const SideBar = (props) => {
 
       {islogin && kind === "company" && appliers && (
         <div className={classes.myForm}>
+          
           <h4>
             Appliers
             {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}

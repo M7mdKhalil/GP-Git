@@ -5,8 +5,11 @@ const schema = mongoose.Schema;
 const userSchema = new schema({
     username: String,
     password: String,
+    bio: String,
     email: String,
-    cv: String,
+    cv: {
+        collage: { label: String }, department: { label: String }, country: { label: String }, skill: [{ key: Number, label: String }]
+    },
     kind: String,
     image: {
         url: { type: String },

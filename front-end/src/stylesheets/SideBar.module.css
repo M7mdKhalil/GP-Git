@@ -12,16 +12,29 @@
   justify-content: space-between;
 }
 
-.container .myForm, .myForm * {
+.container .myForm,
+.myForm * {
   margin: 10px 0;
+}
+
+.container .myForm svg {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 .container .myForm {
   /* border-bottom: 1px solid #dbdbdb; */
-  padding: 10px 10px 20px 10px;
+  padding: 10px 10px 0 10px;
   background: var(--light);
   /* backdrop-filter: blur(100px); */
   border-radius: 20px;
   /* box-shadow: inset 5px 5px 10px rgb(228, 228, 228); */
+}
+
+.container .myForm button {
+  width: 100%;
+  height: 50px;
+  justify-content: start;
+  gap: 10px;
 }
 
 .container .myForm h3 {
@@ -75,8 +88,8 @@
 }
 
 .myForm .applierCard:hover .remove {
-    color: red;
-  }
+  color: red;
+}
 
 @media screen and (max-width: 800px) {
   .container {

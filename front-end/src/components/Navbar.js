@@ -83,7 +83,7 @@ const Navbar = (props) => {
           <div className={classes.profile}>
             <div
               onClick={() => {
-                window.location = `/profile`;
+                window.location = `/profile/${showUser._id}`;
               }}
             >
               {/* <img
@@ -131,6 +131,7 @@ const Navbar = (props) => {
               <h2>
                 <span>{calcCounter(showUser)}</span> Notification
               </h2>
+              {/* <p>{showUser?.notification.length}</p> */}
               {showUser?.notification?.map((notifi, k) => (
                 <div
                   key={k}

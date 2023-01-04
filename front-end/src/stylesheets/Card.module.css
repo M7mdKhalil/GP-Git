@@ -152,7 +152,7 @@
 
 .container .cardBody button:hover {
   scale: 1.1;
-  color: green;
+  color: var(--primary);
 }
 
 .container .cardBody:hover button {

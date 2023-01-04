@@ -24,6 +24,8 @@ export function PrimaryButton(props) {
         onClick={props.onClick}
         endIcon={props.endIcon}
         startIcon={props.startIcon}
+        sx={props.sx}
+
       >
         {props.children}
       </ColorButton>
@@ -55,6 +57,7 @@ export function TextButton(props) {
         type={props.type}
         endIcon={props.endIcon}
         startIcon={props.startIcon}
+        sx={props.sx}
       >
         {props.children}
       </Button>

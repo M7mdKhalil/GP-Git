@@ -68,19 +68,22 @@ module.exports.userRegisterForm = async (req, res,next) => {
   const {
     username,
     password,
-    email,
+      email,
+    bio,
     cv,
     image,
     location,
     phonenumber,
   } = req.body;
   const isfound = await User.findOne({ username });
-  const hashedPassword = await bcrypt.hashSync(password, 10);
+    const hashedPassword = await bcrypt.hashSync(password, 10);
+    console.log('rg', cv);
   if (!isfound) {
     const newUser = await User.create({
       username,
       password: hashedPassword,
-      email,
+        email,
+      bio,
       cv,
       image,
       kind: "user",

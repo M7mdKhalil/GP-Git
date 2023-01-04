@@ -21,18 +21,6 @@ import TextEditor from "./components/UI/TextEditor";
 
 function App() {
 
-  const [editorState, setEditorState] = useState(
-    () => EditorState.createEmpty(),
-  );
-
-
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
 
   return (
     <div className="App">
@@ -42,7 +30,7 @@ function App() {
       <Routes>
         <Route path="*" element={<PageNotFound />} />
               <Route path="/" element={<Home />}></Route>
-              <Route path="/profile" element={<Profile/>}></Route>
+              <Route path="/profile/:id" element={<Profile/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/offer/:id" element={<OfferDetails />}></Route>

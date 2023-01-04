@@ -76,7 +76,8 @@ const Register = (props) => {
     event.preventDefault();
     const userData = await post("/user", {
       username,
-      email,
+        email,
+        bio,
       cv,
       password,
       image,
