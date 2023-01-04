@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const offerSchema = new schema({
-    title:String,
-    description:String,
-    location:String,
-    appliers:[{
-        type:schema.Types.ObjectId,ref:'User' 
+    title: String,
+    description: String,
+    location: String,
+    appliers: [{
+        type: schema.Types.ObjectId, ref: 'User'
     }],
     acceptedAppliers: [{
         type: schema.Types.ObjectId, ref: 'User'
@@ -14,6 +14,7 @@ const offerSchema = new schema({
     regectedAppliers: [{
         type: schema.Types.ObjectId, ref: 'User'
     }],
+    available: { type: Boolean, default:true },
     author:{
         type:schema.Types.ObjectId,ref:'Company' 
     },

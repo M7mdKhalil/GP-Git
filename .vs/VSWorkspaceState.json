@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Back-End",
-    "\\Back-End\\controllers",
-    "\\Back-End\\routs",
+    "\\Back-End\\models",
     "\\front-end",
     "\\front-end\\src",
     "\\front-end\\src\\components",
     "\\front-end\\src\\components\\login&register",
     "\\front-end\\src\\components\\offer",
-    "\\front-end\\src\\store"
+    "\\front-end\\src\\store",
+    "\\front-end\\src\\stylesheets"
   ],
-  "SelectedNode": "\\front-end\\src\\components\\offer\\OfferDetails.js",
+  "SelectedNode": "\\Back-End\\models\\offer.js",
   "PreviewInSolutionExplorer": false
 }

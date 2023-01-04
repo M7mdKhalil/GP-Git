@@ -6,7 +6,7 @@ const Admin = require("../models/admin");
 
 module.exports.userDetails = async (req, res) => {
     console.log(req.params.id);
-  const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).populate('offers').populate('acceptedOffers').populate('regectedOffers');
     if (user) {
         console.log('user', user)
         res.send(user);
