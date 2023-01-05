@@ -132,7 +132,7 @@ const Navbar = (props) => {
                 <span>{calcCounter(showUser)}</span> Notification
               </h2>
               {/* <p>{showUser?.notification.length}</p> */}
-              {showUser?.notification?.map((notifi, k) => (
+                          {showUser?.notification?.slice().reverse().map((notifi, k) => (
                 <div
                   key={k}
                   className={styles["notifi-item"]}

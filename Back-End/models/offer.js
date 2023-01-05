@@ -15,7 +15,8 @@ const offerSchema = new schema({
         type: schema.Types.ObjectId, ref: 'User'
     }],
     endDate: Date,
-    available: { type: Boolean, default:true },
+    available: { type: Boolean, default: true },
+    skills: [{ key: Number, label: String }],
     author:{
         type:schema.Types.ObjectId,ref:'Company' 
     },
