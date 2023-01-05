@@ -11,25 +11,33 @@ import { useFetch } from "use-http";
 import { useParams } from "react-router";
 import { useState } from "react";
 import Spinner from "./Spinner";
-import axios from 'axios';
+import axios from "axios";
+import { useSessionStorage } from "react-use-storage";
 const Profile = () => {
-    const params = useParams();
-    const [userdetails, setuserdetails] = useState({});
-    useEffect(() => {
-        const fetchData = async () => {
-            console.log(params)
-            const userdetails = await axios.get(`http://localhost:5000/user/${params.id}`).then(function (response) {
-                // handle success
-                setuserdetails(response.data);
-            });
-        };
-        fetchData();
-    }, [params]);
+  const showUser = useSelector((state) => state.user.userDetails);
+  const params = useParams();
+  const [userdetails, setuserdetails] = useState({});
+  const [islogin, setislogin, removeislogin] = useSessionStorage(
+    "islogin",
+    false
+  );
 
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log(params);
+      const userdetails = await axios
+        .get(`http://localhost:5000/user/${params.id}`)
+        .then(function (response) {
+          // handle success
+          setuserdetails(response.data);
+        });
+    };
+    fetchData();
+  }, [params]);
 
-    return (
-        <div className={classes.container}>
-            <div className={classes.info}>
+  return (
+    <div className={classes.container}>
+      <div className={classes.info}>
         <Badge
           className={classes.imageBadge}
           color="secondary"
@@ -41,29 +49,33 @@ const Profile = () => {
           }}
         >
           <Avatar
-                      sx={{ width: 120, height: 120 }}
-                      src={userdetails?.image ? userdetails.image.url : "/broken-image.jpg"}
+            sx={{ width: 120, height: 120 }}
+            src={
+              userdetails?.image ? userdetails.image.url : "/broken-image.jpg"
+            }
           />
         </Badge>
-              <div className={classes.data}>
-                  <h2>{userdetails.username}</h2>
-                  <p>{userdetails.bio}</p>
+        <div className={classes.data}>
+          <h2>{userdetails.username}</h2>
+          <p>{userdetails.bio}</p>
         </div>
-        <PrimaryButton
-          sx={{ width: 500 }}
-          startIcon={<ModeEditOutlineRoundedIcon />}
-        >
-          Edit
-        </PrimaryButton>
+        {userdetails?._id === showUser?._id && islogin && (
+          <PrimaryButton
+            sx={{ width: 500 }}
+            startIcon={<ModeEditOutlineRoundedIcon />}
+          >
+            Edit
+          </PrimaryButton>
+        )}
       </div>
       <div className={classes.cvCard}>
         <CV
           personalData={{
             title: "Senior Software Developer",
-                      contacts: [
-                          { type: "email", value: userdetails.email },
-                          { type: "phone", value: userdetails.phonenumber },
-                          { type: "location", value: userdetails.cv?.country?.label },
+            contacts: [
+              { type: "email", value: userdetails.email },
+              { type: "phone", value: userdetails.phonenumber },
+              { type: "location", value: userdetails.cv?.country?.label },
               { type: "website", value: "example.com" },
               { type: "linkedin", value: "linkedin.com/in/notexists" },
               { type: "github", value: "github.com/404" },
@@ -72,8 +84,8 @@ const Profile = () => {
           sections={[
             {
               type: "text",
-                  title: "Career Profile",
-                  content: userdetails.bio,
+              title: "Career Profile",
+              content: userdetails.bio,
               icon: "usertie",
             },
             {
@@ -81,17 +93,17 @@ const Profile = () => {
               title: "Education",
               icon: "graduation",
               items: [
-                  {
-                      title: userdetails.cv?.department?.label,
-                      authority: userdetails.cv?.collage?.label,
+                {
+                  title: userdetails.cv?.department?.label,
+                  authority: userdetails.cv?.collage?.label,
                 },
               ],
             },
             {
               type: "tag-list",
               title: "Skills Proficiency",
-                icon: "rocket",
-                items: userdetails.cv?.skill?.map((s) => {
+              icon: "rocket",
+              items: userdetails.cv?.skill?.map((s) => {
                 return s.label;
               }),
             },
@@ -144,7 +156,7 @@ const Profile = () => {
           ]}
           branding={false}
         />
-                </div>
+      </div>
     </div>
   );
 };

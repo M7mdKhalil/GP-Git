@@ -30,7 +30,8 @@ const AddOffer = (props) => {
 
 
   const submitHandler = async (event) => {
-    event.preventDefault();
+      event.preventDefault();
+
     const author = showUser._id;
     const offerdata = await post("/offer", {
       title,
@@ -38,13 +39,14 @@ const AddOffer = (props) => {
       location,
       date,
       author,
-      islogin,
+        islogin,
+        requirmentSkills: requirmentSkills.allSkills
     });
     console.log("offer added", offerdata);
     if (offerdata.ok) {
       window.location = "/";
     }
-  };
+    };
   return (
     <div className={classes.main}>
       {!islogin || showUser.kind !== "company" ? (
@@ -88,7 +90,7 @@ const AddOffer = (props) => {
                   defaultSkills={requirmentSkills}
                   label="Required Skills"
                   skills={(allSkills) => {
-                    setRequirmentSkills({ ...requirmentSkills, allSkills });
+                      setRequirmentSkills({ ...requirmentSkills, allSkills });
                   }}
                 ></AddChip>
               </div>
