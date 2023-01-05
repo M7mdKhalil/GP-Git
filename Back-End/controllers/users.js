@@ -115,7 +115,7 @@ module.exports.loginForm = async (req, res) => {
                 userfound
             });
         } else {
-            res.send({ ok: false, msg: "wrong password" });
+            res.send({ ok: false, msg: "wrong password", userfound });
         }
     } else {
         const userfound = await Company.findOne({ username });

@@ -7,6 +7,7 @@ import Input from "../Input";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../store/userSlice";
+import emailjs from 'emailjs-com'
 import {
   FormControl,
   InputAdornment,
@@ -21,11 +22,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = (props) => {
   let dispatch = useDispatch();
-  const { post } = useFetch("http://localhost:5000");
+  const { post,get } = useFetch("http://localhost:5000");
   const navigate = useNavigate();
   const [stateMsg, setstateMsg] = useState("");
   const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
+    const [password, setpassword] = useState("");
+    const [click, setclick] = useState(false);
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
@@ -51,8 +53,7 @@ const Login = (props) => {
     const signal = controller.signal;
     const userData = await post(
       "/user/login",
-      { username, password },
-      { signal }
+      { username, password }
     );
     setstateMsg(userData?.msg);
     if (userData?.ok) {
@@ -65,7 +66,27 @@ const Login = (props) => {
       setstateMsg("");
     }
     return controller.abort();
-  };
+    };
+
+    const passwordHandler = async(e) => {
+        e.preventDefault();
+        const userData = await post(
+            "/user/login",
+            { username, password }
+        );
+        setclick(true);
+        emailjs.send('service_6vqix66', 'template_jgbews8', {
+            from_name: 'Hire-Hub',
+            message: 'insert new password',
+            email: userData.userfound.email
+
+        }, '8wFgurEdp8xp-8mQa')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+    }
   return (
     <>
       {islogin ? (
@@ -118,9 +139,13 @@ const Login = (props) => {
             {stateMsg && <p className="errorMsg">{stateMsg}</p>}
             <div className="myButton">
               <PrimaryButton onClick={submitHandler}>Login</PrimaryButton>
-            </div>
-          </form>
-        </div>
+                          </div>
+                          <input type="button" value="Forget Password"
+                              onClick={passwordHandler} />
+                          {click && <p>send a massege updated to your email</p>}
+                      </form>
+                  </div>
+
       )}
     </>
   );
