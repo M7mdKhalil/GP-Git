@@ -33,9 +33,11 @@ const OfferDetails = () => {
   const [numOfAppliers, setnumOfAppliers] = useState();
   const params = useParams();
   const [acceptstate, setacceptstate] = useState("");
-  const [appling, setAppling] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [appling, setAppling] = useState(undefined);
 
   const acceptstatef = () => {
+    setIsLoading(false);
     for (let i = 0; i < showUser?.acceptedOffers?.length; i++) {
       if (showUser.acceptedOffers[i]._id === params.id) {
         return setacceptstate("Accepted");
@@ -108,40 +110,51 @@ const OfferDetails = () => {
           </div>
 
           <div className={classes.footer}>
-            {islogin && kind === "user" ? (
-              acceptstate === "Accepted" || acceptstate === "Regected" ? (
-                <Chip
-                  label={acceptstate}
-                  sx={{
-                    color: `${acceptstate == "Accepted" ? "green" : "red"}`,
-                    borderColor: `${
-                      acceptstate == "Accepted" ? "green" : "red"
-                    }`,
-                    textTransform: "uppercase",
-                  }}
-                  variant="outlined"
-                />
-              ) : visible ? (
-                appling ? (
-                  <PrimaryButton
-                    onClick={applyHandler}
-                    endIcon={<SendRoundedIcon />}
-                  >
-                    apply now
-                  </PrimaryButton>
+            {islogin && kind == "user" ? (
+              !isLoading ? (
+                appling === true ? (
+                  visible ? (
+                    <PrimaryButton
+                      onClick={applyHandler}
+                      endIcon={<SendRoundedIcon />}
+                    >
+                      apply now
+                    </PrimaryButton>
+                  ) : acceptstate === "Accepted" ||
+                    acceptstate === "Regected" ? (
+                    <Chip
+                      label={acceptstate}
+                      sx={{
+                        color: `${acceptstate == "Accepted" ? "green" : "red"}`,
+                        borderColor: `${
+                          acceptstate == "Accepted" ? "green" : "red"
+                        }`,
+                        textTransform: "uppercase",
+                      }}
+                      variant="outlined"
+                    />
+                  ) : (
+                    <TextButton
+                      onClick={unApplyHandler}
+                      startIcon={<ClearRoundedIcon />}
+                    >
+                      unapply
+                    </TextButton>
+                  )
+                ) : appling !== undefined && appling === false ? (
+                  <Chip
+                    label="This offer has been CLOSED"
+                    sx={{ color: "red", borderColor: "red" }}
+                    variant="outlined"
+                  />
                 ) : (
-                  <Chip label="This offer has been CLOSED" sx={{color: "red" , borderColor: "red"}} variant="outlined"/>
+                  <LoadButton>Loading...</LoadButton>
                 )
               ) : (
-                <TextButton
-                  onClick={unApplyHandler}
-                  startIcon={<ClearRoundedIcon />}
-                >
-                  unapply
-                </TextButton>
+                <LoadButton></LoadButton>
               )
             ) : (
-              <LoadButton>Loading...</LoadButton>
+              ""
             )}
             <p>end date | {offerdetails?.endDate}</p>
             {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}

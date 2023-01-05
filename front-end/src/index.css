@@ -40,6 +40,11 @@ code {
   color: #ebe4f4;
 }
 
+p {
+  word-break: break-all;
+  white-space: normal;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;
