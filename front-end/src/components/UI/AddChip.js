@@ -33,7 +33,7 @@ export default function AddChip(props) {
     <div className="addChip">
       <TextField
         sx={{ width: 900 }}
-        label="Skill"
+        label={props.label}
         onChange={(e) => {
           setNewSkill(e.target.value);
         }}

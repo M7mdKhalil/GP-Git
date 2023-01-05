@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { TextField } from "@mui/material";
 import InputArea from "../UI/InputArea";
 import { TextButton, PrimaryButton } from "../UI/CustomButton";
+import AddChip from "../UI/AddChip";
 
 const AddOffer = (props) => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -20,11 +21,14 @@ const AddOffer = (props) => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-    );
+  );
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
-    const [location, setlocation] = useState("");
-    const [date, setDate] = useState('');
+  const [location, setlocation] = useState("");
+  const [requirmentSkills, setRequirmentSkills] = useState([]);
+  const [date, setDate] = useState("");
+
+
   const submitHandler = async (event) => {
     event.preventDefault();
     const author = showUser._id;
@@ -50,21 +54,44 @@ const AddOffer = (props) => {
           <h3 className={classes.title}>Add Offer</h3>
           <form>
             <div className={classes.dataForm}>
-              <TextField
-                label="Title"
-                sx={{ width: "100%" }}
-                onChange={(e) => {
-                  settitle(e.target.value);
-                }}
-              />
-              <TextField
-                label="Location"
-                sx={{ width: "100%" }}
-                onChange={(e) => {
-                  setlocation(e.target.value);
-                }}
-              />
+              <div className={classes.section}>
+                <TextField
+                  label="Title"
+                  sx={{ width: "100%" }}
+                  value={title}
+                  onChange={(e) => {
+                    settitle(e.target.value);
+                  }}
+                />
+                <TextField
+                  label="Location"
+                  sx={{ width: "100%" }}
+                  value={location}
+                  onChange={(e) => {
+                    setlocation(e.target.value);
+                  }}
+                />
+              </div>
+
               {/* <hr></hr> */}
+              <div>
+                <InputArea
+                  placeholder="Description"
+                  sx={{ width: 900 }}
+                  value={description}
+                  onChange={(e) => {
+                    setdescription(e.target.value);
+                  }}
+                />
+                <AddChip
+                  sx={{ width: 200 }}
+                  defaultSkills={requirmentSkills}
+                  label="Required Skills"
+                  skills={(allSkills) => {
+                    setRequirmentSkills({ ...requirmentSkills, allSkills });
+                  }}
+                ></AddChip>
+              </div>
               <label
                 style={{
                   fontSize: "14px",
@@ -72,34 +99,22 @@ const AddOffer = (props) => {
                   color: "gray",
                 }}
               >
-                Description
+                End Date
               </label>
-              <InputArea
-                label="Description"
-                sx={{ width: "100%" }}
+              <input
+                type="date"
+                on
                 onChange={(e) => {
-                  setdescription(e.target.value);
+                  setDate(e.target.value);
                 }}
               />
             </div>
-                          <label
-                              style={{
-                                  fontSize: "14px",
-                                  margin: "20px 0 0 10px",
-                                  color: "gray",
-                              }}
-                          >
-                              End Date
-                          </label>
-                          <input type='date' on onChange={(e) => {
-                              setDate(e.target.value);
-                          }} />
-                          <div className={classes.footer}>
-                              <TextButton onClick={props.onClose}>Cancle</TextButton>
-                              <PrimaryButton type="submit" onClick={submitHandler}>
-                                  Add Offer
-                              </PrimaryButton>
-                          </div>
+            <div className={classes.footer}>
+              <TextButton onClick={props.onClose}>Cancle</TextButton>
+              <PrimaryButton type="submit" onClick={submitHandler}>
+                Add Offer
+              </PrimaryButton>
+            </div>
           </form>
         </Modal>
       )}

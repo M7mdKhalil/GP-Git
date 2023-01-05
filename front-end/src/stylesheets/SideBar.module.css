@@ -23,6 +23,7 @@
 }
 .container .myForm {
   /* border-bottom: 1px solid #dbdbdb; */
+  width: 100%;
   padding: 10px 10px 0 10px;
   background: var(--light);
   /* backdrop-filter: blur(100px); */
@@ -47,25 +48,40 @@
   justify-content: center;
 }
 
-.myForm h4 {
-  margin-bottom: 30px;
-  color: gray;
+.myForm .applierHeader{
+  width: 100%;
+  text-align: start;
+}
+.myForm .applierHeader span{
+  margin-left: 180px;
 }
 
 .myForm .applierCard {
-  background: #c4c4c4;
-  border-radius: 50px;
-  padding: 0 20px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
   transition: 0.3s;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+.myForm .applierCard p {
+  text-align: start;
+}
+
+.myForm .disecion{
+  width: 40px;
+  display: flex;
+  margin-left: 50%;
 }
 
 .myForm .applierCard:hover {
   scale: 1.05;
-  background: #1f1f1fd8;
+  background: var(--dark);
   color: white;
-  border-radius: 0;
 }
 
 .myForm:has(> .applierCard:hover) {
@@ -78,11 +94,6 @@
   text-shadow: none;
 }
 
-.myForm .applierCard p {
-  width: 70%;
-  text-align: start;
-}
-
 .myForm .applierCard:hover .add {
   color: lightgreen;
 }
@@ -91,8 +102,8 @@
   color: red;
 }
 
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
   .container {
     position: static;
   }
-}
+} */

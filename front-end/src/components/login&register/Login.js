@@ -55,7 +55,7 @@ const Login = (props) => {
       { signal }
     );
     setstateMsg(userData?.msg);
-    if (userData.ok) {
+    if (userData?.ok) {
       setislogin(true);
       setuserid(userData._id);
       setUsername(userData.username);

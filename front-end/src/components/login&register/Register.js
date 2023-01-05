@@ -217,6 +217,7 @@ const Register = (props) => {
                         <AddChip
                           sx={{ width: 500 }}
                           defaultSkills={cv.skill}
+                          label="Skills"
                           skills={(allSkills) => {
                             setcv({ ...cv, skill: [...allSkills] });
                           }}
