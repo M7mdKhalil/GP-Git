@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { filteredActions } from "../store/filteredSlice";
 import { TextField, ToggleButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
@@ -56,7 +57,7 @@ const FormFilter = (props) => {
         }}
       >
         <SearchIcon></SearchIcon>
-        <h3>Filter</h3>
+        <h3>search & Filter</h3>
       </ToggleButton>
       {!showForm && <KeyboardArrowDownRoundedIcon />}
       {showForm && <KeyboardArrowUpRoundedIcon />}

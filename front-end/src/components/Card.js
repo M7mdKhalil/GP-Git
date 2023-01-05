@@ -6,11 +6,11 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useFetch } from "use-http";
 import DeleteOffer from "./offer/DeleteOffer";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, Chip } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Card = (props) => {
-    const showUser = useSelector((state) => state.user.userDetails);
+  const showUser = useSelector((state) => state.user.userDetails);
   const { del } = useFetch("http://localhost:5000");
   const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
@@ -47,36 +47,54 @@ const Card = (props) => {
           height="70"
         ></img>
       ) : (
-        <Avatar className={classes.cardAvatar}>{props.author.username[0]}</Avatar>
+        <Avatar className={classes.cardAvatar}>
+          {props.author.username[0]}
+        </Avatar>
       )}
-          <div className={classes.cardBody}>
-              {islogin && (userid === props.author._id || showUser?.kind==='admin') && (
-          <div className={classes.deleteIcon} onClick={DeleteOfferShowHandler}>
-            <MdOutlineDeleteOutline />
-          </div>
-        )}
+      <div className={classes.cardBody}>
+        <Chip
+          size="small"
+          label={props.available ? "open" : "closed"}
+          sx={{
+            color: `${props.available ? "green" : "red"}`,
+            borderColor: `${props.available ? "green" : "red"}`,
+            textTransform: "uppercase",
+          }}
+          variant="outlined"
+          className={classes.available}
+        />
+        {islogin &&
+          (userid === props.author._id || showUser?.kind === "admin") && (
+            <div
+              className={classes.deleteIcon}
+              onClick={DeleteOfferShowHandler}
+            >
+              <MdOutlineDeleteOutline />
+            </div>
+          )}
         {deleteOfferShow && (
           <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />
         )}
-              {islogin && (userid === props.author._id || showUser?.kind === 'admin') && (
-          <button
-            onClick={() => {
-              navigate(`/editoffer/${id}`);
-            }}
-          >
-            {/* <img src="icons8-edit.gif" /> */}
-            <ion-icon name="pencil-outline"></ion-icon>
-          </button>
-        )}
-        <div onClick={props.onClick}>
+        {islogin &&
+          (userid === props.author._id || showUser?.kind === "admin") && (
+            <button
+              onClick={() => {
+                navigate(`/editoffer/${id}`);
+              }}
+            >
+              {/* <img src="icons8-edit.gif" /> */}
+              <ion-icon name="pencil-outline"></ion-icon>
+            </button>
+          )}
+        <div className={classes.cardInfo} onClick={props.onClick}>
           <h4 className={classes.title}>{props.title}</h4>
           <h4 className={classes.location}>{props.location}</h4>
-                  <h4 className={classes.author}>{props.author.username}</h4>
-                  <h4>{props.available ? 'available' : 'not available'}</h4>
-                  <p className={classes.footer}>
-                      {props.date} 
+          <h4 className={classes.author}>{props.author.username}</h4>
+
+          <div className={classes.footer}>
+            <p>{props.date}</p>
             <NumOfAppliers numOfAppliers={numOfAppliers} />
-          </p>
+          </div>
         </div>
       </div>
     </div>

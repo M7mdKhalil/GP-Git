@@ -9,13 +9,13 @@ module.exports.getAllOffers = async (req, res) => {
 };
 
 module.exports.addOffer = async (req, res) => {
-    const { title, description, location, author, date } = req.body;
+  const { title, description, location, author, date } = req.body;
   const newOffer = await Offer.create({
     title,
     description,
     location,
-      author,
-      endDate: formatDate(date,'yyyy-mm-dd'),
+    author,
+    endDate: formatDate(date),
     date: formatDate(new Date()),
   });
   const addOfferToCompany = await Company.findById(author);
@@ -44,16 +44,18 @@ module.exports.deleteOffer = async (req, res) => {
     const newUser = await User.findByIdAndUpdate(newOffer.appliers[i]._id, {
       $pull: { offers: _id },
     });
-      newUser.save();
+    newUser.save();
   }
   const newCompany = await Company.findByIdAndUpdate(newOffer.author._id, {
-    $pull: { offers: _id }
+    $pull: { offers: _id },
   });
-    console.log(req.body);
-    if (req.body.admin === true) {
-        newCompany.notification.push({ msg: `${newOffer.title} has been removed Because it is against our policy` });
-    }
-    newCompany.save();
+  console.log(req.body);
+  if (req.body.admin === true) {
+    newCompany.notification.push({
+      msg: `${newOffer.title} has been removed Because it is against our policy`,
+    });
+  }
+  newCompany.save();
   res.send(newOffer);
 };
 
@@ -61,9 +63,8 @@ module.exports.getOfferDetails = async (req, res) => {
   const id = req.params.id;
   const offer = await Offer.findById(id)
     .populate("appliers")
-      .populate("author")
-      .populate('acceptedAppliers')
-      .populate('regectedAppliers')
-    ;
+    .populate("author")
+    .populate("acceptedAppliers")
+    .populate("regectedAppliers");
   res.send(offer);
 };

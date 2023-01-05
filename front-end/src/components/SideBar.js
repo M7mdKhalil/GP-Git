@@ -114,10 +114,8 @@ const SideBar = (props) => {
               setShowAppliers(!showAppliers);
             }}
           >
-            <h4 className={classes.applierHeader}>
-              Appliers
-              <NumOfAppliers numOfAppliers={numOfAppliers} />
-            </h4>
+            <h4 className={classes.applierHeader}>Appliers</h4>
+            <NumOfAppliers numOfAppliers={numOfAppliers} />
           </ToggleButton>
           {!showAppliers && <KeyboardArrowDownRoundedIcon />}
           {showAppliers && <KeyboardArrowUpRoundedIcon />}

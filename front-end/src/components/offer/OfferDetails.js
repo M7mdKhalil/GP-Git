@@ -11,9 +11,13 @@ import Button from "../Button";
 import SideBar from "../SideBar";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LoadButton, PrimaryButton, TextButton } from "../UI/CustomButton";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { Chip } from "@mui/material";
 
 const OfferDetails = () => {
-    const showUser = useSelector((state) => state.user.userDetails);
+  const showUser = useSelector((state) => state.user.userDetails);
   const { get, post, response, loading, error } = useFetch(
     "http://localhost:5000"
   );
@@ -27,24 +31,22 @@ const OfferDetails = () => {
   const [offerdetails, setofferdetails] = useState({});
   const [visible, setVisible] = useState();
   const [numOfAppliers, setnumOfAppliers] = useState();
-    const params = useParams();
-    const [acceptstate, setacceptstate] = useState('');
+  const params = useParams();
+  const [acceptstate, setacceptstate] = useState("");
+  const [appling, setAppling] = useState(false);
 
-    const acceptstatef=() => {
-
-        for (let i = 0; i < showUser?.acceptedOffers?.length; i++) {
-
-            if (showUser.acceptedOffers[i]._id === params.id) {
-                return setacceptstate('Accepted');
-            }
-        }
-        for (let i = 0; i < showUser?.regectedOffers?.length; i++) {
-            if (showUser.regectedOffers[i]._id === params.id) {
-                return setacceptstate('Regected');
-            }
-        }
-    };
-
+  const acceptstatef = () => {
+    for (let i = 0; i < showUser?.acceptedOffers?.length; i++) {
+      if (showUser.acceptedOffers[i]._id === params.id) {
+        return setacceptstate("Accepted");
+      }
+    }
+    for (let i = 0; i < showUser?.regectedOffers?.length; i++) {
+      if (showUser.regectedOffers[i]._id === params.id) {
+        return setacceptstate("Regected");
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,13 +56,11 @@ const OfferDetails = () => {
       await setVisible(
         !offerdetail?.appliers?.some((ele) => ele._id === userid)
       );
+      await setAppling(offerdetail?.available);
     };
-      fetchData();
-      acceptstatef();
+    fetchData();
+    acceptstatef();
   }, [get, params.id, showUser]);
-
-    
-    
 
   const applyHandler = async () => {
     const _id = params.id;
@@ -104,28 +104,52 @@ const OfferDetails = () => {
           </div>
           <div className={classes.description}>
             <label>Description</label>
-                      <p>{offerdetails?.description}</p>
-                  </div>
+            <p>{offerdetails?.description}</p>
+          </div>
 
-                  <div className={classes.footer}>
-                      <p>end date : {offerdetails?.endDate}</p>
-                      {islogin && kind === "user" ? (acceptstate === 'Accepted' || acceptstate === 'Regected' ?
-                          <h1>{acceptstate}</h1> :
-                          (
-                              visible ? (
-                                  <Button onClick={applyHandler}>apply</Button>
-                              ) : (
-                                  <Button onClick={unApplyHandler}>unapply</Button>
-                              )
-                          ) ): (
-                              ""
-                          )}
-            <NumOfAppliers numOfAppliers={numOfAppliers} />
+          <div className={classes.footer}>
+            {islogin && kind === "user" ? (
+              acceptstate === "Accepted" || acceptstate === "Regected" ? (
+                <Chip
+                  label={acceptstate}
+                  sx={{
+                    color: `${acceptstate == "Accepted" ? "green" : "red"}`,
+                    borderColor: `${
+                      acceptstate == "Accepted" ? "green" : "red"
+                    }`,
+                    textTransform: "uppercase",
+                  }}
+                  variant="outlined"
+                />
+              ) : visible ? (
+                appling ? (
+                  <PrimaryButton
+                    onClick={applyHandler}
+                    endIcon={<SendRoundedIcon />}
+                  >
+                    apply now
+                  </PrimaryButton>
+                ) : (
+                  <Chip label="This offer has been CLOSED" sx={{color: "red" , borderColor: "red"}} variant="outlined"/>
+                )
+              ) : (
+                <TextButton
+                  onClick={unApplyHandler}
+                  startIcon={<ClearRoundedIcon />}
+                >
+                  unapply
+                </TextButton>
+              )
+            ) : (
+              <LoadButton>Loading...</LoadButton>
+            )}
+            <p>end date | {offerdetails?.endDate}</p>
+            {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
           </div>
         </div>
       </Container>
     </div>
-  )
+  );
 };
 
 export default OfferDetails;
