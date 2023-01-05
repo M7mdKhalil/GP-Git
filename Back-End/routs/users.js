@@ -7,7 +7,9 @@ const multer =require('multer')
 const {storage} = require('../cloudinary/index');
 const uploade = multer({storage});
 
-router.get("/:id",users.userDetails)
+router.get("/:id", users.userDetails)
+
+
 
 router.post("/company", uploade.single('image'), users.companyRegisterForm);
 
