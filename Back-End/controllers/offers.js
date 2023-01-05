@@ -4,17 +4,18 @@ const User = require("../models/user");
 const formatDate = require("../utils/formatDate");
 
 module.exports.getAllOffers = async (req, res) => {
-  const allOffers = await Offer.find({}).populate("author");
+    const allOffers = await Offer.find({}).populate("author").populate('skills');
   res.send(allOffers);
 };
 
 module.exports.addOffer = async (req, res) => {
-  const { title, description, location, author, date } = req.body;
+  const { title, description, location, author, date,requirmentSkills } = req.body;
   const newOffer = await Offer.create({
     title,
     description,
     location,
-    author,
+      author,
+      skills:requirmentSkills,
     endDate: formatDate(date),
     date: formatDate(new Date()),
   });
@@ -65,6 +66,7 @@ module.exports.getOfferDetails = async (req, res) => {
     .populate("appliers")
     .populate("author")
     .populate("acceptedAppliers")
-    .populate("regectedAppliers");
+      .populate("regectedAppliers")
+      .populate('skills');
   res.send(offer);
 };

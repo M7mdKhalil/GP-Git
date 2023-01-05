@@ -13,6 +13,7 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 import axios from 'axios';
 const Profile = () => {
+    const showUser = useSelector((state) => state.user.userDetails);
     const params = useParams();
     const [userdetails, setuserdetails] = useState({});
     useEffect(() => {
@@ -49,12 +50,12 @@ const Profile = () => {
                   <h2>{userdetails.username}</h2>
                   <p>{userdetails.bio}</p>
         </div>
-        <PrimaryButton
-          sx={{ width: 500 }}
-          startIcon={<ModeEditOutlineRoundedIcon />}
-        >
-          Edit
-        </PrimaryButton>
+                {userdetails?._id===showUser?._id && <PrimaryButton
+                    sx={{ width: 500 }}
+                    startIcon={<ModeEditOutlineRoundedIcon />}
+                >
+                    Edit
+                </PrimaryButton>}
       </div>
       <div className={classes.cvCard}>
         <CV

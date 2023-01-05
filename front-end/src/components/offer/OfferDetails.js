@@ -51,7 +51,7 @@ const OfferDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       const offerdetail = await get(`/offer/${params.id}`);
-      setofferdetails(offerdetail);
+        setofferdetails(offerdetail);
       await setnumOfAppliers(offerdetail?.appliers?.length);
       await setVisible(
         !offerdetail?.appliers?.some((ele) => ele._id === userid)
@@ -139,12 +139,12 @@ const OfferDetails = () => {
                 >
                   unapply
                 </TextButton>
-              )
-            ) : (
+                          )
+                      ) : (kind==='user' &&
               <LoadButton>Loading...</LoadButton>
             )}
             <p>end date | {offerdetails?.endDate}</p>
-            {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
+                      {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
           </div>
         </div>
       </Container>

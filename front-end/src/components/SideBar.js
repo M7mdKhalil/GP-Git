@@ -33,8 +33,8 @@ const SideBar = (props) => {
 
   // toggle button handleing
   const [showAddOffer, setShowAddOffer] = useState(false);
-  const [showAppliers, setShowAppliers] = useState(false);
-
+    const [showAppliers, setShowAppliers] = useState(false);
+    const length = props.offerdetails?.skills?.length;
   const acceptHandler = async (applierid) => {
     const userstate = await post("/user/acceptstate", {
       applierid,
@@ -64,7 +64,18 @@ const SideBar = (props) => {
     } else {
       setAcceptState("something went wrong");
     }
-  };
+    };
+
+    const strcalc = (applier) => {
+        let calc = 0;
+         applier?.cv?.skill?.map(skill => {
+           calc+= props.offerdetails?.skills?.some(
+                 (ele) => ele.label === skill?.label
+             )?1:0;
+    })
+        calc = (calc / length) *100
+        return calc;
+    }
 
   return (
     <div className={classes.container}>
@@ -120,11 +131,12 @@ const SideBar = (props) => {
           {!showAppliers && <KeyboardArrowDownRoundedIcon />}
           {showAppliers && <KeyboardArrowUpRoundedIcon />}
 
-          {appliers && showAppliers
-            ? appliers.map((applier) => (
+                  {appliers && showAppliers
+                      ? appliers.sort((a, b) => {return strcalc(b) - strcalc(a) }).map((applier) => (
                 <div key={applier._id} className={classes.applierCard}>
                   <Avatar src={applier.image?.url}></Avatar>
-                  <p>{applier.username}</p>
+                              <p>{applier.username}</p>
+                              <p>{strcalc(applier)}%</p>
                   {props.offerdetails.acceptedAppliers.some(
                     (ele) => ele._id === applier._id
                   ) ? (

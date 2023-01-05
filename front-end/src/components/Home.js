@@ -18,13 +18,13 @@ const Home = () => {
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [basicModal, setBasicModal] = useState(false);
   const toggleShow = () => setBasicModal(!basicModal);
-  let navigate = useNavigate();
+    let navigate = useNavigate();
 
   return (
     <Container>
       <SideBar list={null} />
       {showfiltered ? (
-        showfiltered.map((offer) => (
+              showfiltered.map((offer) => (
           <Card
             key={offer._id}
             _id={offer._id}
