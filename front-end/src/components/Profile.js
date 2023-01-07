@@ -69,93 +69,111 @@ const Profile = () => {
         )}
       </div>
       <div className={classes.cvCard}>
-        <CV
-          personalData={{
-            title: "Senior Software Developer",
-            contacts: [
-              { type: "email", value: userdetails.email },
-              { type: "phone", value: userdetails.phonenumber },
-              { type: "location", value: userdetails.cv?.country?.label },
-              { type: "website", value: "example.com" },
-              { type: "linkedin", value: "linkedin.com/in/notexists" },
-              { type: "github", value: "github.com/404" },
-            ],
-          }}
-          sections={[
-            {
-              type: "text",
-              title: "Career Profile",
-              content: userdetails.bio,
-              icon: "usertie",
-            },
-            {
-              type: "common-list",
-              title: "Education",
-              icon: "graduation",
-              items: [
-                {
-                  title: userdetails.cv?.department?.label,
-                  authority: userdetails.cv?.collage?.label,
-                },
-              ],
-            },
-            {
-              type: "tag-list",
-              title: "Skills Proficiency",
-              icon: "rocket",
-              items: userdetails.cv?.skill?.map((s) => {
-                return s.label;
-              }),
-            },
-            {
-              type: "experiences-list",
-              title: "Experiences",
-              description: "Optional",
-              icon: "archive",
-              items: [
-                {
-                  title: "Lead Software Developer",
-                  company: "Some Company Example INC",
-                  description: "I'm working as a lead developer yeeeey!",
-                  companyMeta: "",
-                  datesBetween: "2017.10 - Present",
-                  descriptionTags: ["Javascript", "React"],
-                },
-                {
-                  title: "Software Developer",
-                  company: "Some Company Example INC",
-                  description:
-                    "I'm using ReactJS and working as a front-end developer",
-                  companyMeta: "Little info about company",
-                  datesBetween: "2016.8 - 2017.10",
-                },
-                {
-                  title: "Intern",
-                  company: "Some Software Example INC",
-                  description: "I was warming up.",
-                  companyMeta: "SF USA",
-                  datesBetween: "2012.06 - 2012.10",
-                },
-              ],
-            },
-            {
-              type: "common-list",
-              title: "Languages",
-              icon: "language",
-              items: [
-                {
-                  authority: "English",
-                  authorityMeta: "Professional",
-                },
-                {
-                  authority: "Spanish",
-                  authorityMeta: "Beginner",
-                },
-              ],
-            },
-          ]}
-          branding={false}
-        />
+              {userdetails.kind === 'user' ? <CV
+                  personalData={{
+                      title: userdetails.cv?.department?.label,
+                      contacts: [
+                          { type: "email", value: userdetails.email },
+                          { type: "phone", value: userdetails.phonenumber },
+                          { type: "location", value: userdetails.cv?.country?.label },
+                          { type: "website", value: "example.com" },
+                          { type: "linkedin", value: "linkedin.com/in/notexists" },
+                          { type: "github", value: "github.com/404" },
+                      ],
+                  }}
+                  sections={[
+                      {
+                          type: "text",
+                          title: userdetails.kind === 'company' ? 'Bio' : "Career Profile",
+                          content: userdetails.bio,
+                          icon: "usertie",
+                      },
+                      {
+                          type: "common-list",
+                          title: "Education",
+                          icon: "graduation",
+                          items: [
+                              {
+                                  title: userdetails.cv?.department?.label,
+                                  authority: userdetails.cv?.collage?.label,
+                              },
+                          ],
+                      },
+                      {
+                          type: "tag-list",
+                          title: "Skills Proficiency",
+                          icon: "rocket",
+                          items: userdetails.cv?.skill?.map((s) => {
+                              return s.label;
+                          }),
+                      },
+                      {
+                          type: "experiences-list",
+                          title: "Experiences",
+                          description: "Optional",
+                          icon: "archive",
+                          items: [
+                              {
+                                  title: "Lead Software Developer",
+                                  company: "Some Company Example INC",
+                                  description: "I'm working as a lead developer yeeeey!",
+                                  companyMeta: "",
+                                  datesBetween: "2017.10 - Present",
+                                  descriptionTags: ["Javascript", "React"],
+                              },
+                              {
+                                  title: "Software Developer",
+                                  company: "Some Company Example INC",
+                                  description:
+                                      "I'm using ReactJS and working as a front-end developer",
+                                  companyMeta: "Little info about company",
+                                  datesBetween: "2016.8 - 2017.10",
+                              },
+                              {
+                                  title: "Intern",
+                                  company: "Some Software Example INC",
+                                  description: "I was warming up.",
+                                  companyMeta: "SF USA",
+                                  datesBetween: "2012.06 - 2012.10",
+                              },
+                          ],
+                      },
+                      {
+                          type: "common-list",
+                          title: "Languages",
+                          icon: "language",
+                          items: [
+                              {
+                                  authority: "English",
+                                  authorityMeta: "Professional",
+                              },
+                              {
+                                  authority: "Spanish",
+                                  authorityMeta: "Beginner",
+                              },
+                          ],
+                      }
+                  ]}
+                  branding={false}
+              /> : <CV
+                      personalData={{
+                          title: `${userdetails.username} Company`,
+                      contacts: [
+                          { type: "email", value: userdetails.email },
+                          { type: "phone", value: userdetails.phonenumber },
+                          { type: "location", value: userdetails.cv?.country?.label },
+                          { type: "website", value: "example.com" },
+                          { type: "linkedin", value: "linkedin.com/in/notexists" },
+                          { type: "github", value: "github.com/404" },
+                      ],
+                  }}
+                  sections={[
+                      {
+                          type: "text",
+                          title: userdetails.kind === 'company' ? 'Bio' : "Career Profile",
+                          content: userdetails.bio,
+                          icon: "usertie",
+                          }]} branding={false}/> }
       </div>
     </div>
   );

@@ -25,7 +25,8 @@ const OfferDetails = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
+
   const navigate = useNavigate();
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
   const [kind, setkind, removekind] = useSessionStorage("kind", false);

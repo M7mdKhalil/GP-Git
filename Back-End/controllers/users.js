@@ -226,6 +226,9 @@ module.exports.acceptedstate = async (req, res) => {
     const company = await Company.findById(req.body.companyid);
     if (user && company && offer) {
         if (req.body.state === 'accept') {
+             await Offer.findByIdAndUpdate(req.body.offerid, {
+                $pull: { appliers: req.body.applierid },
+            });
             user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.`, offerid: req.body.offerid,companyimg:company.image.url })
             user.acceptedOffers.push(offer._id);
             user.save();
@@ -235,6 +238,9 @@ module.exports.acceptedstate = async (req, res) => {
         }
 
         if (req.body.state === 'regect') {
+            await Offer.findByIdAndUpdate(req.body.offerid, {
+                $pull: { appliers: req.body.applierid },
+            });
             user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`, offerid: req.body.offerid, companyimg: company.image.url }
 )
             user.regectedOffers.push(offer._id);

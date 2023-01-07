@@ -166,7 +166,7 @@ const Navbar = (props) => {
         )}
         <h1>
           <a href="/">Hire Hub</a>
-          <p>{islogin && (showUser?.kind == "user" ? "" : showUser.kind)}</p>
+          <p>{islogin && (showUser?.kind == "user" ? "" : showUser?.kind)}</p>
         </h1>
 
         <div className={classes.scrollLog}>
