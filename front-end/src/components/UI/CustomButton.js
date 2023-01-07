@@ -25,6 +25,7 @@ export function PrimaryButton(props) {
         endIcon={props.endIcon}
         startIcon={props.startIcon}
         sx={props.sx}
+        className={props.className}
 
       >
         {props.children}

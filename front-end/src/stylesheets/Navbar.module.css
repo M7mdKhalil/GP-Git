@@ -25,13 +25,21 @@
   line-height: 20px;
 }
 
-
 .nav h1 a {
   color: var(--dark);
   text-decoration: none;
   transition: 0.5s;
 }
 
+.nav h1 p {
+  position: absolute;
+  right: 0;
+  left: 0;
+  color: var(--dark);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding-top: 5px;
+}
 
 .nav .profile {
   display: flex;
@@ -71,7 +79,6 @@
   padding: 3px 20px;
   border-radius: 3px;
 }
-
 
 .navScroll {
   backdrop-filter: blur(100px);

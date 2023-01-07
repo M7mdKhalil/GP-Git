@@ -7,7 +7,7 @@ import Input from "../Input";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../../store/userSlice";
-import emailjs from 'emailjs-com'
+import emailjs from "emailjs-com";
 import {
   FormControl,
   InputAdornment,
@@ -15,19 +15,19 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { PrimaryButton } from "../UI/CustomButton";
+import { PrimaryButton, TextButton } from "../UI/CustomButton";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = (props) => {
   let dispatch = useDispatch();
-  const { post,get } = useFetch("http://localhost:5000");
+  const { post, get } = useFetch("http://localhost:5000");
   const navigate = useNavigate();
   const [stateMsg, setstateMsg] = useState("");
   const [username, setusername] = useState("");
-    const [password, setpassword] = useState("");
-    const [click, setclick] = useState(false);
+  const [password, setpassword] = useState("");
+  const [click, setclick] = useState(false);
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
@@ -51,10 +51,7 @@ const Login = (props) => {
     e.preventDefault();
     const controller = new AbortController();
     const signal = controller.signal;
-    const userData = await post(
-      "/user/login",
-      { username, password }
-    );
+    const userData = await post("/user/login", { username, password });
     setstateMsg(userData?.msg);
     if (userData?.ok) {
       setislogin(true);
@@ -66,27 +63,32 @@ const Login = (props) => {
       setstateMsg("");
     }
     return controller.abort();
-    };
+  };
 
-    const passwordHandler = async(e) => {
-        e.preventDefault();
-        const userData = await post(
-            "/user/login",
-            { username, password }
-        );
-        setclick(true);
-        emailjs.send('service_6vqix66', 'template_jgbews8', {
-            from_name: 'Hire-Hub',
-            message: 'insert new password',
-            email: userData.userfound.email
-
-        }, '8wFgurEdp8xp-8mQa')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-    }
+  const passwordHandler = async (e) => {
+    e.preventDefault();
+    const userData = await post("/user/login", { username, password });
+    setclick(true);
+    emailjs
+      .send(
+        "service_6vqix66",
+        "template_jgbews8",
+        {
+          from_name: "Hire-Hub",
+          message: "insert new password",
+          email: userData.userfound.email,
+        },
+        "8wFgurEdp8xp-8mQa"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <>
       {islogin ? (
@@ -134,18 +136,22 @@ const Login = (props) => {
                   setpassword(e.target.value);
                 }}
               />
+              <TextButton
+                type="button"
+                onClick={passwordHandler}
+                sx={{ fontSize: 10 }}
+              >
+                Forget Password? reset now
+              </TextButton>
             </FormControl>
 
             {stateMsg && <p className="errorMsg">{stateMsg}</p>}
             <div className="myButton">
               <PrimaryButton onClick={submitHandler}>Login</PrimaryButton>
-                          </div>
-                          <input type="button" value="Forget Password"
-                              onClick={passwordHandler} />
-                          {click && <p>send a massege updated to your email</p>}
-                      </form>
-                  </div>
-
+            </div>
+            {click && <p>send a massege updated to your email</p>}
+          </form>
+        </div>
       )}
     </>
   );

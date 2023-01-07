@@ -8,7 +8,14 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    padding: 50px 10px;
+    padding: 50px 10px 10px 10px;
+}
+
+.main .footer .submitButtons{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    gap: 40px;
 }
 
 .main .head{
@@ -16,6 +23,7 @@
     justify-content: space-between;
     margin: 5px 20px;
     padding: 10px;
+    min-height: 10%;
     /* border-bottom: 1px solid #c8c8c8; */
 }
 
@@ -23,7 +31,7 @@
     text-align: start;
     padding: 20px;
     background: white;
-    min-height: 70%;
+    height: 70%;
     border-radius: 10px;
 }
 

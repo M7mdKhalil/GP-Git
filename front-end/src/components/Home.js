@@ -31,7 +31,7 @@ const Home = () => {
             title={offer.title}
             location={offer.location}
             author={offer.author}
-            date={offer.date}
+            date={offer.date.substring(0, 10)} 
             visible={!offer.appliers.includes(userid)}
             length={offer.appliers.length}
             image={offer.author.image?.url}

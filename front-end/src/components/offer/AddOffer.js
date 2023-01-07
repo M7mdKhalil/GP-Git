@@ -13,6 +13,10 @@ import { TextField } from "@mui/material";
 import InputArea from "../UI/InputArea";
 import { TextButton, PrimaryButton } from "../UI/CustomButton";
 import AddChip from "../UI/AddChip";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from "dayjs";
 
 const AddOffer = (props) => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -28,25 +32,26 @@ const AddOffer = (props) => {
   const [requirmentSkills, setRequirmentSkills] = useState([]);
   const [date, setDate] = useState("");
 
+  const [endDateValue, setEndDateValue] = useState(new Date());
 
   const submitHandler = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
     const author = showUser._id;
     const offerdata = await post("/offer", {
       title,
       description,
       location,
-      date,
+      endDate: endDateValue,
       author,
-        islogin,
-        requirmentSkills: requirmentSkills.allSkills
+      islogin,
+      requirmentSkills: requirmentSkills.allSkills,
     });
     console.log("offer added", offerdata);
     if (offerdata.ok) {
       window.location = "/";
     }
-    };
+  };
   return (
     <div className={classes.main}>
       {!islogin || showUser.kind !== "company" ? (
@@ -90,26 +95,21 @@ const AddOffer = (props) => {
                   defaultSkills={requirmentSkills}
                   label="Required Skills"
                   skills={(allSkills) => {
-                      setRequirmentSkills({ ...requirmentSkills, allSkills });
+                    setRequirmentSkills({ ...requirmentSkills, allSkills });
                   }}
                 ></AddChip>
               </div>
-              <label
-                style={{
-                  fontSize: "14px",
-                  margin: "20px 0 0 10px",
-                  color: "gray",
-                }}
-              >
-                End Date
-              </label>
-              <input
-                type="date"
-                on
-                onChange={(e) => {
-                  setDate(e.target.value);
-                }}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  renderInput={(params) => <TextField {...params} />}
+                  label="Closing Date"
+                  value={endDateValue}
+                  onChange={(newValue) => {
+                    setEndDateValue(newValue);
+                  }}
+                  minDateTime={dayjs(new Date())}
+                />
+              </LocalizationProvider>
             </div>
             <div className={classes.footer}>
               <TextButton onClick={props.onClose}>Cancle</TextButton>

@@ -8,23 +8,27 @@ import classes from "../UI/DialogButtonToggle.module.css";
 
 export function DialogButtonToggle(props) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
-  const actions = [{ icon: props.icons, name: "Add Offer" }];
+  // const actions = [{ icon: props.icons, name: "Add Offer" }];
+  const actions = [];
   return (
     <Box
       sx={{ height: 60, transform: "translateZ(0px)", flexGrow: 1 }}
       className={classes.box}
-    >
-      <Backdrop open={open} className={classes.backdrop} />
+    > 
+      {/* <Backdrop open={open} className={classes.backdrop} /> */}
       <SpeedDial
         className={classes.menuButton}
         ariaLabel="action buttons"
         sx={{ position: "absolute", bottom: 0, left: 16 }}
-        icon={<SpeedDialIcon />}
+        icon={<SpeedDialIcon />}  
         onClose={handleClose}
         onOpen={handleOpen}
+        onClick={props.onClick}
         open={open}
         direction="right"
       >

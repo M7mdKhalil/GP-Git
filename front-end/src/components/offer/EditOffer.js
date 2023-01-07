@@ -11,7 +11,12 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import InputArea from "../UI/InputArea";
-import { PrimaryButton, LoadButton } from "../UI/CustomButton";
+import { PrimaryButton, LoadButton, TextButton } from "../UI/CustomButton";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from "dayjs";
 
 import TextEditor from "../UI/TextEditor";
 const EditOffer = (props) => {
@@ -29,6 +34,8 @@ const EditOffer = (props) => {
   const [location, setlocation] = useState("");
   const [load, setLoad] = useState(false);
 
+  const [endDateValue, setEndDateValue] = useState(new Date());
+
   const { get, put, response, loading, error } = useFetch(
     "http://localhost:5000"
   );
@@ -39,6 +46,7 @@ const EditOffer = (props) => {
       settitle(offerdetail?.title);
       setdescription(offerdetail?.description);
       setlocation(offerdetail?.location);
+      setEndDateValue(offerdetail?.endDate);
       return offerdetail;
     };
     fetchData();
@@ -54,6 +62,7 @@ const EditOffer = (props) => {
       location,
       _id,
       userid,
+      endDate: endDateValue,
     });
     // console.log(offerdata.ok);
     if (offerdata.ok) {
@@ -128,16 +137,37 @@ const EditOffer = (props) => {
                   />
                 </div>
                 <div className={classes.footer}>
-                  {!load ? (
-                    <PrimaryButton type="submit" onClick={submitHandler}>
-                      Edit Offer
-                    </PrimaryButton>
-                  ) : (
-                    <LoadButton>Loading</LoadButton>
-                  )}
-                  {/* <Button type="submit" onClick={submitHandler}>
-                    Edit Offer
-                  </Button> */}
+                  <div className={classes.submitButtons}>
+                    {!load ? (
+                      <PrimaryButton
+                        type="submit"
+                        onClick={submitHandler}
+                        startIcon={<CheckRoundedIcon />}
+                      >
+                        Edit Offer
+                      </PrimaryButton>
+                    ) : (
+                      <LoadButton>Loading</LoadButton>
+                    )}
+                    <TextButton
+                      onClick={() => {
+                        navigate(`/offer/${params.id}`);
+                      }}
+                    >
+                      Cancle
+                    </TextButton>
+                  </div>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                      renderInput={(params) => <TextField {...params} />}
+                      label="Closing Date"
+                      value={endDateValue}
+                      onChange={(newValue) => {
+                        setEndDateValue(newValue);
+                      }}
+                      minDateTime={dayjs(new Date())}
+                    />
+                  </LocalizationProvider>
                 </div>
               </div>
             ) : (

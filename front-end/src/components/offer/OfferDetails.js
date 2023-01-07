@@ -15,6 +15,7 @@ import { LoadButton, PrimaryButton, TextButton } from "../UI/CustomButton";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Chip } from "@mui/material";
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 
 const OfferDetails = () => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -72,7 +73,7 @@ const OfferDetails = () => {
       offerid: _id,
       companyid: offerdetails.author._id,
     });
-    console.log(applydata.ok);
+    console.log(applystate);
     if (applydata.ok && applystate) {
       window.location = `/offer/${params.id}`;
     }
@@ -156,7 +157,20 @@ const OfferDetails = () => {
             ) : (
               ""
             )}
-            <p>end date | {offerdetails?.endDate}</p>
+
+            {islogin &&
+              ((userid === showUser._id && showUser?.kind === "company") || showUser?.kind === "admin") && (
+                <PrimaryButton
+                  onClick={() => {
+                    navigate(`/editoffer/${params.id}`);
+                  }}
+                  startIcon={<BorderColorRoundedIcon />}
+                >
+                  Edit
+                </PrimaryButton>
+              )}
+
+            <p>Closing date | {offerdetails?.endDate?.substring(0, 10)}</p>
             {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
           </div>
         </div>

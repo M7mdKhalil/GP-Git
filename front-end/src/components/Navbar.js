@@ -132,35 +132,41 @@ const Navbar = (props) => {
                 <span>{calcCounter(showUser)}</span> Notification
               </h2>
               {/* <p>{showUser?.notification.length}</p> */}
-                          {showUser?.notification?.slice().reverse().map((notifi, k) => (
-                <div
-                  key={k}
-                  className={styles["notifi-item"]}
-                  onClick={() => {
-                    window.location = `/offer/${notifi.offerid}`;
-                  }}
-                >
-                  <img
-                    src={
-                      showUser?.kind == "user"
-                        ? notifi.companyimg
-                        : showUser?.kind == "company"
-                        ? notifi.applierimg
-                        : ""
-                    }
-                  />
+              {showUser?.notification
+                ?.slice()
+                .reverse()
+                .map((notifi, k) => (
                   <div
-                    className={notifi.new === true ? styles.text1 : styles.text}
+                    key={k}
+                    className={styles["notifi-item"]}
+                    onClick={() => {
+                      window.location = `/offer/${notifi.offerid}`;
+                    }}
                   >
-                    <p>{notifi.msg}</p>
+                    <img
+                      src={
+                        showUser?.kind == "user"
+                          ? notifi.companyimg
+                          : showUser?.kind == "company"
+                          ? notifi.applierimg
+                          : ""
+                      }
+                    />
+                    <div
+                      className={
+                        notifi.new === true ? styles.text1 : styles.text
+                      }
+                    >
+                      <p>{notifi.msg}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>{" "}
           </div>
         )}
         <h1>
-          <a href="/">HireHub</a>
+          <a href="/">Hire Hub</a>
+          <p>{islogin && (showUser?.kind == "user" ? "" : showUser.kind)}</p>
         </h1>
 
         <div className={classes.scrollLog}>
@@ -179,7 +185,7 @@ const Navbar = (props) => {
               {/* <Button className={classes.loginButton}>Logout</Button> */}
               <TextButton
                 onClick={() => {
-                  setislogin(false);
+                  removeislogin();
                   window.location = "/login";
                 }}
               >

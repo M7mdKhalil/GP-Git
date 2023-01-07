@@ -10,7 +10,7 @@ import { useFetch } from "use-http";
 import { PrimaryButton } from "./UI/CustomButton";
 import { DialogButtonToggle } from "./UI/DialogButtonToggle";
 import CreateIcon from "@mui/icons-material/Create";
-import { Avatar, IconButton, ToggleButton } from "@mui/material";
+import { Avatar, IconButton, SpeedDialIcon, ToggleButton } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -33,8 +33,8 @@ const SideBar = (props) => {
 
   // toggle button handleing
   const [showAddOffer, setShowAddOffer] = useState(false);
-    const [showAppliers, setShowAppliers] = useState(false);
-    const length = props.offerdetails?.skills?.length;
+  const [showAppliers, setShowAppliers] = useState(false);
+  const length = props.offerdetails?.skills?.length;
   const acceptHandler = async (applierid) => {
     const userstate = await post("/user/acceptstate", {
       applierid,
@@ -64,18 +64,20 @@ const SideBar = (props) => {
     } else {
       setAcceptState("something went wrong");
     }
-    };
+  };
 
-    const strcalc = (applier) => {
-        let calc = 0;
-         applier?.cv?.skill?.map(skill => {
-           calc+= props.offerdetails?.skills?.some(
-                 (ele) => ele.label === skill?.label
-             )?1:0;
-    })
-        calc = (calc / length) *100
-        return calc;
-    }
+  const strcalc = (applier) => {
+    let calc = 0;
+    applier?.cv?.skill?.map((skill) => {
+      calc += props.offerdetails?.skills?.some(
+        (ele) => ele.label === skill?.label
+      )
+        ? 1
+        : 0;
+    });
+    calc = (calc / length) * 100;
+    return calc;
+  };
 
   return (
     <div className={classes.container}>
@@ -104,15 +106,20 @@ const SideBar = (props) => {
               }}
             />
           )}
-          <DialogButtonToggle
-            icons={
-              <CreateIcon
-                onClick={() => {
-                  setShowAddOffer(true);
-                }}
-              />
-            }
-          />
+          <PrimaryButton
+            className={classes.cornerButton}
+            startIcon={<SpeedDialIcon />}
+            onClick={() => {
+              setShowAddOffer(true);
+            }}
+          >
+            <p>add offer</p>
+          </PrimaryButton>
+          {/* <DialogButtonToggle
+            onClick={() => {
+              setShowAddOffer(true);
+            }}
+          /> */}
         </div>
       )}
 
@@ -131,40 +138,44 @@ const SideBar = (props) => {
           {!showAppliers && <KeyboardArrowDownRoundedIcon />}
           {showAppliers && <KeyboardArrowUpRoundedIcon />}
 
-                  {appliers && showAppliers
-                      ? appliers.sort((a, b) => {return strcalc(b) - strcalc(a) }).map((applier) => (
-                <div key={applier._id} className={classes.applierCard}>
-                  <Avatar src={applier.image?.url}></Avatar>
-                              <p>{applier.username}</p>
-                              <p>{strcalc(applier)}%</p>
-                  {props.offerdetails.acceptedAppliers.some(
-                    (ele) => ele._id === applier._id
-                  ) ? (
-                    <p className={classes.disecion}>accepted</p>
-                  ) : props.offerdetails.regectedAppliers.some(
+          {appliers && showAppliers
+            ? appliers
+                .sort((a, b) => {
+                  return strcalc(b) - strcalc(a);
+                })
+                .map((applier) => (
+                  <div key={applier._id} className={classes.applierCard}>
+                    <Avatar src={applier.image?.url}></Avatar>
+                    <p>{applier.username}</p>
+                    <p>{strcalc(applier)}%</p>
+                    {props.offerdetails.acceptedAppliers.some(
                       (ele) => ele._id === applier._id
                     ) ? (
-                    <p className={classes.disecion}>regected</p>
-                  ) : (
-                    <div className={classes.disecion}>
-                      <IconButton
-                        className={classes.add}
-                        onClick={() => acceptHandler(applier._id)}
-                      >
-                        <HowToRegRounded></HowToRegRounded>
-                      </IconButton>
-                      <IconButton
-                        className={classes.remove}
-                        onClick={() => regectHandler(applier._id)}
-                      >
-                        <ClearRoundedIcon></ClearRoundedIcon>
-                      </IconButton>
-                      {/* <TiUserAddOutline />
+                      <p className={classes.disecion}>accepted</p>
+                    ) : props.offerdetails.regectedAppliers.some(
+                        (ele) => ele._id === applier._id
+                      ) ? (
+                      <p className={classes.disecion}>regected</p>
+                    ) : (
+                      <div className={classes.disecion}>
+                        <IconButton
+                          className={classes.add}
+                          onClick={() => acceptHandler(applier._id)}
+                        >
+                          <HowToRegRounded></HowToRegRounded>
+                        </IconButton>
+                        <IconButton
+                          className={classes.remove}
+                          onClick={() => regectHandler(applier._id)}
+                        >
+                          <ClearRoundedIcon></ClearRoundedIcon>
+                        </IconButton>
+                        {/* <TiUserAddOutline />
                       <TiUserDeleteOutline />{" "} */}
-                    </div>
-                  )}
-                </div>
-              ))
+                      </div>
+                    )}
+                  </div>
+                ))
             : ""}
           {numOfAppliers == 0 && showAppliers ? (
             <div>

@@ -5,6 +5,10 @@
   border-radius: 10px;
 }
 
+.box .menuButton:hover{
+  
+}
+
 .box .menuButton button {
   background: var(--primary);
   color: white;

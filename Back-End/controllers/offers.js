@@ -4,19 +4,20 @@ const User = require("../models/user");
 const formatDate = require("../utils/formatDate");
 
 module.exports.getAllOffers = async (req, res) => {
-    const allOffers = await Offer.find({}).populate("author").populate('skills');
+  const allOffers = await Offer.find({}).populate("author").populate("skills");
   res.send(allOffers);
 };
 
 module.exports.addOffer = async (req, res) => {
-  const { title, description, location, author, date,requirmentSkills } = req.body;
+  const { title, description, location, author, requirmentSkills, endDate } =
+    req.body;
   const newOffer = await Offer.create({
     title,
     description,
     location,
-      author,
-      skills:requirmentSkills,
-    endDate: formatDate(date),
+    author,
+    skills: requirmentSkills,
+    endDate: formatDate(endDate),
     date: formatDate(new Date()),
   });
   const addOfferToCompany = await Company.findById(author);
@@ -28,12 +29,14 @@ module.exports.addOffer = async (req, res) => {
 
 module.exports.editOffer = async (req, res) => {
   const { _id } = req.body;
-  const { title, description, location } = req.body;
+  const { title, description, location, endDate } = req.body;
   const newOffer = await Offer.findByIdAndUpdate(_id, {
     title,
     description,
     location,
+    endDate,
   });
+  console.log(endDate)
   res.send({ newOffer, ok: true });
 };
 
@@ -66,7 +69,7 @@ module.exports.getOfferDetails = async (req, res) => {
     .populate("appliers")
     .populate("author")
     .populate("acceptedAppliers")
-      .populate("regectedAppliers")
-      .populate('skills');
+    .populate("regectedAppliers")
+    .populate("skills");
   res.send(offer);
 };
