@@ -13,8 +13,7 @@ export function DialogButtonToggle(props) {
   };
   const handleClose = () => setOpen(false);
 
-  // const actions = [{ icon: props.icons, name: "Add Offer" }];
-  const actions = [];
+  const actions = [{ icon: props.icons, name: "Create Company" }];
   return (
     <Box
       sx={{ height: 60, transform: "translateZ(0px)", flexGrow: 1 }}

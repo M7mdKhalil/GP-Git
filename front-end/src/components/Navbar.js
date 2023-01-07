@@ -145,12 +145,15 @@ const Navbar = (props) => {
                   >
                     <img
                       src={
-                        showUser?.kind == "user"
-                          ? notifi.companyimg
-                          : showUser?.kind == "company"
-                          ? notifi.applierimg
-                          : ""
+                        showUser?.kind == "user" ? (
+                          notifi.companyimg
+                        ) : showUser?.kind == "company" ? (
+                          notifi.applierimg
+                        ) : (
+                          ""
+                        )
                       }
+                      // alt={<Chip avatar={<Avatar>HH</Avatar>} />}
                     />
                     <div
                       className={
@@ -166,7 +169,7 @@ const Navbar = (props) => {
         )}
         <h1>
           <a href="/">Hire Hub</a>
-          <p>{islogin && (showUser?.kind == "user" ? "" : showUser.kind)}</p>
+          <p>{islogin && (showUser?.kind == "user" ? "" : showUser?.kind)}</p>
         </h1>
 
         <div className={classes.scrollLog}>

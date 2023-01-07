@@ -3,7 +3,7 @@ import FormFilter from "./FormFilter";
 import classes from "../stylesheets/SideBar.module.css";
 import { useSessionStorage } from "react-use-storage";
 import Button from "./Button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TiUserDeleteOutline, TiUserAddOutline } from "react-icons/ti";
 import AddOffer from "./offer/AddOffer";
 import { useFetch } from "use-http";
@@ -16,10 +16,13 @@ import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRound
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import HowToRegRounded from "@mui/icons-material/HowToRegRounded";
 import NumOfAppliers from "./offer/NumOfAppliers";
+import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
   const usel = useLocation();
+  const navigate = useNavigate();
+
 
   const [acceptState, setAcceptState] = useState("");
   const [islogin, setislogin, removeislogin] = useSessionStorage(
@@ -115,14 +118,20 @@ const SideBar = (props) => {
           >
             <p>add offer</p>
           </PrimaryButton>
-          {/* <DialogButtonToggle
-            onClick={() => {
-              setShowAddOffer(true);
-            }}
-          /> */}
         </div>
       )}
 
+      {usel.pathname === "/" && islogin && kind === "admin" && (
+        <DialogButtonToggle
+          icons={
+            <AppRegistrationRoundedIcon
+              onClick={() => {
+                window.location = "/company"
+              }}
+            />
+          }
+        />
+      )}
       {islogin && kind === "company" && appliers && (
         <div className={classes.myForm}>
           <ToggleButton
