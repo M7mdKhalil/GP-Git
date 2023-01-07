@@ -145,12 +145,15 @@ const Navbar = (props) => {
                   >
                     <img
                       src={
-                        showUser?.kind == "user"
-                          ? notifi.companyimg
-                          : showUser?.kind == "company"
-                          ? notifi.applierimg
-                          : ""
+                        showUser?.kind == "user" ? (
+                          notifi.companyimg
+                        ) : showUser?.kind == "company" ? (
+                          notifi.applierimg
+                        ) : (
+                          ""
+                        )
                       }
+                      // alt={<Chip avatar={<Avatar>HH</Avatar>} />}
                     />
                     <div
                       className={
