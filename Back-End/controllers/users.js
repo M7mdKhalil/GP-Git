@@ -25,7 +25,7 @@ module.exports.userDetails = async (req, res) => {
 
 
 module.exports.companyRegisterForm = async (req, res) => {
-  const { username, password, email, image, location } = req.body;
+    const { username, password, email, image, location, bio, phonenumber } = req.body;
   const isfound = await Company.findOne({ username });
   const hashedPassword = await bcrypt.hashSync(password, 10);
   const kind = "company";
@@ -33,7 +33,9 @@ module.exports.companyRegisterForm = async (req, res) => {
     const newCompany = await Company.create({
       username,
       password: hashedPassword,
-      email,
+        email,
+        bio,
+        phonenumber,
       kind,
       image,
       location,
@@ -195,7 +197,7 @@ module.exports.applyuser = async (req, res) => {
       offer.save();
       user.offers.push(req.body._id);
       user.save();
-      res.send({ ok: true, appliers: offer.appliers });
+      res.send({ ok: true, appliers: offer.appliers});
     } else res.send({ ok: false, msg: "alreadyapplied" });
   } else {
     res.send({ ok: false, msg: "something error" });

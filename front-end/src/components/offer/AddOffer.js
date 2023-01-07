@@ -17,6 +17,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddOffer = (props) => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -34,7 +36,17 @@ const AddOffer = (props) => {
 
   const [endDateValue, setEndDateValue] = useState(new Date());
 
-  const submitHandler = async (event) => {
+    const submitHandler = async (event) => {
+        await toast.success('Adding Offer', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     event.preventDefault();
 
     const author = showUser._id;
@@ -117,9 +129,10 @@ const AddOffer = (props) => {
                 Add Offer
               </PrimaryButton>
             </div>
-          </form>
+                      </form>
+                      <ToastContainer />
         </Modal>
-      )}
+          )}
     </div>
   );
 };

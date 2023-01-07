@@ -74,7 +74,7 @@ const CreateCompany = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const userData = await post("/company", {
+    const userData = await post("/user/company", {
       username,
       email,
       bio,

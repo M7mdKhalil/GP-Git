@@ -6,6 +6,8 @@ import { useSessionStorage } from "react-use-storage";
 import Button from "../Button";
 import Input from "../Input";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Badge,
   InputAdornment,
@@ -72,7 +74,14 @@ const Register = (props) => {
     myWidget.open();
   };
 
-  const submitHandler = async (event) => {
+    const submitHandler = async (event) => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 3000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+                pending: 'Create New Account',
+            }
+        )
     event.preventDefault();
     const userData = await post("/user", {
       username,
@@ -280,7 +289,8 @@ const Register = (props) => {
             </HorizontalLinearStepper>
           </form>
         </div>
-      )}
+          )}
+          <ToastContainer />
     </>
   );
 };

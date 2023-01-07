@@ -17,6 +17,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import TextEditor from "../UI/TextEditor";
 const EditOffer = (props) => {
@@ -52,7 +54,15 @@ const EditOffer = (props) => {
     fetchData();
   }, [get, params._id]);
 
-  const submitHandler = async (e) => {
+    const submitHandler = async (e) => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+                pending: 'Edit is pending',
+                success: 'Edit resolved ',
+            }, {position:'bottom-left'}
+        )
     setLoad(true);
     e.preventDefault();
     const _id = offer._id;
@@ -175,7 +185,8 @@ const EditOffer = (props) => {
             )}
           </Container>
         </form>
-      )}
+          )}
+          <ToastContainer />
     </>
   );
 };

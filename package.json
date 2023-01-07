@@ -28,6 +28,7 @@
     "path": "^0.12.7",
     "react-bootstrap": "^2.5.0",
     "react-cv": "^1.2.0",
+    "react-toastify": "^9.1.1",
     "reactstrap": "^9.1.5",
     "zlib-browserify": "^0.0.3"
   },

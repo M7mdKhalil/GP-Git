@@ -13,6 +13,11 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 import axios from "axios";
 import { useSessionStorage } from "react-use-storage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+let fc = false;
+
 const Profile = () => {
   const showUser = useSelector((state) => state.user.userDetails);
   const params = useParams();
@@ -20,17 +25,26 @@ const Profile = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-  );
+    );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log(params);
-      const userdetails = await axios
-        .get(`http://localhost:5000/user/${params.id}`)
-        .then(function (response) {
-          // handle success
-          setuserdetails(response.data);
-        });
+    useEffect(() => { 
+        const fetchData = async () => {
+        const userdetails = await axios
+            .get(`http://localhost:5000/user/${params.id}`)
+            .then(function (response) {
+                // handle success
+                setuserdetails(response.data);
+            })  
+            if (fc === false) {
+                const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+                toast.promise(
+                    resolveAfter3Sec,
+                    {
+                        pending: 'Loading profile',
+                    }
+                )
+            }
+            fc = true;
     };
     fetchData();
   }, [params]);
@@ -174,7 +188,8 @@ const Profile = () => {
                           content: userdetails.bio,
                           icon: "usertie",
                           }]} branding={false}/> }
-      </div>
+          </div>
+          <ToastContainer />
     </div>
   );
 };

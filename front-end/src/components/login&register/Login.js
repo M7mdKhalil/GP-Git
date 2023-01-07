@@ -19,6 +19,10 @@ import { PrimaryButton, TextButton } from "../UI/CustomButton";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+let functionCalled = false;
 
 const Login = (props) => {
   let dispatch = useDispatch();
@@ -47,13 +51,14 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        functionCalled = false;
     const controller = new AbortController();
     const signal = controller.signal;
     const userData = await post("/user/login", { username, password });
     setstateMsg(userData?.msg);
-    if (userData?.ok) {
+        if (userData?.ok) {
       setislogin(true);
       setuserid(userData._id);
       setUsername(userData.username);
@@ -65,8 +70,18 @@ const Login = (props) => {
     return controller.abort();
   };
 
-  const passwordHandler = async (e) => {
-    e.preventDefault();
+    const passwordHandler = async (e) => {
+        e.preventDefault();
+        toast.info('we sent a massege to your email', {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     const userData = await post("/user/login", { username, password });
     setclick(true);
     emailjs
@@ -88,7 +103,23 @@ const Login = (props) => {
           console.log(error.text);
         }
       );
-  };
+    };
+    const msgHandler = () =>
+    {
+        if (!functionCalled) {
+            toast.error(stateMsg, {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            functionCalled = true;
+        }
+    }
   return (
     <>
       {islogin ? (
@@ -145,14 +176,14 @@ const Login = (props) => {
               </TextButton>
             </FormControl>
 
-            {stateMsg && <p className="errorMsg">{stateMsg}</p>}
+            {stateMsg && msgHandler()}
             <div className="myButton">
               <PrimaryButton onClick={submitHandler}>Login</PrimaryButton>
             </div>
-            {click && <p>send a massege updated to your email</p>}
           </form>
         </div>
-      )}
+          )}
+          <ToastContainer />
     </>
   );
 };

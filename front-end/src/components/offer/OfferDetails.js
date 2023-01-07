@@ -16,6 +16,8 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Chip } from "@mui/material";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OfferDetails = () => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -66,8 +68,18 @@ const OfferDetails = () => {
     acceptstatef();
   }, [get, params.id, showUser]);
 
-  const applyHandler = async () => {
-    const _id = params.id;
+    const applyHandler = async () => {
+        await toast.success('Applied loading', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+        const _id = params.id;
     const applydata = await post("/user/apply", { _id, userid });
     const applystate = await post("/user/applystate", {
       applierid: userid,
@@ -80,14 +92,26 @@ const OfferDetails = () => {
     }
   };
 
-  const unApplyHandler = async () => {
+    const unApplyHandler = async () => {
+        await toast.success('UnApplied loading', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     const _id = params.id;
     const unapplydata = await post("/user/unapply", { _id, userid });
     console.log(unapplydata.ok);
     if (unapplydata.ok) {
       window.location = `/offer/${params.id}`;
     }
-  };
+    };
+
+    
 
   return (
     <div className="main-content">
@@ -174,8 +198,9 @@ const OfferDetails = () => {
             <p>Closing date | {offerdetails?.endDate?.substring(0, 10)}</p>
             {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
           </div>
-        </div>
-      </Container>
+              </div>
+          </Container>
+          <ToastContainer />
     </div>
   );
 };

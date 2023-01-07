@@ -5,12 +5,24 @@ import Modal from "../UI/Modal";
 import classes from "./offerStyleSheets/DeleteOffer.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const DeleteOffer = (props) => {
   const { post } = useFetch("http://localhost:5000");
     const navigate = useNavigate();
     const showUser = useSelector((state) => state.user.userDetails);
     console.log(showUser.kind === 'admin');
-  const DeleteOfferHandler = async () => {
+    const DeleteOfferHandler = async () => {
+        toast.warn('Deleted!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
       const _id = props.cardId;
       await post(`/offer/delete/${_id}`, { admin: showUser.kind === 'admin' });
     window.location = "/";
@@ -28,7 +40,8 @@ const DeleteOffer = (props) => {
       <div className={classes.actions}>
         <Button onClick={props.onClose}>Cancle</Button>
         <Button onClick={DeleteOfferHandler}>Delete</Button>
-      </div>
+            </div>
+            <ToastContainer />
     </Modal>
   );
 };
