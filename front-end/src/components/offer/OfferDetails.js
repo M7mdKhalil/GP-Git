@@ -114,7 +114,7 @@ const OfferDetails = () => {
   return (
     <div className="main-content">
       <Container>
-        {offerdetails && (
+        {userid === offerdetails?.author?._id && offerdetails && (
           <SideBar
             list={offerdetails.appliers}
             offerdetails={offerdetails}
@@ -184,7 +184,8 @@ const OfferDetails = () => {
             )}
 
             {islogin &&
-              ((userid === showUser._id && showUser?.kind === "company") ||
+              ((userid === offerdetails?.author?._id &&
+                showUser?.kind === "company") ||
                 showUser?.kind === "admin") && (
                 <PrimaryButton
                   onClick={() => {
