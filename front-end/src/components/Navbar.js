@@ -159,7 +159,8 @@ const Navbar = (props) => {
                       className={
                         notifi.new === true ? styles.text1 : styles.text
                       }
-                    >
+                        >
+
                       <p>{notifi.msg}</p>
                     </div>
                   </div>

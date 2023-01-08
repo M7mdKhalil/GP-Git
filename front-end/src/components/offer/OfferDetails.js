@@ -60,7 +60,7 @@ const OfferDetails = () => {
       setofferdetails(offerdetail);
       await setnumOfAppliers(offerdetail?.appliers?.length);
       await setVisible(
-        !offerdetail?.appliers?.some((ele) => ele._id === userid)
+        offerdetail?.appliers?.some((ele) => ele._id === userid)
       );
       await setAppling(offerdetail?.available);
     };
@@ -139,14 +139,14 @@ const OfferDetails = () => {
             {islogin && kind == "user" ? (
               !isLoading ? (
                 appling === true ? (
-                  visible ? (
-                    <PrimaryButton
-                      onClick={applyHandler}
-                      endIcon={<SendRoundedIcon />}
-                    >
-                      apply now
-                    </PrimaryButton>
-                  ) : acceptstate === "Accepted" ||
+                                  visible ? (
+                                      <TextButton
+                                          onClick={unApplyHandler}
+                                          startIcon={<ClearRoundedIcon />}
+                                      >
+                                          unapply
+                                      </TextButton>
+                                  ) : acceptstate === "Accepted" ||
                     acceptstate === "Regected" ? (
                     <Chip
                       label={acceptstate}
@@ -159,14 +159,14 @@ const OfferDetails = () => {
                       }}
                       variant="outlined"
                     />
-                  ) : (
-                    <TextButton
-                      onClick={unApplyHandler}
-                      startIcon={<ClearRoundedIcon />}
-                    >
-                      unapply
-                    </TextButton>
-                  )
+                                      ) : (
+                                          <PrimaryButton
+                                              onClick={applyHandler}
+                                              endIcon={<SendRoundedIcon />}
+                                          >
+                                              apply now
+                                          </PrimaryButton>
+                                      )
                 ) : appling !== undefined && appling === false ? (
                   <Chip
                     label="This offer has been CLOSED"

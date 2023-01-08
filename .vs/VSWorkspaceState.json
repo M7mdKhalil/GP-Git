@@ -3,14 +3,14 @@
     "",
     "\\Back-End",
     "\\Back-End\\controllers",
+    "\\Back-End\\models",
     "\\Back-End\\routs",
     "\\front-end",
     "\\front-end\\src",
     "\\front-end\\src\\components",
     "\\front-end\\src\\components\\login&register",
-    "\\front-end\\src\\components\\offer",
-    "\\front-end\\src\\stylesheets"
+    "\\front-end\\src\\components\\offer"
   ],
-  "SelectedNode": "\\front-end\\src\\components\\Navbar.js",
+  "SelectedNode": "\\front-end\\src\\components\\Profile.js",
   "PreviewInSolutionExplorer": false
 }
