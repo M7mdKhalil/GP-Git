@@ -16,8 +16,8 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Chip } from "@mui/material";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OfferDetails = () => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -27,7 +27,7 @@ const OfferDetails = () => {
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
     false
-    );
+  );
 
   const navigate = useNavigate();
   const [userid, setuserid, removeuserid] = useSessionStorage("userid", "");
@@ -68,18 +68,18 @@ const OfferDetails = () => {
     acceptstatef();
   }, [get, params.id, showUser]);
 
-    const applyHandler = async () => {
-        await toast.success('Applied loading', {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-        const _id = params.id;
+  const applyHandler = async () => {
+    await toast.success("Applied loading", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    const _id = params.id;
     const applydata = await post("/user/apply", { _id, userid });
     const applystate = await post("/user/applystate", {
       applierid: userid,
@@ -92,26 +92,24 @@ const OfferDetails = () => {
     }
   };
 
-    const unApplyHandler = async () => {
-        await toast.success('UnApplied loading', {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
+  const unApplyHandler = async () => {
+    await toast.success("UnApplied loading", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     const _id = params.id;
     const unapplydata = await post("/user/unapply", { _id, userid });
     console.log(unapplydata.ok);
     if (unapplydata.ok) {
       window.location = `/offer/${params.id}`;
     }
-    };
-
-    
+  };
 
   return (
     <div className="main-content">
@@ -123,6 +121,8 @@ const OfferDetails = () => {
             nAppliers={numOfAppliers}
             offerid={offerdetails?._id}
             companyid={offerdetails?.author?._id}
+            acceptedAppliers={offerdetails?.acceptedAppliers}
+            rejectedAppliers={offerdetails?.regectedAppliers}
           />
         )}
         <div className={classes.main}>
@@ -184,7 +184,8 @@ const OfferDetails = () => {
             )}
 
             {islogin &&
-              ((userid === showUser._id && showUser?.kind === "company") || showUser?.kind === "admin") && (
+              ((userid === showUser._id && showUser?.kind === "company") ||
+                showUser?.kind === "admin") && (
                 <PrimaryButton
                   onClick={() => {
                     navigate(`/editoffer/${params.id}`);
@@ -198,9 +199,9 @@ const OfferDetails = () => {
             <p>Closing date | {offerdetails?.endDate?.substring(0, 10)}</p>
             {/* <NumOfAppliers numOfAppliers={numOfAppliers} /> */}
           </div>
-              </div>
-          </Container>
-          <ToastContainer />
+        </div>
+      </Container>
+      <ToastContainer />
     </div>
   );
 };

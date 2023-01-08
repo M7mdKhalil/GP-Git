@@ -14,6 +14,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { TextButton } from "./UI/CustomButton";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const FormFilter = (props) => {
   const { get, post } = useFetch("http://localhost:5000");
@@ -118,6 +120,15 @@ const FormFilter = (props) => {
                   setOfferStatus(event.target.value);
                 }}
               />
+              <TextButton
+                type="button"
+                startIcon={<ClearIcon />}
+                onClick={() => {
+                  setOfferStatus(undefined);
+                }}
+              >
+                Clear
+              </TextButton>
             </RadioGroup>
           </FormControl>
           {/* <Input

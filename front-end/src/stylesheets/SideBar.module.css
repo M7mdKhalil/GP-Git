@@ -9,11 +9,10 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .container .myForm,
-.myForm .items > div{
+.myForm .items > div {
   margin-top: 10px;
   border-radius: 10px;
 }
@@ -23,7 +22,11 @@
   width: 100%;
 }
 
-.container .myForm .radioGroup{
+.myForm .disecion {
+  margin-top: -10px;
+}
+
+.container .myForm .radioGroup {
   text-align: start;
   display: flex;
   margin: 40px 0 0 10px;
@@ -49,7 +52,7 @@
   justify-content: space-between;
 }
 
-.container .myForm .formHeader{
+.container .myForm .formHeader {
   width: 100%;
   height: 50px;
   justify-content: start;
@@ -64,6 +67,9 @@
 .container .list {
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .container .list .cornerButton {
   border-radius: 100px;
@@ -103,17 +109,12 @@
   font-size: inherit;
 }
 
-
 /* 
 .myForm .applierCard p {
   text-align: start;
 }
 
-.myForm .disecion {
-  width: 100px;
-  display: flex;
-  justify-content: start;
-}
+
 
 .myForm .applierCard:hover {
   scale: 1.05;
