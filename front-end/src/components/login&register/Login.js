@@ -72,18 +72,30 @@ const Login = (props) => {
 
     const passwordHandler = async (e) => {
         e.preventDefault();
-        toast.info('we sent a massege to your email', {
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
     const userData = await post("/user/login", { username, password });
-    setclick(true);
+        setclick(true);
+        if (!userData.userfound) {
+            toast.error(`${username} not found`, {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } else {
+            toast.info('we sent a massege to your email', {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            }); }
     emailjs
       .send(
         "service_6vqix66",

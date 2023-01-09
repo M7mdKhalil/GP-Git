@@ -226,34 +226,77 @@ module.exports.acceptedstate = async (req, res) => {
     const user = await User.findById(req.body.applierid);
     const offer = await Offer.findById(req.body.offerid);
     const company = await Company.findById(req.body.companyid);
+    console.log(req.body.cancle, req.body.state);
     if (user && company && offer) {
         if (req.body.state === 'accept') {
-             await Offer.findByIdAndUpdate(req.body.offerid, {
-                $pull: { appliers: req.body.applierid },
-            });
-            user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.`, offerid: req.body.offerid,companyimg:company.image.url })
-            user.acceptedOffers.push(offer._id);
-            user.save();
-            offer.acceptedAppliers.push(user._id);
-            offer.save();
-            res.send({ ok: true, state: 'accepted' })
+            if (req.body.cancle) {
+                await Offer.findByIdAndUpdate(req.body.offerid, {
+                    $pull: { acceptedAppliers: req.body.applierid },
+                });
+                await User.findByIdAndUpdate(req.body.applierid, {
+                    $pull: { acceptedOffers: req.body.offerid },
+                });
+                offer.appliers.push(user._id);
+                user.offers.push(offer._id);
+                user.notification.push({ msg: `Your request that accepted by ${company.username} publication on the ${offer.title} canceled and return ro natural state`, offerid: req.body.offerid, companyimg: company.image.url })
+                offer.save();
+                user.save();
+                res.send({ ok: true, state: 'canceled' })
+
+            } else {
+                await Offer.findByIdAndUpdate(req.body.offerid, {
+                    $pull: { appliers: req.body.applierid },
+                });
+                await User.findByIdAndUpdate(req.body.applierid, {
+                    $pull: { offers: req.body.offerid },
+                });
+                user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been accepted.`, offerid: req.body.offerid, companyimg: company.image.url })
+                user.acceptedOffers.push(offer._id);
+                user.save();
+                offer.acceptedAppliers.push(user._id);
+                offer.save();
+                res.send({ ok: true, state: 'accepted' })
+            }
         }
+    
 
         if (req.body.state === 'regect') {
-            await Offer.findByIdAndUpdate(req.body.offerid, {
-                $pull: { appliers: req.body.applierid },
-            });
-            user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`, offerid: req.body.offerid, companyimg: company.image.url }
-)
-            user.regectedOffers.push(offer._id);
-            user.save();
-            offer.regectedAppliers.push(user._id);
-            offer.save();
-            res.send({ ok: true, state: 'regected' })
+            if (req.body.cancle) {
+                await Offer.findByIdAndUpdate(req.body.offerid, {
+                    $pull: { regectedAppliers: req.body.applierid },
+                });
+                await User.findByIdAndUpdate(req.body.applierid, {
+                    $pull: { regectedOffers: req.body.offerid },
+                });
+                offer.appliers.push(user._id);
+                user.offers.push(offer._id);
+                user.notification.push({ msg: `Your request that regected by ${company.username} publication on the ${offer.title} canceled and return ro natural state`, offerid: req.body.offerid, companyimg: company.image.url })
+                offer.save();
+                user.save();
+                res.send({ ok: true, state: 'canceled' })
+
+            } else {
+                await Offer.findByIdAndUpdate(req.body.offerid, {
+                    $pull: { appliers: req.body.applierid },
+                });
+                await User.findByIdAndUpdate(req.body.applierid, {
+                    $pull: { offers: req.body.offerid },
+                });
+                user.notification.push({ msg: `Your request that you submitted to the ${company.username} publication on the ${offer.title} has been regected`, offerid: req.body.offerid, companyimg: company.image.url }
+                )
+                user.regectedOffers.push(offer._id);
+                user.save();
+                offer.regectedAppliers.push(user._id);
+                offer.save();
+                res.send({ ok: true, state: 'regected' })
+            }
         }
-    } else {
-        res.send({ ok: false })
     }
+    
+     else {
+            res.send({ ok: false })
+        }
+    
 };
 
 module.exports.appliedstate = async (req, res) => {

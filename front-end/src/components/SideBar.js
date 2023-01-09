@@ -30,6 +30,8 @@ import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRound
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -57,7 +59,15 @@ const SideBar = (props) => {
   const [showRejected, setShowRejected] = useState(false);
 
   const length = props.offerdetails?.skills?.length;
-  const acceptHandler = async (applierid) => {
+    const acceptHandler = async (applierid) => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+                pending: 'Accept Loading',
+                success:'Accept successfully'
+            }
+        )
     const userstate = await post("/user/acceptstate", {
       applierid,
       offerid: props.offerid,
@@ -73,7 +83,15 @@ const SideBar = (props) => {
     }
   };
 
-  const regectHandler = async (applierid) => {
+    const regectHandler = async (applierid) => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+                pending: 'Regect Loading',
+                success: 'Regect successfully'
+            }
+        )
     const userstate = await post("/user/acceptstate", {
       applierid,
       offerid: props.offerid,
@@ -86,7 +104,31 @@ const SideBar = (props) => {
     } else {
       setAcceptState("something went wrong");
     }
-  };
+    };
+
+    const canceledHandler = async (applierid, state) => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+                pending: 'Canceled loading',
+                success: 'Canceled successfully'
+            }
+        )
+        const userstate = await post("/user/acceptstate", {
+            applierid,
+            offerid: props.offerid,
+            companyid: props.companyid,
+            state,
+            cancle:'c'
+        });
+        if (userstate.ok) {
+            setAcceptState("canceled succisfully");
+            window.location = `/offer/${props.offerid}`;
+        } else {
+            setAcceptState("something went wrong");
+        }
+    };
 
   const strcalc = (applier) => {
     let calc = 0;
@@ -98,7 +140,7 @@ const SideBar = (props) => {
         : 0;
     });
     calc = (calc / length) * 100.0;
-
+      
     return parseInt(calc);
   };
 
@@ -510,7 +552,8 @@ const SideBar = (props) => {
           )}
           {acceptState && <h3>{acceptState}</h3> && setAcceptState("")}
         </div>
-      )}
+          )}
+          <ToastContainer />
     </div>
   );
 };

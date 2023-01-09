@@ -83,7 +83,7 @@ const Navbar = (props) => {
           <div className={classes.profile}>
             <div
               onClick={() => {
-                window.location = `/profile/${showUser._id}`;
+                window.location = `/intro/${showUser._id}`;
               }}
             >
               {/* <img
@@ -159,7 +159,8 @@ const Navbar = (props) => {
                       className={
                         notifi.new === true ? styles.text1 : styles.text
                       }
-                    >
+                        >
+
                       <p>{notifi.msg}</p>
                     </div>
                   </div>
