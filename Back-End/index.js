@@ -36,7 +36,6 @@ app.get("/api", (req, res) => {
 });
 //users routs
 
-
 const DBusername = "mkhalil";
 const DBpassword = "mkhalildb";
 portNumber = 5000;
@@ -59,3 +58,5 @@ try {
 app.listen(portNumber, () => {
   console.log(`Back-End is running on port ${portNumber}`);
 })
+
+console.log(new Date())

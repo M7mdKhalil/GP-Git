@@ -21,15 +21,17 @@ import CreateCompany from "./components/login&register/CreateCompany";
 import Intro from "./components/intro";
 
 function App() {
+  console.log(new Date());
+
   return (
     <div className="App">
       <Navbar />
 
       <Routes>
         <Route path="*" element={<PageNotFound />} />
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/intro/:id" element={<Intro />}></Route>
-              <Route path="/profile/:id" element={<Profile />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/intro/:id" element={<Intro />}></Route>
+        <Route path="/profile/:id" element={<Profile />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/company" element={<CreateCompany />}></Route>
