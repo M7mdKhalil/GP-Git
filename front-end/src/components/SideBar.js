@@ -13,6 +13,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import {
   Avatar,
   IconButton,
+  List,
   ListItem,
   ListItemAvatar,
   ListItemButton,
@@ -169,108 +170,112 @@ const SideBar = (props) => {
           {!showAppliers && <KeyboardArrowDownRoundedIcon />}
           {showAppliers && <KeyboardArrowUpRoundedIcon />}
 
-          {appliers && showAppliers
-            ? appliers
-                .sort((a, b) => {
-                  return strcalc(b) - strcalc(a);
-                })
-                .map((applier) => (
-                  <ListItem
-                    className={classes.items}
-                    sx={{ borderRaduis: "10px" }}
-                    secondaryAction={
-                      props.offerdetails.acceptedAppliers.some(
-                        (ele) => ele._id === applier._id
-                      ) ? (
-                        <ListItemText className={classes.disecion}>
-                          accepted
-                        </ListItemText>
-                      ) : props.offerdetails.regectedAppliers.some(
+          <List className={classes.appliersList}>
+            {appliers && showAppliers
+              ? appliers
+                  .sort((a, b) => {
+                    return strcalc(b) - strcalc(a);
+                  })
+                  .map((applier) => (
+                    <ListItem
+                      className={classes.items}
+                      sx={{ borderRaduis: "10px" }}
+                      secondaryAction={
+                        props.offerdetails.acceptedAppliers.some(
                           (ele) => ele._id === applier._id
                         ) ? (
-                        <ListItemText className={classes.disecion}>
-                          regected
-                        </ListItemText>
-                      ) : (
-                        <section className={classes.disecion}>
-                          <IconButton
-                            className={classes.add}
-                            onClick={() => acceptHandler(applier._id)}
-                          >
-                            <HowToRegRounded></HowToRegRounded>
-                          </IconButton>
-                          <IconButton
-                            className={classes.remove}
-                            onClick={() => regectHandler(applier._id)}
-                          >
-                            <ClearRoundedIcon></ClearRoundedIcon>
-                          </IconButton>
-                          {/* <TiUserAddOutline />
+                          <ListItemText className={classes.disecion}>
+                            accepted
+                          </ListItemText>
+                        ) : props.offerdetails.regectedAppliers.some(
+                            (ele) => ele._id === applier._id
+                          ) ? (
+                          <ListItemText className={classes.disecion}>
+                            regected
+                          </ListItemText>
+                        ) : (
+                          <section className={classes.disecion}>
+                            <IconButton
+                              className={classes.add}
+                              onClick={() => acceptHandler(applier._id)}
+                            >
+                              <HowToRegRounded></HowToRegRounded>
+                            </IconButton>
+                            <IconButton
+                              className={classes.remove}
+                              onClick={() => regectHandler(applier._id)}
+                            >
+                              <ClearRoundedIcon></ClearRoundedIcon>
+                            </IconButton>
+                            {/* <TiUserAddOutline />
                     <TiUserDeleteOutline />{" "} */}
-                        </section>
-                      )
-                    }
-                    disablePadding
-                  >
-                    <ListItemButton
-                      key={applier._id}
-                      className={classes.applierCard}
-                      onClick={() => {
-                        navigate(`/profile/${applier._id}`);
-                      }}
+                          </section>
+                        )
+                      }
+                      disablePadding
                     >
-                      <ListItemAvatar>
-                        <Avatar src={applier.image?.url}></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText>{applier.username}</ListItemText>
-                      <ListItemText>{strcalc(applier)}%</ListItemText>
-                    </ListItemButton>
-                    {strcalc(applier) <= 10 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="error"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="warning"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="primary"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="success"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </ListItem>
-                ))
-            : ""}
+                      <ListItemButton
+                        key={applier._id}
+                        className={classes.applierCard}
+                        onClick={() => {
+                          navigate(`/profile/${applier._id}`);
+                        }}
+                      >
+                        <ListItemAvatar>
+                          <Avatar src={applier.image?.url}></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText>{applier.username}</ListItemText>
+                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                      </ListItemButton>
+                      {strcalc(applier) <= 10 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="error"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="warning"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="primary"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="success"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </ListItem>
+                  ))
+              : ""}
+          </List>
           {numOfAppliers == 0 && showAppliers ? (
             <div>
-              <b style={{ color: "red" , fontSize: "14px"}}>Appliers list is empty</b>
+              <b style={{ color: "red", fontSize: "14px" }}>
+                Appliers list is empty
+              </b>
             </div>
           ) : (
             ""
@@ -300,90 +305,94 @@ const SideBar = (props) => {
           {!showAccepted && <KeyboardArrowDownRoundedIcon />}
           {showAccepted && <KeyboardArrowUpRoundedIcon />}
 
-          {acceptedAppliers && showAccepted
-            ? acceptedAppliers
-                .sort((a, b) => {
-                  return strcalc(b) - strcalc(a);
-                })
-                .map((applier) => (
-                  <ListItem
-                    className={classes.items}
-                    sx={{ borderRaduis: "10px" }}
-                    secondaryAction={
-                      <section className={classes.disecion}>
-                        <IconButton
-                          className={classes.remove}
-                          onClick={() => regectHandler(applier._id)}
-                          color="error"
-                          sx={{ marginTop: "-10px" }}
-                        >
-                          <ClearRoundedIcon></ClearRoundedIcon>
-                        </IconButton>
-                        {/* <TiUserAddOutline />
+          <List className={classes.appliersList}>
+            {acceptedAppliers && showAccepted
+              ? acceptedAppliers
+                  .sort((a, b) => {
+                    return strcalc(b) - strcalc(a);
+                  })
+                  .map((applier) => (
+                    <ListItem
+                      className={classes.items}
+                      sx={{ borderRaduis: "10px" }}
+                      secondaryAction={
+                        <section className={classes.disecion}>
+                          <IconButton
+                            className={classes.remove}
+                            onClick={() => regectHandler(applier._id)}
+                            color="error"
+                            sx={{ marginTop: "-10px" }}
+                          >
+                            <ClearRoundedIcon></ClearRoundedIcon>
+                          </IconButton>
+                          {/* <TiUserAddOutline />
                     <TiUserDeleteOutline />{" "} */}
-                      </section>
-                    }
-                    disablePadding
-                  >
-                    <ListItemButton
-                      key={applier._id}
-                      className={classes.applierCard}
-                      onClick={() => {
-                        navigate(`/profile/${applier._id}`);
-                      }}
+                        </section>
+                      }
+                      disablePadding
                     >
-                      <ListItemAvatar>
-                        <Avatar src={applier.image?.url}></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText>{applier.username}</ListItemText>
-                      <ListItemText>{strcalc(applier)}%</ListItemText>
-                    </ListItemButton>
-                    {strcalc(applier) <= 10 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="error"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="warning"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="primary"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="success"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </ListItem>
-                ))
-            : ""}
+                      <ListItemButton
+                        key={applier._id}
+                        className={classes.applierCard}
+                        onClick={() => {
+                          navigate(`/profile/${applier._id}`);
+                        }}
+                      >
+                        <ListItemAvatar>
+                          <Avatar src={applier.image?.url}></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText>{applier.username}</ListItemText>
+                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                      </ListItemButton>
+                      {strcalc(applier) <= 10 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="error"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="warning"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="primary"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="success"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </ListItem>
+                  ))
+              : ""}
+          </List>
           {nAcceptedAppliers == 0 && showAccepted ? (
             <div>
-              <b style={{ color: "red" , fontSize: "14px" }}>Accepted appliers is empty</b>
+              <b style={{ color: "red", fontSize: "14px" }}>
+                Accepted appliers is empty
+              </b>
             </div>
           ) : (
             ""
@@ -412,86 +421,89 @@ const SideBar = (props) => {
           </ToggleButton>
           {!showRejected && <KeyboardArrowDownRoundedIcon />}
           {showRejected && <KeyboardArrowUpRoundedIcon />}
-
-          {rejectedAppliers && showRejected
-            ? rejectedAppliers
-                .sort((a, b) => {
-                  return strcalc(b) - strcalc(a);
-                })
-                .map((applier) => (
-                  <ListItem
-                    className={classes.items}
-                    sx={{ borderRaduis: "10px" }}
-                    secondaryAction={
-                      <IconButton
-                        onClick={() => regectHandler(applier._id)}
-                        color="error"
-                        sx={{ marginTop: "-10px" }}
-                      >
-                        <ClearRoundedIcon></ClearRoundedIcon>
-                      </IconButton>
-                    }
-                    disablePadding
-                  >
-                    <ListItemButton
-                      key={applier._id}
-                      className={classes.applierCard}
-                      onClick={() => {
-                        navigate(`/profile/${applier._id}`);
-                      }}
+          <List className={classes.appliersList}>
+            {rejectedAppliers && showRejected
+              ? rejectedAppliers
+                  .sort((a, b) => {
+                    return strcalc(b) - strcalc(a);
+                  })
+                  .map((applier) => (
+                    <ListItem
+                      className={classes.items}
+                      sx={{ borderRaduis: "10px" }}
+                      secondaryAction={
+                        <IconButton
+                          onClick={() => regectHandler(applier._id)}
+                          color="error"
+                          sx={{ marginTop: "-10px" }}
+                        >
+                          <ClearRoundedIcon></ClearRoundedIcon>
+                        </IconButton>
+                      }
+                      disablePadding
                     >
-                      <ListItemAvatar>
-                        <Avatar src={applier.image?.url}></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText>{applier.username}</ListItemText>
-                      <ListItemText>{strcalc(applier)}%</ListItemText>
-                    </ListItemButton>
-                    {strcalc(applier) <= 10 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="error"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="warning"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="primary"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
-                      <LinearProgress
-                        className={classes.linearProgress}
-                        variant="determinate"
-                        value={strcalc(applier)}
-                        color="success"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </ListItem>
-                ))
-            : ""}
+                      <ListItemButton
+                        key={applier._id}
+                        className={classes.applierCard}
+                        onClick={() => {
+                          navigate(`/profile/${applier._id}`);
+                        }}
+                      >
+                        <ListItemAvatar>
+                          <Avatar src={applier.image?.url}></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText>{applier.username}</ListItemText>
+                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                      </ListItemButton>
+                      {strcalc(applier) <= 10 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="error"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 10 && strcalc(applier) <= 50 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="warning"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 50 && strcalc(applier) <= 75 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="primary"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {strcalc(applier) > 75 && strcalc(applier) <= 100 ? (
+                        <LinearProgress
+                          className={classes.linearProgress}
+                          variant="determinate"
+                          value={strcalc(applier)}
+                          color="success"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </ListItem>
+                  ))
+              : ""}
+          </List>
           {nRejectedAppliers == 0 && showRejected ? (
             <div>
-              <b style={{ color: "red" , fontSize: "14px"}}>Rejected appliers is empty</b>
+              <b style={{ color: "red", fontSize: "14px" }}>
+                Rejected appliers is empty
+              </b>
             </div>
           ) : (
             ""
