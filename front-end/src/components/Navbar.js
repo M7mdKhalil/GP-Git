@@ -83,7 +83,7 @@ const Navbar = (props) => {
           <div className={classes.profile}>
             <div
               onClick={() => {
-                window.location = `/profile/${showUser._id}`;
+                window.location = `/intro/${showUser._id}`;
               }}
             >
               {/* <img
