@@ -44,16 +44,16 @@ const FormFilter = (props) => {
     const func = async () => {
       const newOffers = await offers
         ?.reverse()
-        .filter((offer) =>
-          offer.title.toLowerCase().includes(title) &&
-          offer.location.toLowerCase().includes(location) &&
-          offer.author?.username.toLowerCase().includes(author) &&
-          offer.date.includes(date) &&
-          offerStatus !== undefined
-            ? offerStatus == "open"
-              ? offer.available == true
-              : offer.available == false
-            : offer.available == true || offer.available == false
+        .filter(
+          (offer) =>
+            offer.title.toLowerCase().includes(title) &&
+            offer.location.toLowerCase().includes(location) &&
+            offer.author?.username.toLowerCase().includes(author) &&
+            (offerStatus !== undefined
+              ? offerStatus == "open"
+                ? offer.available == true
+                : offer.available == false
+              : offer.available == true || offer.available == false)
         );
       dispatch(filteredActions.addfilteredoffer(newOffers));
     };
@@ -121,10 +121,14 @@ const FormFilter = (props) => {
                 }}
               />
               <TextButton
+                value={undefined}
                 type="button"
                 startIcon={<ClearIcon />}
                 onClick={() => {
                   setOfferStatus(undefined);
+                  setTitle("")
+                  setLocation("")
+                  setAuthor("")
                 }}
               >
                 Clear

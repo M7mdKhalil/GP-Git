@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
+import { PrimaryButton, TextButton } from "./UI/CustomButton";
 const Intro = () => {
     const showUser = useSelector((state) => state.user.userDetails);
 
@@ -52,14 +53,14 @@ const Intro = () => {
             <div className="i-left">
                 <div className="i-name">
                     {/* yahan change hy darkmode ka */}
-                    <span style={{ color: darkMode ? "white" : "" }}>Hy! I Am</span>
+                    {/* <span style={{ color: darkMode ? "white" : "" }}>Hy! I Am</span> */}
                     <span>{userdetails?.username}</span>
                     <span>
                         {userdetails?.bio}
                     </span>
                 </div>
-                <Link to="contact" smooth={true} spy={true}>
-                    <button className="button i-button" onClick={profHandler}>Show CV</button>
+                <Link to="contact" className="button i-button" smooth={true} spy={true}>
+                    <PrimaryButton  onClick={profHandler}>Show CV</PrimaryButton>
                 </Link>
                 {/* social icons */}
                 <div className="i-icons">

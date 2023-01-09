@@ -30,8 +30,8 @@ import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRound
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -59,15 +59,14 @@ const SideBar = (props) => {
   const [showRejected, setShowRejected] = useState(false);
 
   const length = props.offerdetails?.skills?.length;
-    const acceptHandler = async (applierid) => {
-        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
-        toast.promise(
-            resolveAfter3Sec,
-            {
-                pending: 'Accept Loading',
-                success:'Accept successfully'
-            }
-        )
+  const acceptHandler = async (applierid) => {
+    const resolveAfter3Sec = new Promise((resolve) =>
+      setTimeout(resolve, 1000)
+    );
+    toast.promise(resolveAfter3Sec, {
+      pending: "Accept Loading",
+      success: "Accept successfully",
+    });
     const userstate = await post("/user/acceptstate", {
       applierid,
       offerid: props.offerid,
@@ -83,15 +82,14 @@ const SideBar = (props) => {
     }
   };
 
-    const regectHandler = async (applierid) => {
-        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
-        toast.promise(
-            resolveAfter3Sec,
-            {
-                pending: 'Regect Loading',
-                success: 'Regect successfully'
-            }
-        )
+  const regectHandler = async (applierid) => {
+    const resolveAfter3Sec = new Promise((resolve) =>
+      setTimeout(resolve, 1000)
+    );
+    toast.promise(resolveAfter3Sec, {
+      pending: "Regect Loading",
+      success: "Regect successfully",
+    });
     const userstate = await post("/user/acceptstate", {
       applierid,
       offerid: props.offerid,
@@ -104,31 +102,30 @@ const SideBar = (props) => {
     } else {
       setAcceptState("something went wrong");
     }
-    };
+  };
 
-    const canceledHandler = async (applierid, state) => {
-        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
-        toast.promise(
-            resolveAfter3Sec,
-            {
-                pending: 'Canceled loading',
-                success: 'Canceled successfully'
-            }
-        )
-        const userstate = await post("/user/acceptstate", {
-            applierid,
-            offerid: props.offerid,
-            companyid: props.companyid,
-            state,
-            cancle:'c'
-        });
-        if (userstate.ok) {
-            setAcceptState("canceled succisfully");
-            window.location = `/offer/${props.offerid}`;
-        } else {
-            setAcceptState("something went wrong");
-        }
-    };
+  const canceledHandler = async (applierid, state) => {
+    const resolveAfter3Sec = new Promise((resolve) =>
+      setTimeout(resolve, 1000)
+    );
+    toast.promise(resolveAfter3Sec, {
+      pending: "Canceled loading",
+      success: "Canceled successfully",
+    });
+    const userstate = await post("/user/acceptstate", {
+      applierid,
+      offerid: props.offerid,
+      companyid: props.companyid,
+      state,
+      cancle: "c",
+    });
+    if (userstate.ok) {
+      setAcceptState("canceled succisfully");
+      window.location = `/offer/${props.offerid}`;
+    } else {
+      setAcceptState("something went wrong");
+    }
+  };
 
   const strcalc = (applier) => {
     let calc = 0;
@@ -140,7 +137,7 @@ const SideBar = (props) => {
         : 0;
     });
     calc = (calc / length) * 100.0;
-      
+
     return parseInt(calc);
   };
 
@@ -267,7 +264,9 @@ const SideBar = (props) => {
                           <Avatar src={applier.image?.url}></Avatar>
                         </ListItemAvatar>
                         <ListItemText>{applier.username}</ListItemText>
-                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                        <ListItemText>
+                          {strcalc(applier) === NaN && `${strcalc(applier)}%`}
+                        </ListItemText>
                       </ListItemButton>
                       {strcalc(applier) <= 10 ? (
                         <LinearProgress
@@ -361,7 +360,9 @@ const SideBar = (props) => {
                         <section className={classes.disecion}>
                           <IconButton
                             className={classes.remove}
-                            onClick={() => regectHandler(applier._id)}
+                            onClick={() =>
+                              canceledHandler(applier._id, "accept")
+                            }
                             color="error"
                             sx={{ marginTop: "-10px" }}
                           >
@@ -384,7 +385,9 @@ const SideBar = (props) => {
                           <Avatar src={applier.image?.url}></Avatar>
                         </ListItemAvatar>
                         <ListItemText>{applier.username}</ListItemText>
-                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                        <ListItemText>
+                          {strcalc(applier) === NaN && `${strcalc(applier)}%`}
+                        </ListItemText>
                       </ListItemButton>
                       {strcalc(applier) <= 10 ? (
                         <LinearProgress
@@ -475,7 +478,7 @@ const SideBar = (props) => {
                       sx={{ borderRaduis: "10px" }}
                       secondaryAction={
                         <IconButton
-                          onClick={() => regectHandler(applier._id)}
+                          onClick={() => canceledHandler(applier._id, "regect")}
                           color="error"
                           sx={{ marginTop: "-10px" }}
                         >
@@ -495,7 +498,9 @@ const SideBar = (props) => {
                           <Avatar src={applier.image?.url}></Avatar>
                         </ListItemAvatar>
                         <ListItemText>{applier.username}</ListItemText>
-                        <ListItemText>{strcalc(applier)}%</ListItemText>
+                        <ListItemText>
+                          {strcalc(applier) === NaN && `${strcalc(applier)}%`}
+                        </ListItemText>
                       </ListItemButton>
                       {strcalc(applier) <= 10 ? (
                         <LinearProgress
@@ -552,8 +557,8 @@ const SideBar = (props) => {
           )}
           {acceptState && <h3>{acceptState}</h3> && setAcceptState("")}
         </div>
-          )}
-          <ToastContainer />
+      )}
+      <ToastContainer />
     </div>
   );
 };

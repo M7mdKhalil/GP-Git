@@ -21,15 +21,15 @@
 }
 
     .i-name > :nth-child(1) {
-        color: var(--black);
+        color: var(--dark);
         font-weight: bold;
         font-size: 3rem;
     }
 
     .i-name > :nth-child(2) {
-        color: var(--orange);
+        color: var(--black);
         font-weight: bold;
-        font-size: 3rem;
+        font-size: 1.5rem;
     }
 
     .i-name > :nth-child(3) {
@@ -40,8 +40,10 @@
     }
 
 .i-button {
-    width: 6rem;
+    width: 100%;
     height: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .i-icons {
