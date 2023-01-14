@@ -58,5 +58,3 @@ try {
 app.listen(portNumber, () => {
   console.log(`Back-End is running on port ${portNumber}`);
 })
-
-console.log(new Date())

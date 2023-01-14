@@ -26,7 +26,7 @@ export function PrimaryButton(props) {
         startIcon={props.startIcon}
         sx={props.sx}
         className={props.className}
-
+        style={props.style}
       >
         {props.children}
       </ColorButton>
@@ -59,6 +59,7 @@ export function TextButton(props) {
         endIcon={props.endIcon}
         startIcon={props.startIcon}
         sx={props.sx}
+        component="label"
       >
         {props.children}
       </Button>

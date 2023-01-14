@@ -46,10 +46,10 @@ const Card = (props) => {
           width="70"
           height="70"
         ></img>
+      ) : props.cardImage ? (
+        <Avatar></Avatar>
       ) : (
-        <Avatar className={classes.cardAvatar}>
-          {props.author.username[0]}
-        </Avatar>
+        ""
       )}
       <div className={classes.cardBody}>
         <Chip

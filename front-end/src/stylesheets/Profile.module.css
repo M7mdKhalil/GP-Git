@@ -63,7 +63,7 @@
 }
 
 .container .cvCard {
-  background: white;
+  background: var(--light);
   width: 100%;
   min-height: 50vh;
   padding: 20px;

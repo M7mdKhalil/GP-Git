@@ -9,6 +9,10 @@ const uploade = multer({storage})
 
 router.get("/",uploade.array('image'),offers.getAllOffers);
 
+router.get("/:id/offers",offers.getCompanyOffers);
+
+router.get("/:id/userOffers",offers.getUserOffers);
+
 router.post("/",isLogged,uploade.array('image'),offers.addOffer);
 
 router.put("/",offers.editOffer);

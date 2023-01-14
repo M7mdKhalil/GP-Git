@@ -93,16 +93,14 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 
 export default function InputArea(props) {
   return (
-    <div>
-      <CustomInput
-        aria-label="Demo input"
-        label={props.label}
-        multiline
-        placeholder={props.placeholder}
-        value={props.value}
-        onChange={props.onChange}
-        sx={props.sx}
-      />
-    </div>
+    <CustomInput
+      aria-label="Demo input"
+      label={props.label}
+      multiline
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={props.onChange}
+      sx={props.sx}
+    />
   );
 }

@@ -6,8 +6,8 @@ import { useSessionStorage } from "react-use-storage";
 import Button from "../Button";
 import Input from "../Input";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Badge,
   InputAdornment,
@@ -16,7 +16,7 @@ import {
   TextField,
 } from "@mui/material";
 import HorizontalLinearStepper from "../UI/Stepper";
-import { PrimaryButton } from "../UI/CustomButton";
+import { PrimaryButton, TextButton } from "../UI/CustomButton";
 import InputArea from "../UI/InputArea";
 import AutoCompleteInput from "../UI/AutoCompleteInput";
 import AddChip from "../UI/AddChip";
@@ -43,7 +43,7 @@ const Register = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setemail] = useState("");
   const [cv, setcv] = useState({
-    collage: undefined,
+    collage: collages[0],
     department: undefined,
     country: undefined,
     skill: [],
@@ -54,6 +54,7 @@ const Register = (props) => {
   const [image, setimage] = useState("");
   const [bio, SetBio] = useState("");
   const [kind, setkind] = useState("");
+  const [cvFile, setCvFile] = useState("");
   const [stepNow, setStepNow] = useState(-1);
 
   const imageHandler = (e) => {
@@ -74,19 +75,18 @@ const Register = (props) => {
     myWidget.open();
   };
 
-    const submitHandler = async (event) => {
-        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 3000));
-        toast.promise(
-            resolveAfter3Sec,
-            {
-                pending: 'Create New Account',
-            }
-        )
+  const submitHandler = async (event) => {
+    const resolveAfter3Sec = new Promise((resolve) =>
+      setTimeout(resolve, 3000)
+    );
+    toast.promise(resolveAfter3Sec, {
+      pending: "Create New Account",
+    });
     event.preventDefault();
     const userData = await post("/user", {
       username,
-        email,
-        bio,
+      email,
+      bio,
       cv,
       password,
       image,
@@ -196,10 +196,13 @@ const Register = (props) => {
                         <AutoCompleteInput
                           label="Univarsity / Collage"
                           options={collages}
-                          defaultValue={cv.collage}
+                          value={cv.collage}
                           onChange={(e, newOption) => {
                             setcv({ ...cv, collage: newOption });
                           }}
+                          renderInput={(params) => (
+                            <TextField {...params} label="Controllable" />
+                          )}
                         ></AutoCompleteInput>
                         <AutoCompleteInput
                           label="Department"
@@ -216,7 +219,7 @@ const Register = (props) => {
                           onChange={(e) => setphonenumber(e.target.value)}
                         ></TextField>
                         <AutoCompleteInput
-                          label="Country"
+                          label="City"
                           options={countries}
                           defaultValue={cv.country}
                           onChange={(e, newOption) => {
@@ -274,10 +277,30 @@ const Register = (props) => {
                       <InputArea
                         placeholder="BIO"
                         value={bio}
+                        sx={{ width: 900 }}
                         onChange={(e) => {
                           SetBio(e.target.value);
                         }}
                       ></InputArea>
+                    )
+                  : ""}
+
+                {stepNow
+                  ? stepNow == 2 && (
+                      <TextButton
+                        sx={{ display: "flex", marginTop: 10, zIndex: "9" }}
+                      >
+                        <input
+                          multiple
+                          type="file"
+                          style={{ zIndex: "20" }}
+                          hidden
+                          onChange={(file) => {
+                            setCvFile(file);
+                          }}
+                        />
+                        Upload your cv file
+                      </TextButton>
                     )
                   : ""}
               </div>
@@ -289,13 +312,49 @@ const Register = (props) => {
             </HorizontalLinearStepper>
           </form>
         </div>
-          )}
-          <ToastContainer />
+      )}
+      <ToastContainer />
     </>
   );
 };
 
-const collages = [{ label: "PTUK" }, { label: "Najah" }];
-const departments = [{ label: "" }, { label: "Computer engineering" }];
-const countries = [{ label: "" }, { label: "Palestine" }];
+const collages = [
+  { label: "Palestine Technical University khadoori" },
+  { label: "An-Najah National University" },
+  { label: "Birzeit University" },
+  { label: "Hebron University" },
+  { label: "Palestine Polytechnic University" },
+  { label: "Arab American University" },
+  { label: "Bethlehem University" },
+  { label: "Al-Quds Open University" },
+  { label: "Modern University Collage" },
+  { label: "al zaytona University" },
+];
+const departments = [
+  { label: "" },
+  { label: "Computer Systems Engineering" },
+  { label: " Electrical Engineering " },
+  { label: "Mechanical Engineering " },
+  { label: " Electrical Eng-Industrial Automation" },
+  { label: "Communications Engineering Technology" },
+  { label: "Building Engineering" },
+  { label: "Automative Engineering" },
+  { label: "Physiscs" },
+  { label: " Computer Science" },
+  { label: "Information System" },
+];
+const countries = [
+  { label: "" },
+  { label: "Jerusalem" },
+  { label: "Hebron" },
+  { label: "Bethlehem" },
+  { label: "Nablus" },
+  { label: "Jericho" },
+  { label: "Tulkarm" },
+  { label: "Ramallah" },
+  { label: "Jenin" },
+  { label: "selfit" },
+  { label: "Tubas" },
+  { label: "Qalqilya" },
+];
 export default Register;

@@ -8,6 +8,18 @@ module.exports.getAllOffers = async (req, res) => {
   res.send(allOffers);
 };
 
+module.exports.getCompanyOffers = async (req, res) => {
+  const id = req.params.id;
+  const offers = await Offer.find({author: id});
+  res.send({ offers, ok: true });
+};
+
+module.exports.getUserOffers = async (req, res) => {
+  const id = req.params.id;
+  const offers = await Offer.find({appliers: id});
+  res.send({ offers, ok: true });
+};
+
 module.exports.addOffer = async (req, res) => {
   const { title, description, location, author, requirmentSkills, endDate } =
     req.body;

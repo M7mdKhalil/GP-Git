@@ -32,7 +32,7 @@ const Home = () => {
             location={offer.location}
             author={offer.author}
             date={offer.date.substring(0, 10)} 
-            visible={!offer.appliers.includes(userid)}
+            // visible={!offer.appliers.includes(userid)}
             length={offer.appliers.length}
             image={offer.author.image?.url}
             available={offer.available}

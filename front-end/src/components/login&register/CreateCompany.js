@@ -231,7 +231,5 @@ const CreateCompany = (props) => {
   );
 };
 
-const collages = [{ label: "PTUK" }, { label: "Najah" }];
-const departments = [{ label: "" }, { label: "Computer engineering" }];
-const countries = [{ label: "" }, { label: "Palestine" }];
+
 export default CreateCompany;

@@ -21,7 +21,6 @@ import CreateCompany from "./components/login&register/CreateCompany";
 import Intro from "./components/intro";
 
 function App() {
-  console.log(new Date());
 
   return (
     <div className="App">

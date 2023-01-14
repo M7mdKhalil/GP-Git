@@ -76,9 +76,13 @@
   animation: fadeInOpacity 1 ease-out 0.2s;
 }
 
-.register .info div * {
-  gap: 0;
+.register .info .lastStep{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
+
 
 .addChip {
   width: 100%;
