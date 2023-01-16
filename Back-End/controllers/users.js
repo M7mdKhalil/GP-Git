@@ -100,8 +100,8 @@ module.exports.userRegisterForm = async (req, res,next) => {
 };
 
 module.exports.loginForm = async (req, res) => {
-  const { username, password } = req.body;
-  const userfound = await User.findOne({ username });
+    const { username, password } = req.body;
+    const userfound = await User.findOne({ "username": { $regex: username, $options: "i" } });
     if (userfound) {
         const passwordiscorrect = bcrypt.compareSync(password, userfound.password);
         if (passwordiscorrect) {
@@ -120,7 +120,7 @@ module.exports.loginForm = async (req, res) => {
             res.send({ ok: false, msg: "wrong password", userfound });
         }
     } else {
-        const userfound = await Company.findOne({ username });
+        const userfound = await Company.findOne({ "username": { $regex: username, $options: "i" } });
         if (userfound) {
             const passwordiscorrect = bcrypt.compareSync(
                 password,

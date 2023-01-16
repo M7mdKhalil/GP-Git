@@ -55,8 +55,8 @@ const Login = (props) => {
         e.preventDefault();
         functionCalled = false;
     const controller = new AbortController();
-    const signal = controller.signal;
-    const userData = await post("/user/login", { username, password });
+        const signal = controller.signal;
+        const userData = await post("/user/login", { username: username.toLowerCase(), password });
     setstateMsg(userData?.msg);
         if (userData?.ok) {
       setislogin(true);
