@@ -95,6 +95,7 @@ const Profile = () => {
                 { type: "github", value: "github.com/404" },
               ],
             }}
+            
             sections={[
               {
                 type: "text",
