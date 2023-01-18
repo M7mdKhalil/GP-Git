@@ -56,15 +56,18 @@ const Login = (props) => {
         functionCalled = false;
     const controller = new AbortController();
         const signal = controller.signal;
-        const userData = await post("/user/login", { username: username.toLowerCase(), password });
+        const userData = await post("/user/login", { username: username, password });
     setstateMsg(userData?.msg);
         if (userData?.ok) {
       setislogin(true);
       setuserid(userData._id);
       setUsername(userData.username);
       setkind(userData.kind);
-      dispatch(fetchUser({ userid: userData._id }));
-      navigate("/");
+            dispatch(fetchUser({ userid: userData._id }));
+            if (userData?.userfound.kind === 'admin') { navigate('/dashboard') }
+            else {
+                navigate("/");
+            }
       setstateMsg("");
     }
     return controller.abort();

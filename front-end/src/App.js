@@ -19,6 +19,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import TextEditor from "./components/UI/TextEditor";
 import CreateCompany from "./components/login&register/CreateCompany";
 import Intro from "./components/intro";
+import Dashboard from "./components/Admin/Dashboard";
+import Offers from "./components/offer/Offers";
 
 function App() {
 
@@ -28,13 +30,15 @@ function App() {
 
       <Routes>
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/" element={<Home />}></Route>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/intro/:id" element={<Intro />}></Route>
         <Route path="/profile/:id" element={<Profile />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/company" element={<CreateCompany />}></Route>
         <Route path="/offer/:id" element={<OfferDetails />}></Route>
+              <Route path="/offers/:id" element={<Offers/>}></Route>
         {/* <Route path="/addoffer" element={<AddOffer />}></Route> */}
         <Route path="/editoffer/:id" element={<EditOffer />}></Route>
       </Routes>

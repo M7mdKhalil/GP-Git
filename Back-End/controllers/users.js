@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const Admin = require("../models/admin");
 
 module.exports.userDetails = async (req, res) => {
+    console.log('hiiiiiii');
     console.log(req.params.id);
     const user = await User.findById(req.params.id).populate('offers').populate('acceptedOffers').populate('regectedOffers');
     if (user) {
@@ -12,9 +13,10 @@ module.exports.userDetails = async (req, res) => {
         res.send(user);
     }
     else {
-        const comp = await Company.findById(req.params.id);
+        const comp = await Company.findById(req.params.id).populate('offers');
         if (comp) {
-            res.send(comp);
+            console.log('comp', comp.username)
+            res.send( comp );
         }
         else {
             const admin = await Admin.findById(req.params.id);

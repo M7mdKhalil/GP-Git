@@ -45,11 +45,11 @@ const Intro = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userdetails = await axios
+      const userdetail = await axios
         .get(`http://localhost:5000/user/${params.id}`)
         .then(function (response) {
           // handle success
-          setuserdetails(response.data);
+            setuserdetails(response.data);
         });
       const companyoffers = await get(`/offer/${params.id}/offers`);
       console.log(companyoffers);
@@ -83,12 +83,14 @@ const Intro = () => {
           <span>{userdetails?.bio}</span>
         </div>
         <Link to="contact" className="button i-button" smooth={true} spy={true}>
-          {userdetails?.kind == "user" && (
-            <PrimaryButton onClick={profHandler}>Show CV</PrimaryButton>
-          )}
-          {userdetails?.kind == "company" && (
-            <PrimaryButton>{userdetails?.username} offers</PrimaryButton>
-          )}
+          {userdetails?.kind == "user" && (<>
+                      <PrimaryButton onClick={profHandler}>Show CV</PrimaryButton>
+                      {userdetails?._id === showUser?._id && < PrimaryButton onClick={() => { window.location = `/offers/${showUser._id}` }}>Offers</PrimaryButton>}
+                  </>)}
+                  {userdetails?.kind == "company" && (
+                      <>
+                          <PrimaryButton onClick={() => { window.location = `/offers/${userdetails._id}` } }>{userdetails?.username} offers</PrimaryButton>
+                      </>)}
         </Link>
         {/* social icons */}
         <div className="i-icons">
