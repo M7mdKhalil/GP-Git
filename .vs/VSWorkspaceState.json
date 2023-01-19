@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Back-End",
-    "\\Back-End\\models",
+    "\\Back-End\\controllers",
     "\\Back-End\\routs",
     "\\front-end",
     "\\front-end\\src",
@@ -11,6 +11,6 @@
     "\\front-end\\src\\components\\offer",
     "\\front-end\\src\\stylesheets"
   ],
-  "SelectedNode": "\\Back-End\\controllers\\users.js",
+  "SelectedNode": "\\front-end\\src\\components\\intro.js",
   "PreviewInSolutionExplorer": false
 }

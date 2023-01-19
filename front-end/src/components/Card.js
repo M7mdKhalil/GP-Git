@@ -25,8 +25,8 @@ const Card = (props) => {
 
   const DeleteOfferCloseHandler = () => {
     setDeleteOfferShow(false);
-  };
-
+    };
+    console.log(props.image);
   const DeleteOfferShowHandler = () => {
     setDeleteOfferShow(true);
   };

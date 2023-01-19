@@ -7,9 +7,9 @@ const Admin = require("../models/admin");
 module.exports.userDetails = async (req, res) => {
     console.log('hiiiiiii');
     console.log(req.params.id);
-    const user = await User.findById(req.params.id).populate('offers').populate('acceptedOffers').populate('regectedOffers');
+    const user = await User.findById(req.params.id).populate({ path: 'offers', populate: { path: 'author'}}).populate('acceptedOffers').populate('regectedOffers');
     if (user) {
-        console.log('user', user)
+        console.log('user', user.username)
         res.send(user);
     }
     else {
@@ -20,7 +20,9 @@ module.exports.userDetails = async (req, res) => {
         }
         else {
             const admin = await Admin.findById(req.params.id);
-            res.send(admin);
+            if (admin) {
+                res.send(admin);
+            } else { res.send({}) }
         }
     }
 }
