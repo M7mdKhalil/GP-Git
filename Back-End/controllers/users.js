@@ -4,6 +4,8 @@ const Offer = require("../models/offer");
 const bcrypt = require("bcrypt");
 const Admin = require("../models/admin");
 
+
+
 module.exports.userDetails = async (req, res) => {
     console.log('hiiiiiii');
     console.log(req.params.id);
@@ -24,6 +26,20 @@ module.exports.userDetails = async (req, res) => {
                 res.send(admin);
             } else { res.send({}) }
         }
+    }
+}
+
+module.exports.getallCompanies = async (req, res) => {
+    const companies = await Company.find({});
+    res.send(companies)
+}
+
+module.exports.getcompanyid = async (req, res) => {
+    console.log(req.body.state);
+    const com = await Company.findOne({ username: req.body.state });
+    if (!com) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        console.log(com._id)
+        res.send({ id: com._id,ok:true });
     }
 }
 
@@ -225,6 +241,7 @@ module.exports.unapplyuser = async (req, res) => {
     res.send({ ok: false, msg: "something error" });
   }
 };
+
 
 module.exports.acceptedstate = async (req, res) => {
     const user = await User.findById(req.body.applierid);

@@ -54,6 +54,15 @@
   /* box-shadow: inset 5px 5px 10px rgb(228, 228, 228); */
 }
 
+.myForms{
+        width: 100%;
+        padding: 10px 10px 20px 10px;
+        background: var(--light);
+        /* backdrop-filter: blur(100px); */
+        border-radius: 20px;
+        margin-top:20px
+    }
+
 .container .myForm .applierHeader {
   width: 100%;
   height: 50px;

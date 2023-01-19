@@ -25,6 +25,7 @@ const Offers = (props) => {
     console.log(userdetails?.offers)
     return (
         <Container >
+            <h1>Offers</h1>
                 {userdetails?.offers?.map((offer) => (
                         <Card
                             _id={offer._id}
@@ -77,7 +78,6 @@ const Offers = (props) => {
                 </>
                 )
                 }
-         
         </Container>
         )
 }

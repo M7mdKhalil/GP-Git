@@ -85,12 +85,8 @@ const Intro = () => {
         <Link to="contact" className="button i-button" smooth={true} spy={true}>
           {userdetails?.kind == "user" && (<>
                       <PrimaryButton onClick={profHandler}>Show CV</PrimaryButton>
-                      {userdetails?._id === showUser?._id && < PrimaryButton onClick={() => { window.location = `/offers/${showUser._id}` }}>Offers</PrimaryButton>}
                   </>)}
-                  {userdetails?.kind == "company" && (
-                      <>
-                          <PrimaryButton onClick={() => { window.location = `/offers/${userdetails._id}` } }>{userdetails?.username} offers</PrimaryButton>
-                      </>)}
+                 
         </Link>
         {/* social icons */}
         <div className="i-icons">
@@ -100,9 +96,11 @@ const Intro = () => {
         </div>
       </div>
       {/* right image side */}
-      <div className="i-right">
+          <div className="i-right">
+                  <>
         <img src={Vector1} alt="" />
-        <img src={Vector2} alt="" />
+                  <img src={Vector2} alt="" /></>
+
         <img
           src={userdetails?.image?.url}
           className="item"
@@ -210,27 +208,59 @@ const Intro = () => {
           userdetails?._id === showUser?._id &&
           islogin && (
             <Container>
-              <h2>applied offers</h2>
-              {userOffer ? (
-                userOffer.map((offer) => (
-                  <Card
-                    key={offer._id}
-                    _id={offer._id}
-                    title={offer.title}
-                    location={offer.location}
-                    author={offer.author}
-                    date={offer.date.substring(0, 10)}
-                    // visible={!offer.appliers.includes(userid)}
-                    cardImage={false}
-                    length={offer.appliers.length}
-                    image={offer.author.image?.url}
-                    available={offer.available}
-                    onClick={() => navigate(`/offer/${offer._id}`)}
-                  />
-                ))
-              ) : (
-                <Spinner />
-              )}
+                      <h1>Offers</h1>
+                      {userdetails?.offers?.map((offer) => (
+                          <Card
+                              _id={offer._id}
+                              title={offer.title}
+                              location={offer.location}
+                              author={offer.author}
+                              date={offer.date.substring(0, 10)}
+                              // visible={!offer.appliers.includes(userid)}
+                              length={offer.appliers.length}
+                              image={offer.author.image?.url}
+                              available={offer.available}
+                              onClick={() => navigate(`/offer/${offer._id}`)}
+                          />
+                      ))}
+
+                      {userdetails?.kind === 'user' && (
+                          <>
+                              <h1>accepted offers</h1>
+                              {userdetails?.acceptedOffers?.map(offer => (
+                                  <Card
+                                      key={offer._id}
+                                      _id={offer._id}
+                                      title={offer.title}
+                                      location={offer.location}
+                                      author={offer.author}
+                                      date={offer.date.substring(0, 10)}
+                                      // visible={!offer.appliers.includes(userid)}
+                                      length={offer.appliers.length}
+                                      image={offer.author.image?.url}
+                                      available={offer.available}
+                                      onClick={() => navigate(`/offer/${offer._id}`)}
+                                  />
+                              ))}
+                              <h1>regected offers</h1>
+                              {userdetails?.regectedOffers?.map(offer => (
+                                  <Card
+                                      key={offer._id}
+                                      _id={offer._id}
+                                      title={offer.title}
+                                      location={offer.location}
+                                      author={offer.author}
+                                      date={offer.date.substring(0, 10)}
+                                      // visible={!offer.appliers.includes(userid)}
+                                      length={offer.appliers.length}
+                                      image={offer.author.image?.url}
+                                      available={offer.available}
+                                      onClick={() => navigate(`/offer/${offer._id}`)}
+                                  />
+                              ))}
+                          </>
+                      )
+                      }
             </Container>
           )}
       </div>

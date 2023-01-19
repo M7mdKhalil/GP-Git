@@ -32,6 +32,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SearchCompany from "./SearchCompany";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -143,12 +144,14 @@ const SideBar = (props) => {
 
   return (
     <div className={classes.container}>
-      {usel.pathname === "/" && (
+          {usel.pathname === "/" && (
+              <div >
         <FormFilter
-          className={classes.myForm}
+className={classes.myForm}
           value={props.value}
           sValue={props.sValue}
-        />
+              />
+                  <SearchCompany  /></div>
       )}
       {usel.pathname === "/" && islogin && kind === "company" && (
         <div className={classes.list}>

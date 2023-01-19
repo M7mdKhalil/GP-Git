@@ -26,7 +26,7 @@ const Card = (props) => {
   const DeleteOfferCloseHandler = () => {
     setDeleteOfferShow(false);
     };
-    console.log(props.image);
+
   const DeleteOfferShowHandler = () => {
     setDeleteOfferShow(true);
   };
@@ -39,12 +39,13 @@ const Card = (props) => {
   // console.log(props.image)
   return (
     <div className={classes.container}>
-      {props.image ? (
-        <img
-          className={classes.cardHeader}
-          src={props.image}
-          width="70"
-          height="70"
+          {props.image ? (
+              <img 
+                  className={classes.cardHeader}
+                  src={props.image}
+                  width="70"
+                  height="70"
+                  //onClick={window.location = `/intro/${props._id}`}
         ></img>
       ) : props.cardImage ? (
         <Avatar></Avatar>
