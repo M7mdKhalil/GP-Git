@@ -16,6 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { TextButton } from "./UI/CustomButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import '../stylesheets/image.css'
 
 const LocationOffers = () => {
     const { post } = useFetch("http://localhost:5000");
@@ -45,9 +46,10 @@ const LocationOffers = () => {
             {!showForm && <KeyboardArrowDownRoundedIcon />}
             {showForm && <KeyboardArrowUpRoundedIcon />}
             {showForm && (
+                <div style={{ overflow: 'scroll', height: '100px' }}>
                 <div className={classes.items}>
-                    {offs?.map((off) => (<div onClick={() => { window.location = `/offer/${off._id}` }}><img src={off?.author?.image?.url} /><h1>{off.title}</h1></div>))}
-                </div>
+                        {offs?.map((off) => (<div key={off._id} onClick={() => { window.location = `/offer/${off._id}` }}><img className='img' src={off?.author?.image?.url} /><h1>{off.title}</h1></div>))}
+                    </div></div>
             )}
         </div>
     )

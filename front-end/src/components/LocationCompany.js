@@ -16,7 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { TextButton } from "./UI/CustomButton";
 import ClearIcon from "@mui/icons-material/Clear";
-
+import '../stylesheets/image.css'
 const LocationCompany = () => {
     const { post } = useFetch("http://localhost:5000");
     const [showForm, setShowForm] = useState(false);
@@ -45,9 +45,10 @@ const LocationCompany = () => {
             {!showForm && <KeyboardArrowDownRoundedIcon />}
             {showForm && <KeyboardArrowUpRoundedIcon />}
             {showForm && (
+                <div style={{ overflow: 'scroll', height: '100px' }}>
                 <div className={classes.items}>
-                    {comps?.map((comp) => (<div onClick={() => { window.location=`/intro/${comp._id}` }}><img src={comp?.image?.url} /><h1>{comp.username}</h1></div>))}
-                </div>
+                        {comps?.map((comp) => (<div key={comp._id} onClick={() => { window.location = `/intro/${comp._id}` }}><img className='img' src={comp?.image?.url} /><h1>{comp.username}</h1></div>))}
+                    </div></div>
             )}
         </div>
         )

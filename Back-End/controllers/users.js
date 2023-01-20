@@ -44,21 +44,21 @@ module.exports.getcompanyid = async (req, res) => {
 }
 
 module.exports.companylocation = async (req, res) => {
-    const com = await Company.find({ 'location':{ $regex: req.body.location, $options: "i" } });
+    const com = await Company.find({ 'location': { $regex: req.body.location, $options: "i" } });
     if (!com) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
         res.send({ com , ok: true });
     }
 }
 
 module.exports.offerslocation = async (req, res) => {
-    const off = await Offer.find({ 'location': { $regex: req.body.location, $options: "i" } });
+    const off = await Offer.find({ 'location': { $regex: req.body.location, $options: "i" } }).populate('author');
     if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
         res.send({ off, ok: true });
     }
 }
 
 module.exports.offersskills = async (req, res) => {
-    const off = await Offer.find({ "skills": { $elemMatch: { $in: req.body.skills.label } } });
+    const off = await Offer.find({ "skills": { $elemMatch: { "label": { $in: req.body.skills?.map(x => x.label) } } } }).populate('author');
     if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
         res.send({ off, ok: true });
     }
