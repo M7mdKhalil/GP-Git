@@ -4,25 +4,65 @@ const Offer = require("../models/offer");
 const bcrypt = require("bcrypt");
 const Admin = require("../models/admin");
 
+
+
 module.exports.userDetails = async (req, res) => {
+    console.log('hiiiiiii');
     console.log(req.params.id);
-    const user = await User.findById(req.params.id).populate('offers').populate('acceptedOffers').populate('regectedOffers');
+    const user = await User.findById(req.params.id).populate({ path: 'offers', populate: { path: 'author'}}).populate('acceptedOffers').populate('regectedOffers');
     if (user) {
-        console.log('user', user)
+        console.log('user', user.username)
         res.send(user);
     }
     else {
-        const comp = await Company.findById(req.params.id);
+        const comp = await Company.findById(req.params.id).populate('offers');
         if (comp) {
-            res.send(comp);
+            console.log('comp', comp.username)
+            res.send( comp );
         }
         else {
             const admin = await Admin.findById(req.params.id);
-            res.send(admin);
+            if (admin) {
+                res.send(admin);
+            } else { res.send({}) }
         }
     }
 }
 
+module.exports.getallCompanies = async (req, res) => {
+    const companies = await Company.find({});
+    res.send(companies)
+}
+
+module.exports.getcompanyid = async (req, res) => {
+    console.log(req.body.state);
+    const com = await Company.findOne({ username: req.body.state });
+    if (!com) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        console.log(com._id)
+        res.send({ id: com._id,ok:true });
+    }
+}
+
+module.exports.companylocation = async (req, res) => {
+    const com = await Company.find({ 'location': { $regex: req.body.location, $options: "i" } });
+    if (!com) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ com , ok: true });
+    }
+}
+
+module.exports.offerslocation = async (req, res) => {
+    const off = await Offer.find({ 'location': { $regex: req.body.location, $options: "i" } }).populate('author');
+    if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ off, ok: true });
+    }
+}
+
+module.exports.offersskills = async (req, res) => {
+    const off = await Offer.find({ "skills": { $elemMatch: { "label": { $in: req.body.skills?.map(x => x.label) } } } }).populate('author');
+    if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ off, ok: true });
+    }
+}
 
 module.exports.companyRegisterForm = async (req, res) => {
     const { username, password, email, image, location, bio, phonenumber } = req.body;
@@ -221,6 +261,7 @@ module.exports.unapplyuser = async (req, res) => {
     res.send({ ok: false, msg: "something error" });
   }
 };
+
 
 module.exports.acceptedstate = async (req, res) => {
     const user = await User.findById(req.body.applierid);

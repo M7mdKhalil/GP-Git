@@ -68,8 +68,11 @@ const Login = (props) => {
       setuserid(userData._id);
       setUsername(userData.username);
       setkind(userData.kind);
-      dispatch(fetchUser({ userid: userData._id }));
-      navigate("/");
+            dispatch(fetchUser({ userid: userData._id }));
+            if (userData?.userfound.kind === 'admin') { navigate('/dashboard') }
+            else {
+                navigate("/");
+            }
       setstateMsg("");
     }
     return controller.abort();
