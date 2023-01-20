@@ -43,6 +43,19 @@ module.exports.getcompanyid = async (req, res) => {
     }
 }
 
+module.exports.companylocation = async (req, res) => {
+    const com = await Company.find({ 'location':{ $regex: req.body.location, $options: "i" } });
+    if (!com) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ com , ok: true });
+    }
+}
+
+module.exports.offerslocation = async (req, res) => {
+    const off = await Offer.find({ 'location': { $regex: req.body.location, $options: "i" } });
+    if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ off, ok: true });
+    }
+}
 
 module.exports.companyRegisterForm = async (req, res) => {
     const { username, password, email, image, location, bio, phonenumber } = req.body;

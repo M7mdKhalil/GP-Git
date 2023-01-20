@@ -33,6 +33,8 @@ import LinearProgress, {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCompany from "./SearchCompany";
+import LocationCompany from "./LocationCompany";
+import LocationOffers from "./LocationOffers";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -150,8 +152,8 @@ const SideBar = (props) => {
 className={classes.myForm}
           value={props.value}
           sValue={props.sValue}
-              />
-                  <SearchCompany  /></div>
+                  />
+                  <SearchCompany /> <LocationCompany /> <LocationOffers/></div>
       )}
       {usel.pathname === "/" && islogin && kind === "company" && (
         <div className={classes.list}>

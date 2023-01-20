@@ -12,6 +12,11 @@ router.get("/:id", users.userDetails);
 
 router.post("/company", uploade.single('image'), users.companyRegisterForm);
 
+router.post("/companylocation", users.companylocation);
+
+router.post("/offerlocation", users.offerslocation);
+
+
 router.post("/getcompanyid", users.getcompanyid);
 
 router.post("/admin", uploade.single('image'), users.addadmin);
