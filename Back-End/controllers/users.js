@@ -139,6 +139,46 @@ module.exports.userRegisterForm = async (req, res,next) => {
   }
 };
 
+module.exports.editProfile = async (req, res, next) => {
+    console.log('yessssss')
+    const {
+        username,
+        password,
+        email,
+        bio,
+        cv,
+        image,
+        location,
+        phonenumber,
+        kind,
+        id
+    } = req.body;
+    if (kind === 'user') {
+        const user = await User.updateOne({ id }, {
+            $set: {
+                username,
+                email,
+                bio,
+                cv,
+                image,
+                location,
+                phonenumber
+            }
+        })
+    }
+    if (kind === 'company') {
+        const company = await Company.updateOne({ id }, {
+            $set: {
+                username,
+                email,
+                bio,
+                image,
+                location:cv?.city?.label,
+                phonenumber
+            }
+        }) }
+};
+
 module.exports.loginForm = async (req, res) => {
     const { username, password } = req.body;
     const userfound = await User.findOne({ "username": { $regex: username, $options: "i" } });
