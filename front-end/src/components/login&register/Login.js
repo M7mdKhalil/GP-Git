@@ -22,7 +22,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 
 let functionCalled = false;
 
@@ -68,11 +68,12 @@ const Login = (props) => {
       setuserid(userData._id);
       setUsername(userData.username);
       setkind(userData.kind);
-            dispatch(fetchUser({ userid: userData._id }));
-            if (userData?.userfound.kind === 'admin') { navigate('/dashboard') }
-            else {
-                navigate("/");
-            }
+      dispatch(fetchUser({ userid: userData._id }));
+      if (userData?.userfound.kind === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
+      }
       setstateMsg("");
     }
     return controller.abort();

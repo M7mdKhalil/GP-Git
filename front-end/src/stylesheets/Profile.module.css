@@ -70,3 +70,8 @@
   margin: 40px 10px;
   border-radius: 10px;
 }
+
+.myCv {
+  background: var(--dark) !important;
+  color: var(--primary) !important;
+}

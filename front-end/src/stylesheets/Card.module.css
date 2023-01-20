@@ -26,6 +26,7 @@
   z-index: 1;
   transition: 0.2s;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .container .cardAvatar {
@@ -74,7 +75,9 @@
 }
 
 .container:hover .cardHeader {
-  transform: scale(0);
+  box-shadow: none;
+  transform: scale(0.6);
+  top: -15px;
 }
 .container:hover .cardAvatar {
   transform: scale(0);
@@ -188,7 +191,7 @@
   color: red;
 }
 
-.container .cardBody .available{
+.container .cardBody .available {
   position: absolute;
   font-size: 10px;
   top: -15px;
