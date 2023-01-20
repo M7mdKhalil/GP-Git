@@ -19,8 +19,10 @@ import { PrimaryButton, TextButton } from "../UI/CustomButton";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 let functionCalled = false;
 
@@ -51,14 +53,17 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        functionCalled = false;
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    functionCalled = false;
     const controller = new AbortController();
-        const signal = controller.signal;
-        const userData = await post("/user/login", { username: username.toLowerCase(), password });
+    const signal = controller.signal;
+    const userData = await post("/user/login", {
+      username: username.toLowerCase(),
+      password,
+    });
     setstateMsg(userData?.msg);
-        if (userData?.ok) {
+    if (userData?.ok) {
       setislogin(true);
       setuserid(userData._id);
       setUsername(userData.username);
@@ -70,32 +75,33 @@ const Login = (props) => {
     return controller.abort();
   };
 
-    const passwordHandler = async (e) => {
-        e.preventDefault();
+  const passwordHandler = async (e) => {
+    e.preventDefault();
     const userData = await post("/user/login", { username, password });
-        setclick(true);
-        if (!userData.userfound) {
-            toast.error(`${username} not found`, {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        } else {
-            toast.info('we sent a massege to your email', {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            }); }
+    setclick(true);
+    if (!userData.userfound) {
+      toast.error(`${username} not found`, {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.info("we sent a massege to your email", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
     emailjs
       .send(
         "service_6vqix66",
@@ -115,23 +121,22 @@ const Login = (props) => {
           console.log(error.text);
         }
       );
-    };
-    const msgHandler = () =>
-    {
-        if (!functionCalled) {
-            toast.error(stateMsg, {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            functionCalled = true;
-        }
+  };
+  const msgHandler = () => {
+    if (!functionCalled) {
+      toast.error(stateMsg, {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      functionCalled = true;
     }
+  };
   return (
     <>
       {islogin ? (
@@ -145,6 +150,13 @@ const Login = (props) => {
               sx={{ width: "100%" }}
               onChange={(e) => {
                 setusername(e.target.value);
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
               }}
             ></TextField>
             {/* <TextField
@@ -162,6 +174,11 @@ const Login = (props) => {
               <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <VpnKeyIcon />
+                  </InputAdornment>
+                }
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -194,8 +211,8 @@ const Login = (props) => {
             </div>
           </form>
         </div>
-          )}
-          <ToastContainer />
+      )}
+      <ToastContainer />
     </>
   );
 };
