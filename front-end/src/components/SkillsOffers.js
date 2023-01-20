@@ -17,14 +17,14 @@ import FormLabel from "@mui/material/FormLabel";
 import { TextButton } from "./UI/CustomButton";
 import ClearIcon from "@mui/icons-material/Clear";
 
-const LocationOffers = () => {
+const SkillsOffers = () => {
     const { post } = useFetch("http://localhost:5000");
     const [showForm, setShowForm] = useState(false);
     const showUser = useSelector((state) => state.user.userDetails);
     const [offs, setOffs] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            const offer = await post('/user/offerlocation', { location: showUser?.cv?.country?.label ? showUser?.cv?.country?.label : ' ' })
+            const offer = await post('/user/offerskills', { skills: showUser?.cv?.skills ? showUser?.cv?.skills : ' ' })
             setOffs(offer?.off);
         }
         fetchData()
@@ -40,7 +40,7 @@ const LocationOffers = () => {
                 className={classes.formHeader}
             >
                 <AssignmentIcon></AssignmentIcon>
-                <h3>Offers in your location</h3>
+                <h3>Offers suits your Skills</h3>
             </ToggleButton>
             {!showForm && <KeyboardArrowDownRoundedIcon />}
             {showForm && <KeyboardArrowUpRoundedIcon />}
@@ -53,4 +53,4 @@ const LocationOffers = () => {
     )
 }
 
-export default LocationOffers;
+export default SkillsOffers;

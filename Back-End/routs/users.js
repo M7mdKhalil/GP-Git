@@ -16,6 +16,8 @@ router.post("/companylocation", users.companylocation);
 
 router.post("/offerlocation", users.offerslocation);
 
+router.post("/offerskills", users.offersskills);
+
 
 router.post("/getcompanyid", users.getcompanyid);
 

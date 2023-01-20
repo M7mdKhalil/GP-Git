@@ -37,15 +37,9 @@ const CreateCompany = (props) => {
   const [stateMsg, setstateMsg] = useState("");
   const [handleError, setHandleError] = useState(false);
   const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
+    const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setemail] = useState("");
-  const [cv, setcv] = useState({
-    collage: undefined,
-    department: undefined,
-    country: undefined,
-    skill: [],
-  });
   const [imageDone, setimageDone] = useState(false);
   const [phonenumber, setphonenumber] = useState("");
   const [location, setlocation] = useState("");
@@ -80,11 +74,11 @@ const CreateCompany = (props) => {
       bio,
       password,
       image,
-      phonenumber,
-      location,
+        phonenumber,
+        location: location.label,
       kind,
     });
-    setstateMsg(userData.msg);
+    setstateMsg(userData?.msg);
     if (userData.ok) {
       //   setislogin(true);
       navigate("/login");
@@ -104,6 +98,22 @@ const CreateCompany = (props) => {
   useEffect(() => {
     setHandleError(false);
   }, [username]);
+
+
+    const countries = [
+        { label: "" },
+        { label: "Jerusalem" },
+        { label: "Hebron" },
+        { label: "Bethlehem" },
+        { label: "Nablus" },
+        { label: "Jericho" },
+        { label: "Tulkarm" },
+        { label: "Ramallah" },
+        { label: "Jenin" },
+        { label: "selfit" },
+        { label: "Tubas" },
+        { label: "Qalqilya" },
+    ];
 
   return (
     <>
@@ -173,7 +183,15 @@ const CreateCompany = (props) => {
                     value={confirmPassword}
                     sx={{ width: 800 }}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                  ></TextField>
+                                  ></TextField>
+                                  <AutoCompleteInput
+                                      label="City"
+                                      options={countries}
+                                      defaultValue='Nablus'
+                                      onChange={(e, newOption) => {
+                                          setlocation(newOption) ;
+                                      }}
+                                  ></AutoCompleteInput>
                 </div>
               ) : (
                 ""

@@ -24,12 +24,11 @@ const LocationCompany = () => {
     const [comps, setComps] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            const comp = await post('/user/companylocation', { location: showUser?.location ? showUser?.location:' ' })
-            console.log(comp?.com)
+            const comp = await post('/user/companylocation', { location: showUser?.cv?.country?.label ? showUser?.cv?.country?.label :' ' })
             setComps(comp?.com);
         }
         fetchData()
-    }, [post])
+    }, [showForm])
     return (
         <div className={classes.myForm}>
             <ToggleButton
@@ -47,7 +46,7 @@ const LocationCompany = () => {
             {showForm && <KeyboardArrowUpRoundedIcon />}
             {showForm && (
                 <div className={classes.items}>
-                    {comps?.map((comp) => (<div><img src={comp.image.url} /><h1>{comp.username}</h1></div>))}
+                    {comps?.map((comp) => (<div onClick={() => { window.location=`/intro/${comp._id}` }}><img src={comp?.image?.url} /><h1>{comp.username}</h1></div>))}
                 </div>
             )}
         </div>

@@ -57,6 +57,13 @@ module.exports.offerslocation = async (req, res) => {
     }
 }
 
+module.exports.offersskills = async (req, res) => {
+    const off = await Offer.find({ "skills": { $elemMatch: { $in: req.body.skills.label } } });
+    if (!off) { console.log('errrrrrrrrrrrrrrr'); res.send({ ok: false }) } else {
+        res.send({ off, ok: true });
+    }
+}
+
 module.exports.companyRegisterForm = async (req, res) => {
     const { username, password, email, image, location, bio, phonenumber } = req.body;
   const isfound = await Company.findOne({ username });

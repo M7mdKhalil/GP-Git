@@ -35,6 +35,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SearchCompany from "./SearchCompany";
 import LocationCompany from "./LocationCompany";
 import LocationOffers from "./LocationOffers";
+import SkillsOffers from "./SkillsOffers";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -153,7 +154,7 @@ className={classes.myForm}
           value={props.value}
           sValue={props.sValue}
                   />
-                  <SearchCompany /> <LocationCompany /> <LocationOffers/></div>
+                  <SearchCompany /> <LocationCompany /> <LocationOffers /><SkillsOffers/></div>
       )}
       {usel.pathname === "/" && islogin && kind === "company" && (
         <div className={classes.list}>
