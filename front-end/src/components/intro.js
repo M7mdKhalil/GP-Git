@@ -144,7 +144,7 @@ const Intro = () => {
         {/* animation */}
         {userdetails?.kind == "user" && (
           <motion.div
-            initial={{ left: "9rem", top: "5rem" }}
+            initial={{ left: "9rem", top: "-2rem" }}
             whileInView={{ left: "0rem" }}
             transition={transition}
             className="floating-div"

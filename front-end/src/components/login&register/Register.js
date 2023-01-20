@@ -320,7 +320,7 @@ const Register = (props) => {
                       <TextButton
                         sx={{ display: "flex", marginTop: 10, zIndex: "9" }}
                       >
-                        <input
+                        {/* <input
                           multiple
                           type="file"
                           style={{ zIndex: "20" }}
@@ -328,7 +328,7 @@ const Register = (props) => {
                           onChange={(file) => {
                             setCvFile(file);
                           }}
-                        />
+                        /> */}
                         Upload your cv file
                       </TextButton>
                     )

@@ -83,11 +83,11 @@ const Profile = () => {
       </div> */}
       <div className={classes.cvCard}>
         {userdetails.kind === "user" ? (
-          <CV
-                      personalData={{
-                          name: userdetails.username,
-                          title: userdetails.cv?.department?.label,
-                          image: userdetails.image?.url,
+          <CV className="myCv"
+            personalData={{
+              name: userdetails.username,
+              title: userdetails.cv?.department?.label,
+              image: userdetails.image?.url,
               contacts: [
                 { type: "email", value: userdetails.email },
                 { type: "phone", value: userdetails.phonenumber },
@@ -102,7 +102,9 @@ const Profile = () => {
                 type: "text",
                 title:
                   userdetails.kind === "company" ? "Bio" : "Career Profile",
-                    content: userdetails.bio ? userdetails.bio:'No Career Profile',
+                content: userdetails.bio
+                  ? userdetails.bio
+                  : "No Career Profile",
                 icon: "usertie",
               },
               {
@@ -111,8 +113,12 @@ const Profile = () => {
                 icon: "graduation",
                 items: [
                   {
-                        title: userdetails.cv?.department?.label ? userdetails.cv?.department?.label: 'No Department',
-                        authority: userdetails.cv?.collage?.label ? userdetails.cv?.collage?.label:'No college',
+                    title: userdetails.cv?.department?.label
+                      ? userdetails.cv?.department?.label
+                      : "No Department",
+                    authority: userdetails.cv?.collage?.label
+                      ? userdetails.cv?.collage?.label
+                      : "No college",
                   },
                 ],
               },

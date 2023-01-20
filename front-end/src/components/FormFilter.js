@@ -64,18 +64,16 @@ const FormFilter = (props) => {
     <form className={props.className}>
       <ToggleButton
         value="check"
-        selected={showForm}
-        onChange={() => {
-          setShowForm(!showForm);
-        }}
+        selected={props.selected}
+        onChange={props.onChange}
         className={classes.formHeader}
       >
         <SearchIcon></SearchIcon>
         <h3>search & Filter</h3>
       </ToggleButton>
-      {!showForm && <KeyboardArrowDownRoundedIcon />}
-      {showForm && <KeyboardArrowUpRoundedIcon />}
-      {showForm && (
+      {!props.selected && <KeyboardArrowDownRoundedIcon />}
+      {props.selected && <KeyboardArrowUpRoundedIcon />}
+      {props.selected && (
         <div className={classes.items}>
           <TextField
             label="Title"
@@ -126,9 +124,9 @@ const FormFilter = (props) => {
                 startIcon={<ClearIcon />}
                 onClick={() => {
                   setOfferStatus(undefined);
-                  setTitle("")
-                  setLocation("")
-                  setAuthor("")
+                  setTitle("");
+                  setLocation("");
+                  setAuthor("");
                 }}
               >
                 Clear

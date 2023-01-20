@@ -36,6 +36,7 @@ import SearchCompany from "./SearchCompany";
 import LocationCompany from "./LocationCompany";
 import LocationOffers from "./LocationOffers";
 import SkillsOffers from "./SkillsOffers";
+import { useSelector } from "react-redux";
 
 const SideBar = (props) => {
   const { post } = useFetch("http://localhost:5000");
@@ -47,6 +48,7 @@ const SideBar = (props) => {
     "islogin",
     false
   );
+  const showUser = useSelector((state) => state.user.userDetails);
 
   const [kind, setkind, removekind] = useSessionStorage("kind", false);
   const appliers = props.list;
@@ -61,6 +63,9 @@ const SideBar = (props) => {
   const [showAppliers, setShowAppliers] = useState(true);
   const [showAccepted, setShowAccepted] = useState(false);
   const [showRejected, setShowRejected] = useState(false);
+  const [showFormFilter, setShowFormFilter] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
 
   const length = props.offerdetails?.skills?.length;
   const acceptHandler = async (applierid) => {
@@ -147,25 +152,49 @@ const SideBar = (props) => {
 
   return (
     <div className={classes.container}>
-          {usel.pathname === "/" && (
-              <div >
-        <FormFilter
-className={classes.myForm}
-          value={props.value}
-          sValue={props.sValue}
-                  />
-                  <SearchCompany /> <LocationCompany /> <LocationOffers /><SkillsOffers/></div>
+      {usel.pathname === "/" && (
+        <div>
+          <FormFilter
+            className={classes.myForm}
+            value={props.value}
+            sValue={props.sValue}
+            selected={showFormFilter}
+            onChange={() => {
+              setShowFormFilter(!showFormFilter);
+              if (!showFormFilter) {
+                setShowSkills(false);
+                setShowLocations(false);
+              }
+            }}
+          />
+          {islogin && showUser?.kind == "user" && (
+            <div>
+              <SkillsOffers
+                selected={showSkills}
+                onChange={() => {
+                  setShowSkills(!showSkills);
+                  if (!showSkills) {
+                    setShowFormFilter(false);
+                    setShowLocations(false);
+                  }
+                }}
+              />
+              <LocationCompany
+                selected={showLocations}
+                onChange={() => {
+                  setShowLocations(!showLocations);
+                  if (!showLocations) {
+                    setShowFormFilter(false);
+                    setShowSkills(false);
+                  }
+                }}
+              />
+            </div>
+          )}
+        </div>
       )}
       {usel.pathname === "/" && islogin && kind === "company" && (
         <div className={classes.list}>
-          {/* <Button
-            onClick={() => {
-              setShowAddOffer(true);
-            }}
-          >
-            Add Offer
-          </Button> */}
-
           {showAddOffer && (
             <AddOffer
               onClose={() => {
@@ -195,6 +224,8 @@ className={classes.myForm}
           }
         />
       )}
+
+      {/* all appliers -------------------------------------------------------------------------------- */}
       {islogin && kind === "company" && appliers && (
         <div className={classes.myForm}>
           <ToggleButton
@@ -253,7 +284,7 @@ className={classes.myForm}
                               <ClearRoundedIcon></ClearRoundedIcon>
                             </IconButton>
                             {/* <TiUserAddOutline />
-                    <TiUserDeleteOutline />{" "} */}
+                      <TiUserDeleteOutline />{" "} */}
                           </section>
                         )
                       }
