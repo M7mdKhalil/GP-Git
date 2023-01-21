@@ -43,7 +43,7 @@ const EditProfile = (props) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setemail] = useState("");
     const [cv, setcv] = useState({
-        collage: collages[0],
+        collage: undefined,
         department: undefined,
         country: undefined,
         skill: [],
@@ -77,15 +77,16 @@ const EditProfile = (props) => {
         myWidget.open();
     };
 
-    const submitHandler = async (event) => {
-        event.preventDefault();
+    const submitHandler = async (e) => {
+        e.preventDefault();
         const resolveAfter3Sec = new Promise((resolve) =>
             setTimeout(resolve, 3000)
         );
         toast.promise(resolveAfter3Sec, {
-            pending: "Edit account",
+            pending: "Edit Profile",
         });
-        const userData = await post("/editprofile", {
+        console.log(username);
+        const userData = await post("/user/editprofile", {
             id: params.id,
             username,
             email,
@@ -96,9 +97,11 @@ const EditProfile = (props) => {
             phonenumber,
             location,
             kind
-        });
-        setstateMsg(userData.msg);
+        }); if (userData.ok && kind === 'user') {
             navigate(`/profile/${params.id}`);
+        } if (userData.ok && kind === 'company') {
+            navigate(`/intro/${params.id}`);
+        } 
     };
 
     const currentStepHandler = (step) => {
@@ -115,8 +118,12 @@ const EditProfile = (props) => {
                 setemail(user.email)
                 setusername(user.username)
                 setphonenumber(user.phonenumber)
+                setimage(user.image);
                 setcv(user.cv)
-                setlocation(user.location);
+                if (user.kind === 'user') {
+                    setlocation(user.cv.country.label);
+                } else { setlocation(user.location); }
+                setkind(user.kind)
 
             }
         }
@@ -131,14 +138,15 @@ const EditProfile = (props) => {
         setHandleError(false);
     }, [username]);
 
-    const validate = () => {
-        setErrors([]);
-        if (username.length < 7 || username.length > 20) { setErrors(oldArray => [...oldArray, { name: 'username', text: 'Must be between 7 and 20 character' }]) }
-        if (!(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email))) { setErrors(oldArray => [...oldArray, { name: 'email', text: 'Not valid Email' }]) }
-        if (!(/[a-zA-Z]/g.test(password))) { setErrors(oldArray => [...oldArray, { name: 'password', text: 'Must contain at least one letter' }]) }
-        if (password.length < 8) { setErrors(oldArray => [...oldArray, { name: 'password', text: 'Must be more than 7 character' }]) }
-        if (password !== confirmPassword) { setErrors(oldArray => [...oldArray, { name: 'confirmPassword', text: 'Not equals to password' }]) }
-    }
+    useEffect(() => {
+        const validate = () => {
+            setErrors([]);
+            if (username.length < 4 || username.length > 20) { setErrors(oldArray => [...oldArray, { name: 'username', text: 'Must be between 7 and 20 character' }]) }
+            if (!(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email))) { setErrors(oldArray => [...oldArray, { name: 'email', text: 'Not valid Email' }]) }
+        }
+        validate()
+        console.log(username);
+    }, [username, email]);
 
     const checkErrors = (name) => {
         for (let i = 0; i < errors.length; i++) {
@@ -202,52 +210,50 @@ const EditProfile = (props) => {
 
                                     </div>
                                 
-                                    <div>
-                                        <p>_____________________________CV information_____________________________</p>
+                                <div>{kind !== 'company' && <>
+                                    <p>_____________________________CV information_____________________________</p>
                                     <AutoCompleteInput
-                                        value={{ label: cv?.collage?.label }}
-                                                label="Univarsity / Collage"
+                                        value={cv?.collage}
+                                        label={cv?.collage?.label}
                                         options={collages}
-                                        
-                                                onChange={(e, newOption) => {
-                                                    setcv({ ...cv, collage: newOption });
-                                                }}
+
+                                        onChange={(e, newOption) => {
+                                            setcv({ ...cv, collage: newOption });
+                                        }}
                                         renderInput={(params) => (
-                                            <TextField {...params} label="Controllable"  />
-                                                )}
-                                            ></AutoCompleteInput>
+                                            <TextField {...params} label="Controllable" />
+                                        )}
+                                    ></AutoCompleteInput>
                                     <AutoCompleteInput
 
-                                        value={{ label: cv?.department?.label }}
-                                                label="Department"
-                                                options={departments}
+                                        value={cv?.department}
+                                        label={cv?.department?.label} options={departments}
                                         onChange={(e, newOption) => {
                                             setcv({ ...cv, department: newOption }); console.log(cv?.department)
                                         }}
-                                            ></AutoCompleteInput>
-                                            <TextField
-                                                label="Phone number"
+                                    ></AutoCompleteInput></>}
+                                    <TextField
+                                        label="Phone number"
                                         sx={{ width: 400 }}
                                         value={phonenumber}
-                                                onChange={(e) => setphonenumber(e.target.value)}
-                                            ></TextField>
+                                        onChange={(e) => setphonenumber(e.target.value)}
+                                    ></TextField>
                                     <AutoCompleteInput
-                                        label="City"
+                                        label={location}
                                         options={countries}
-                                        value={{label: cv?.country?.label}}
+                                        value={location}
                                                 onChange={(e, newOption) => {
                                                     setcv({ ...cv, country: newOption });
                                                 }}
                                             ></AutoCompleteInput>
-                                    <AddChip
+                                    {kind !== 'company'&&<AddChip
                                         sx={{ width: 500 }}
                                         defaultSkills={arr}
-                                        
                                                 label="Skills"
                                                 skills={(allSkills) => {
                                                     setcv({ ...cv, skill: [...allSkills] });
                                                 }}
-                                            ></AddChip>
+                                            ></AddChip>}
 
                                             {/* <InputArea
                           onChange={(e) => {
@@ -281,8 +287,8 @@ const EditProfile = (props) => {
                                             <p className="successMessage">Uploaded Successfully</p>
                                         )}
                                     
-                                            <InputArea
-                                    placeholder="BIO"
+                                <InputArea
+                                    placeholder={bio}
                                     value={bio}
                                                 sx={{ width: 900 }}
                                                 onChange={(e,v) => {
@@ -315,10 +321,10 @@ const EditProfile = (props) => {
 
                             <PrimaryButton
                                         onClick={(e) => {
-                                            validate()
-                                            if (errors.length === 0) {
+                                            if (errors?.length === 0) {
                                                 submitHandler(e)
-                                            }
+                                    }
+                                    console.log(errors)
                                         }}
                                         endIcon={<DoneAllRoundedIcon />}
                                     >

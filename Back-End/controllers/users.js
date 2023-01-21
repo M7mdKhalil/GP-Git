@@ -139,11 +139,10 @@ module.exports.userRegisterForm = async (req, res,next) => {
   }
 };
 
-module.exports.editProfile = async (req, res, next) => {
+module.exports.editProfile = async (req, res) => {
     console.log('yessssss')
     const {
         username,
-        password,
         email,
         bio,
         cv,
@@ -153,8 +152,9 @@ module.exports.editProfile = async (req, res, next) => {
         kind,
         id
     } = req.body;
+    const _id = id;
     if (kind === 'user') {
-        const user = await User.updateOne({ id }, {
+        const user = await User.updateOne({ _id }, {
             $set: {
                 username,
                 email,
@@ -165,18 +165,22 @@ module.exports.editProfile = async (req, res, next) => {
                 phonenumber
             }
         })
+        return res.send({ok:true})
     }
     if (kind === 'company') {
-        const company = await Company.updateOne({ id }, {
+        const company = await Company.updateOne({ _id }, {
             $set: {
                 username,
                 email,
                 bio,
                 image,
-                location:cv?.city?.label,
+                location:cv?.country?.label,
                 phonenumber
             }
-        }) }
+        })
+        return res.send({ ok: true })
+    }
+   return res.send({ok:false})
 };
 
 module.exports.loginForm = async (req, res) => {
