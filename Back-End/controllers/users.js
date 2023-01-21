@@ -34,6 +34,11 @@ module.exports.getallCompanies = async (req, res) => {
     res.send(companies)
 }
 
+module.exports.getAllUsers = async (req, res) => {
+    const users = await User.find({});
+    res.send(users)
+}
+
 module.exports.getcompanyid = async (req, res) => {
     console.log(req.body.state);
     const com = await Company.findOne({ username: req.body.state });

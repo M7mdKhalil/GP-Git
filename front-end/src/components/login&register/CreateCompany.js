@@ -24,6 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
+import AdminSideBar from "../Admin/AdminSidBar";
 
 const CreateCompany = (props) => {
   const { get, post, response, loading, error } = useFetch(
@@ -37,7 +38,7 @@ const CreateCompany = (props) => {
   const [stateMsg, setstateMsg] = useState("");
   const [handleError, setHandleError] = useState(false);
   const [username, setusername] = useState("");
-    const [password, setpassword] = useState("");
+  const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setemail] = useState("");
   const [imageDone, setimageDone] = useState(false);
@@ -74,8 +75,8 @@ const CreateCompany = (props) => {
       bio,
       password,
       image,
-        phonenumber,
-        location: location.label,
+      phonenumber,
+      location: location.label,
       kind,
     });
     setstateMsg(userData?.msg);
@@ -99,25 +100,25 @@ const CreateCompany = (props) => {
     setHandleError(false);
   }, [username]);
 
-
-    const countries = [
-        { label: "" },
-        { label: "Jerusalem" },
-        { label: "Hebron" },
-        { label: "Bethlehem" },
-        { label: "Nablus" },
-        { label: "Jericho" },
-        { label: "Tulkarm" },
-        { label: "Ramallah" },
-        { label: "Jenin" },
-        { label: "selfit" },
-        { label: "Tubas" },
-        { label: "Qalqilya" },
-    ];
+  const countries = [
+    { label: "" },
+    { label: "Jerusalem" },
+    { label: "Hebron" },
+    { label: "Bethlehem" },
+    { label: "Nablus" },
+    { label: "Jericho" },
+    { label: "Tulkarm" },
+    { label: "Ramallah" },
+    { label: "Jenin" },
+    { label: "selfit" },
+    { label: "Tubas" },
+    { label: "Qalqilya" },
+  ];
 
   return (
     <>
       <div className="cusContain">
+        <AdminSideBar active="createCompany" style={{marginTop: "200px"}}/>
         <form className="register">
           <HorizontalLinearStepper
             currentStep={currentStepHandler}
@@ -183,15 +184,15 @@ const CreateCompany = (props) => {
                     value={confirmPassword}
                     sx={{ width: 800 }}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                  ></TextField>
-                                  <AutoCompleteInput
-                                      label="City"
-                                      options={countries}
-                                      defaultValue='Nablus'
-                                      onChange={(e, newOption) => {
-                                          setlocation(newOption) ;
-                                      }}
-                                  ></AutoCompleteInput>
+                  ></TextField>
+                  <AutoCompleteInput
+                    label="City"
+                    options={countries}
+                    defaultValue="Nablus"
+                    onChange={(e, newOption) => {
+                      setlocation(newOption);
+                    }}
+                  ></AutoCompleteInput>
                 </div>
               ) : (
                 ""
@@ -248,6 +249,5 @@ const CreateCompany = (props) => {
     </>
   );
 };
-
 
 export default CreateCompany;

@@ -66,7 +66,7 @@ const AddOffer = (props) => {
   };
   return (
     <div className={classes.main}>
-      {!islogin || showUser.kind !== "company" ? (
+      {!islogin || (showUser.kind !== "company" && showUser.kind !== "admin") ? (
         <PageNotFound />
       ) : (
         <Modal onClose={props.onClose}>

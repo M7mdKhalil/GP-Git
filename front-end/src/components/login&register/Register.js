@@ -24,11 +24,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import DoneAllRoundedIcon from "@mui/icons-material/DoneRounded";
 import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
 
 const Register = (props) => {
   const { get, post, response, loading, error } = useFetch(
     "http://localhost:5000"
   );
+  const showUser = useSelector((state) => state.user.userDetails);
+
   const navigate = useNavigate();
   const [islogin, setislogin, removeislogin] = useSessionStorage(
     "islogin",
@@ -36,7 +39,7 @@ const Register = (props) => {
   );
   const [stateMsg, setstateMsg] = useState("");
   const [handleError, setHandleError] = useState(false);
-    const [username, setusername] = useState("");
+  const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setemail] = useState("");
@@ -46,7 +49,7 @@ const Register = (props) => {
     country: undefined,
     skill: [],
   });
-    const [errors, setErrors] = useState([{}]);
+  const [errors, setErrors] = useState([{}]);
   const [imageDone, setimageDone] = useState(false);
   const [phonenumber, setphonenumber] = useState("");
   const [location, setlocation] = useState("");
@@ -113,25 +116,52 @@ const Register = (props) => {
     setHandleError(false);
   }, [username]);
 
-    const validate = () => {
-        setErrors([]);
-        if (username.length < 7 || username.length > 20) { setErrors(oldArray => [...oldArray, { name: 'username', text: 'Must be between 7 and 20 character' }]) }
-        if (!(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email))) { setErrors(oldArray => [...oldArray, { name: 'email', text: 'Not valid Email' }]) }
-        if (!(/[a-zA-Z]/g.test(password))) { setErrors(oldArray => [...oldArray, { name: 'password', text: 'Must contain at least one letter' }]) }
-        if (password.length < 8) { setErrors(oldArray => [...oldArray, { name: 'password', text: 'Must be more than 7 character' }]) }
-        if (password !== confirmPassword) { setErrors(oldArray => [...oldArray, { name: 'confirmPassword', text: 'Not equals to password' }]) }
+  const validate = () => {
+    setErrors([]);
+    if (username.length < 7 || username.length > 20) {
+      setErrors((oldArray) => [
+        ...oldArray,
+        { name: "username", text: "Must be between 7 and 20 character" },
+      ]);
     }
+    if (
+      !/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email)
+    ) {
+      setErrors((oldArray) => [
+        ...oldArray,
+        { name: "email", text: "Not valid Email" },
+      ]);
+    }
+    if (!/[a-zA-Z]/g.test(password)) {
+      setErrors((oldArray) => [
+        ...oldArray,
+        { name: "password", text: "Must contain at least one letter" },
+      ]);
+    }
+    if (password.length < 8) {
+      setErrors((oldArray) => [
+        ...oldArray,
+        { name: "password", text: "Must be more than 7 character" },
+      ]);
+    }
+    if (password !== confirmPassword) {
+      setErrors((oldArray) => [
+        ...oldArray,
+        { name: "confirmPassword", text: "Not equals to password" },
+      ]);
+    }
+  };
 
-    const checkErrors = (name) => {
-        for (let i = 0; i < errors.length; i++) {
-            if (errors[i].name === name) {
-                return errors[i].text;
-            }
-        }
+  const checkErrors = (name) => {
+    for (let i = 0; i < errors.length; i++) {
+      if (errors[i].name === name) {
+        return errors[i].text;
+      }
     }
+  };
   return (
     <>
-      {islogin ? (
+      {showUser.kind !== "admin" && islogin  ? (
         (window.location = "/")
       ) : (
         <div className="cusContain">
@@ -140,13 +170,14 @@ const Register = (props) => {
               currentStep={currentStepHandler}
               SubmitButton={
                 <PrimaryButton
-                      onClick={(e) => {
-                          validate()
-                          if (errors.length===0) {
-                              submitHandler(e)
-                          }
-                          else { setStepNow(0) }
-                      }}
+                  onClick={(e) => {
+                    validate();
+                    if (errors.length === 0) {
+                      submitHandler(e);
+                    } else {
+                      setStepNow(0);
+                    }
+                  }}
                   endIcon={<DoneAllRoundedIcon />}
                 >
                   finish & SignUp
@@ -156,27 +187,27 @@ const Register = (props) => {
               <div className="info">
                 {stepNow == 0 || stepNow == -1 ? (
                   <div>
-                                          {handleError ? (
-                                              <TextField
-                                                  error
-                                                  helperText="username is already exist!"
-                                                  label="username"
-                                                  value={username}
-                                                  sx={{ width: 800 }}
-                                                  onChange={(e) => {
-                                                      setusername(e.target.value);
-                                                  }}
-                                              ></TextField>
-                                          ) : (
-                                              <TextField
-                                                  hel
-                                                  label="username"
-                                                      value={username}
-                                                      error={checkErrors('username') ? true : false}
-                                                      helperText={checkErrors('username')}
+                    {handleError ? (
+                      <TextField
+                        error
+                        helperText="username is already exist!"
+                        label="username"
+                        value={username}
                         sx={{ width: 800 }}
-                                                      placeholder="*choose unique username"
-                                                      onChange={(e) => {
+                        onChange={(e) => {
+                          setusername(e.target.value);
+                        }}
+                      ></TextField>
+                    ) : (
+                      <TextField
+                        hel
+                        label="username"
+                        value={username}
+                        error={checkErrors("username") ? true : false}
+                        helperText={checkErrors("username")}
+                        sx={{ width: 800 }}
+                        placeholder="*choose unique username"
+                        onChange={(e) => {
                           setusername(e.target.value);
                         }}
                       ></TextField>
@@ -185,9 +216,9 @@ const Register = (props) => {
                     <TextField
                       label="Email"
                       type="email"
-                                              value={email}
-                                              error={checkErrors('email') ? true : false}
-                                              helperText={checkErrors('email')}
+                      value={email}
+                      error={checkErrors("email") ? true : false}
+                      helperText={checkErrors("email")}
                       sx={{ width: 800 }}
                       placeholder="example@gmail.com"
                       onChange={(e) => {
@@ -197,9 +228,9 @@ const Register = (props) => {
 
                     <TextField
                       label="Password"
-                                              type="password"
-                                              error={checkErrors('password') ? true : false}
-                                              helperText={checkErrors('password')}
+                      type="password"
+                      error={checkErrors("password") ? true : false}
+                      helperText={checkErrors("password")}
                       value={password}
                       sx={{ width: 800 }}
                       onChange={(e) => {
@@ -210,9 +241,9 @@ const Register = (props) => {
                     <TextField
                       label="Confirm password"
                       type="password"
-                                              value={confirmPassword}
-                                              error={checkErrors('confirmPassword') ? true : false}
-                                              helperText={checkErrors('confirmPassword')}
+                      value={confirmPassword}
+                      error={checkErrors("confirmPassword") ? true : false}
+                      helperText={checkErrors("confirmPassword")}
                       sx={{ width: 800 }}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     ></TextField>

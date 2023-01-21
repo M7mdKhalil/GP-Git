@@ -7,6 +7,7 @@ const {storage} = require('../cloudinary/index');
 const uploade = multer({ storage });
 
 router.get('/allcompanies', users.getallCompanies);
+router.get('/allusers', users.getAllUsers);
 
 router.get("/:id", users.userDetails);
 
@@ -29,7 +30,7 @@ router.post("/admin", uploade.single('image'), users.addadmin);
 
   router.put("/",isLogged,users.editForm);
 
-  router.delete("/",isLogged, users.deleteForm);
+  router.delete("/delete/:id",isLogged, users.deleteForm);
 
   router.post("/apply",users.applyuser)
   
