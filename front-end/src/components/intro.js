@@ -1,27 +1,16 @@
-import React, { useContext, useState } from "react";
+﻿import React, { useContext, useState } from "react";
 import "./UI/intro.css";
-import Vector1 from "./img/Vector1.png";
-import Vector2 from "./img/Vector2.png";
-import boy from "./img/boy.png";
-import glassesimoji from "./img/glassesimoji.png";
-import thumbup from "./img/thumbup.png";
-import crown from "./img/crown.png";
-import FloatinDiv from "./UI/FloatingDiv/FloatingDiv";
-import Github from "./img/github.png";
-import LinkedIn from "./img/linkedin.png";
-import Instagram from "./img/instagram.png";
+import "./UI/tabs.css";
 import { themeContext } from "./UI/context";
-import { motion } from "framer-motion";
-import { Link } from "react-scroll";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
 import { PrimaryButton, TextButton } from "./UI/CustomButton";
 import { useFetch } from "use-http";
-import Card from "./Card";
 import { useSessionStorage } from "react-use-storage";
 import Container from "./Container";
+import Card from './Card'
 import Spinner from "./Spinner";
 const Intro = () => {
   const showUser = useSelector((state) => state.user.userDetails);
@@ -70,145 +59,67 @@ const Intro = () => {
 
   const profHandler = () => {
     window.location = `/profile/${params.id}`;
-  };
+    };
+
 
   return (
-    <div className="Intro" id="Intro">
-      {/* left name side */}
-      <div className="i-left">
-        <div className="i-name">
-          {/* yahan change hy darkmode ka */}
-          {/* <span style={{ color: darkMode ? "white" : "" }}>Hy! I Am</span> */}
-          <span>{userdetails?.username}</span>
-          <span>{userdetails?.bio}</span>
-        </div>
-        <Link to="contact" className="button i-button" smooth={true} spy={true}>
-          {userdetails?.kind == "user" && (<>
-                      <PrimaryButton onClick={profHandler}>Show CV</PrimaryButton>
-                  </>)}
-                 
-        </Link>
-        {/* social icons */}
-        <div className="i-icons">
-          <img src={Github} alt="" />
-          <img src={LinkedIn} alt="" />
-          <img src={Instagram} alt="" />
-        </div>
-      </div>
-      {/* right image side */}
-          <div className="i-right">
-        <>
-        <img src={Vector1} alt="" />
-                  <img src={Vector2} alt="" /></>
+    <div >
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+              <div id="container">
 
-        <img
-          src={userdetails?.image?.url}
-          className="item"
-          height="100"
-          width="300"
-          alt=""
-        />
-        {/* animation */}
-        <motion.img
-          initial={{ left: "-36%" }}
-          whileInView={{ left: "-24%" }}
-          transition={transition}
-          // src={glassesimoji}
-          alt=""
-        />
+                  <div class="product-details">
 
-        {userdetails?.kind == "user" && (
-          <motion.div
-            initial={{ top: "-4%", left: "74%" }}
-            whileInView={{ left: "68%" }}
-            transition={transition}
-            className="floating-div"
-          >
-            <FloatinDiv
-              img={crown}
-              text1={userdetails?.cv?.department?.label}
-            />
-          </motion.div>
-        )}
-        {userdetails?.kind == "user" && (
-          <motion.div
-            initial={{ top: "20%", left: "74%" }}
-            whileInView={{ left: "68%" }}
-            transition={transition}
-            className="floating-div"
-          >
-            <FloatinDiv img={crown} text1={userdetails?.cv?.country?.label} />
-          </motion.div>
-        )}
+                  <h1>{userdetails?.username}</h1>
+                      <span class="hint-star star">
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star-o" aria-hidden="true"></i>
+                      </span>
 
-        {/* animation */}
-        {userdetails?.kind == "user" && (
-          <motion.div
-            initial={{ left: "9rem", top: "-2rem" }}
-            whileInView={{ left: "0rem" }}
-            transition={transition}
-            className="floating-div"
-          >
-            {/* floatinDiv mein change hy dark mode ka */}
-            <FloatinDiv img={thumbup} text1={userdetails?.cv?.collage?.label} />
-          </motion.div>
-        )}
-        {userdetails?.kind == "user" && (
-          <motion.div
-            initial={{ left: "9rem", top: "18rem" }}
-            whileInView={{ left: "0rem" }}
-            transition={transition}
-            className="floating-div"
-          >
-            {/* floatinDiv mein change hy dark mode ka */}
-            <FloatinDiv img={thumbup} text1={userdetails?.email} />
-          </motion.div>
-        )}
+                  <p class="information">{userdetails?.bio}</p>
+                  {userdetails?.kind==='user'&&(
+                  <div className='control'>
+                      <button className='btn' onClick={() => {
+                          window.location = `/profile/${userdetails?._id}`
+                      } }><span class="buy">Show CV</span></button>
+                      </div>)}
 
-        <div className="blur" style={{ background: "rgb(238 210 255)" }}></div>
-        <div
-          className="blur"
-          style={{
-            background: "#C1F5FF",
-            top: "17rem",
-            width: "21rem",
-            height: "11rem",
-            left: "-9rem",
-          }}
-        ></div>
-      </div>
+                  </div>
 
-      <div className="offers" id="myoffers">
-        {userdetails?.kind == "company" && (
-          <Container>
-            {myOffers ? (
-              myOffers.map((offer) => (
-                <Card
-                  key={offer._id}
-                  _id={offer._id}
-                  title={offer.title}
-                  location={offer.location}
-                  author={offer.author}
-                  date={offer.date.substring(0, 10)}
-                  // visible={!offer.appliers.includes(userid)}
-                  cardImage={false}
-                  length={offer.appliers.length}
-                  image={offer.author.image?.url}
-                  available={offer.available}
-                  onClick={() => navigate(`/offer/${offer._id}`)}
-                />
-              ))
-            ) : (
-              <Spinner />
-            )}
-          </Container>
-        )}
+                  <div class="product-image">
 
-        {userdetails?.kind == "user" &&
-          userdetails?._id === showUser?._id &&
-          islogin && (
-            <Container>
-                      <h1>Offers</h1>
+                  <img src={userdetails?.image?.url} alt="" />
+
+
+                          <div class="info">
+                              <h2> Description</h2>
+                      <ul>
+                          <li><strong>Location : </strong>{userdetails?.kind === 'user' ? userdetails?.cv?.country?.label : userdetails?.location}</li>
+                          <li><strong>PhoneNumber : </strong>{userdetails?.phonenumber}</li>
+                          <li><strong>email</strong>{userdetails?.email}</li>
+                              </ul>
+                  </div>
+                  </div>
+
+          </div>
+
+          <div class="tabset">
+              {(userdetails?._id === showUser?._id || userdetails?.kind ==='company') &&
+              islogin && (<>
+              <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked/>
+                  <label for="tab1">Offers</label></>)}
+              {userdetails?.kind === 'user' && (
+                  <>
+                  <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier"/>
+                      <label for="tab2">Accepted Offers</label>
+                      <input type="radio" name="tabset" id="tab3" aria-controls="dunkles"/>
+                      <label for="tab3">Regected Offers</label> </>
+              )}
+              <div class="tab-panels">
+                  <section id="marzen" class="tab-panel">
+                                  <h2>Offers</h2>
                       {userdetails?.offers?.map((offer) => (
                           <Card
                               _id={offer._id}
@@ -223,48 +134,49 @@ const Intro = () => {
                               onClick={() => navigate(`/offer/${offer._id}`)}
                           />
                       ))}
-
-                      {userdetails?.kind === 'user' && (
-                          <>
-                              <h1>accepted offers</h1>
-                              {userdetails?.acceptedOffers?.map(offer => (
-                                  <Card
-                                      key={offer._id}
-                                      _id={offer._id}
-                                      title={offer.title}
-                                      location={offer.location}
-                                      author={offer.author}
-                                      date={offer.date.substring(0, 10)}
-                                      // visible={!offer.appliers.includes(userid)}
-                                      length={offer.appliers.length}
-                                      image={offer.author.image?.url}
-                                      available={offer.available}
-                                      onClick={() => navigate(`/offer/${offer._id}`)}
-                                  />
-                              ))}
-                              <h1>regected offers</h1>
-                              {userdetails?.regectedOffers?.map(offer => (
-                                  <Card
-                                      key={offer._id}
-                                      _id={offer._id}
-                                      title={offer.title}
-                                      location={offer.location}
-                                      author={offer.author}
-                                      date={offer.date.substring(0, 10)}
-                                      // visible={!offer.appliers.includes(userid)}
-                                      length={offer.appliers.length}
-                                      image={offer.author.image?.url}
-                                      available={offer.available}
-                                      onClick={() => navigate(`/offer/${offer._id}`)}
-                                  />
-                              ))}
-                          </>
-                      )
-                      }
-            </Container>
-          )}
+                              </section>
+                              <section id="rauchbier" class="tab-panel">
+                      <h2>Accipted Offers</h2>
+                      {userdetails?.acceptedOffers?.map(offer => (
+                          <Card
+                              key={offer._id}
+                              _id={offer._id}
+                              title={offer.title}
+                              location={offer.location}
+                              author={offer.author}
+                              date={offer.date.substring(0, 10)}
+                              // visible={!offer.appliers.includes(userid)}
+                              length={offer.appliers.length}
+                              image={offer.author.image?.url}
+                              available={offer.available}
+                              onClick={() => navigate(`/offer/${offer._id}`)}
+                          />
+                      ))}
+                              </section>
+                              <section id="dunkles" class="tab-panel">
+                      <h2>Regected Offers</h2>
+                      {userdetails?.regectedOffers?.map(offer => (
+                          <Card
+                              key={offer._id}
+                              _id={offer._id}
+                              title={offer.title}
+                              location={offer.location}
+                              author={offer.author}
+                              date={offer.date.substring(0, 10)}
+                              // visible={!offer.appliers.includes(userid)}
+                              length={offer.appliers.length}
+                              image={offer.author.image?.url}
+                              available={offer.available}
+                              onClick={() => navigate(`/offer/${offer._id}`)}
+                          />
+                      ))}
+                  </section>
+                  
+                          </div>
+                      </div>
+          
       </div>
-    </div>
+    
   );
 };
 
