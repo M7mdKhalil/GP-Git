@@ -144,6 +144,50 @@ module.exports.userRegisterForm = async (req, res,next) => {
   }
 };
 
+module.exports.editProfile = async (req, res) => {
+    console.log('yessssss')
+    const {
+        username,
+        email,
+        bio,
+        cv,
+        image,
+        location,
+        phonenumber,
+        kind,
+        id
+    } = req.body;
+    const _id = id;
+    if (kind === 'user') {
+        const user = await User.updateOne({ _id }, {
+            $set: {
+                username,
+                email,
+                bio,
+                cv,
+                image,
+                location,
+                phonenumber
+            }
+        })
+        return res.send({ok:true})
+    }
+    if (kind === 'company') {
+        const company = await Company.updateOne({ _id }, {
+            $set: {
+                username,
+                email,
+                bio,
+                image,
+                location:cv?.country?.label,
+                phonenumber
+            }
+        })
+        return res.send({ ok: true })
+    }
+   return res.send({ok:false})
+};
+
 module.exports.loginForm = async (req, res) => {
     const { username, password } = req.body;
     const userfound = await User.findOne({ "username": { $regex: username, $options: "i" } });

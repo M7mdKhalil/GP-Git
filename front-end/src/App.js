@@ -21,6 +21,8 @@ import CreateCompany from "./components/login&register/CreateCompany";
 import Intro from "./components/intro";
 import Dashboard from "./components/Admin/Dashboard";
 import Offers from "./components/offer/Offers";
+import Cintro from "./components/Cintro";
+import EditProfile from "./components/login&register/EditProfile";
 
 function App() {
   return (
@@ -33,6 +35,12 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/intro/:id" element={<Intro />}></Route>
         <Route path="/profile/:id" element={<Profile />}></Route>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/dashboard" element={<Dashboard />}></Route>
+              <Route path="/intro/:id" element={<Intro />}></Route>
+              <Route path="/cintro/:id" element={<Cintro />}></Route>
+              <Route path="/profile/:id" element={<Profile />}></Route>
+              <Route path="/editprofile/:id" element={<EditProfile />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/company" element={<CreateCompany />}></Route>
