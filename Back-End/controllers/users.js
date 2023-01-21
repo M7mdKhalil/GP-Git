@@ -268,13 +268,28 @@ module.exports.editForm = async (req, res) => {
 };
 
 module.exports.deleteForm = async (req, res) => {
-  const newUser = await User.findByIdAndDelete(req.body._id);
-  if (newUser) {
-    res.send(newUser);
-  } else {
-    const newCompany = await Company.findByIdAndDelete(req.body._id);
-    res.send(newCompany);
-  }
+    console.log('hoho', req.params.id);
+  const newUser = await User.findByIdAndDelete(req.params.id);
+    if (newUser) {
+        const offer = await Offer.update({}, {
+            $pull: { appliers: newUser._id },
+        });
+        await Offer.update({}, {
+            $pull: { acceptedAppliers: newUser._id },
+        });
+        await Offer.update({}, {
+            $pull: { regectedAppliers: newUser._id },
+        });
+        res.send(newUser);
+    } else {
+        const newCompany = await Company.findByIdAndDelete(req.params.id);
+        if (newCompany) {
+            await Offer.update({}, {
+                $unset: { author: newCompany._id }
+            });
+            res.send(newCompany);
+        }
+    }
 };
 
 module.exports.applyuser = async (req, res) => {

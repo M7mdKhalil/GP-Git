@@ -17,7 +17,7 @@ router.post("/",isLogged,uploade.array('image'),offers.addOffer);
 
 router.put("/",offers.editOffer);
 
-router.post("/delete/:id",offers.deleteOffer);
+router.delete("/delete/:id",offers.deleteOffer);
 
 router.get("/:id",offers.getOfferDetails);
 

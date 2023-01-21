@@ -161,7 +161,7 @@ const Register = (props) => {
   };
   return (
     <>
-      {showUser.kind !== "admin" && islogin  ? (
+      {showUser?.kind !== "admin" && islogin  ? (
         (window.location = "/")
       ) : (
         <div className="cusContain">

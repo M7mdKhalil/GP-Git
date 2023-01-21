@@ -59,9 +59,10 @@ module.exports.deleteOffer = async (req, res) => {
   for (i = 0; i < newOffer.appliers.length; i++) {
     const newUser = await User.findByIdAndUpdate(newOffer.appliers[i]._id, {
       $pull: { offers: _id },
-    });
-    newUser.save();
-  }
+    }); newUser?.save();    }
+    const usera = await User.update({}, { $pull: { acceptedOffers: _id } });
+    const userb = await User.update({}, { $pull: { regectedOffers: _id } });
+
   const newCompany = await Company.findByIdAndUpdate(newOffer.author._id, {
     $pull: { offers: _id },
   });

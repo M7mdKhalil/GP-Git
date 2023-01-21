@@ -32,7 +32,7 @@ router.post("/admin", uploade.single('image'), users.addadmin);
 
   router.put("/",isLogged,users.editForm);
 
-  router.delete("/delete/:id",isLogged, users.deleteForm);
+  router.delete("/delete/:id", users.deleteForm);
 
   router.post("/apply",users.applyuser)
   

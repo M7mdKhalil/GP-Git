@@ -12,7 +12,7 @@ import InputArea from "../UI/InputArea";
 import { PrimaryButton } from "../UI/CustomButton";
 
 const Dashboard = () => {
-  const { get } = useFetch("http://localhost:5000");
+  const { get,post,del } = useFetch("http://localhost:5000");
   const [companies, setCompanies] = useState([]);
   const [users, setUsers] = useState([]);
   const [offers, setOffers] = useState([]);
@@ -345,8 +345,10 @@ const Dashboard = () => {
                           >
                             <IconButton
                               aria-label="delete"
-                              onClick={() => {
-                                navigate(`/user/delete/${company?._id}`);
+                                          onClick={async () => {
+                                              const _id = company?._id;
+                                  const user = await del(`/user/delete/${_id}`);
+                                  navigate('/dashboard');
                               }}
                             >
                               <DeleteIcon />
@@ -423,8 +425,12 @@ const Dashboard = () => {
                               marginLeft: "40px",
                               padding: "0",
                             }}
-                          >
-                            <IconButton aria-label="delete">
+                                  >
+                                      <IconButton aria-label="delete" onClick={async () => {
+                                          const _id = company?._id;
+                                          const user = await del (`/user/delete/${_id}`);
+                                          navigate('/dashboard');
+                                      }} >
                               <DeleteIcon />
                             </IconButton>
                           </div>
@@ -540,7 +546,10 @@ const Dashboard = () => {
                               padding: "0",
                             }}
                           >
-                            <IconButton aria-label="delete">
+                                      <IconButton aria-label="delete" onClick={async () => {
+                                          const _id = offer?._id;
+                                          const user = await del(`/offer/delete/${_id}`);
+                                  navigate('/dashboard');}}>
                               <DeleteIcon />
                             </IconButton>
                           </div>

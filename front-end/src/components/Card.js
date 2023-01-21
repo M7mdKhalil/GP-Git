@@ -33,8 +33,8 @@ const Card = (props) => {
 
   const DeleteOfferHandler = async () => {
     const _id = props._id;
-    await del(`/offer/${_id}`);
-    navigate("/");
+    const deleteoffer =await del(`/offer/delete/${_id}`);
+    window.location="/";
   };
   // console.log(props.image)
   return (
@@ -68,14 +68,11 @@ const Card = (props) => {
           (userid === props.author._id || showUser?.kind === "admin") && (
             <div
               className={classes.deleteIcon}
-              onClick={DeleteOfferShowHandler}
+                      onClick={DeleteOfferHandler}
             >
               <MdOutlineDeleteOutline />
             </div>
           )}
-        {deleteOfferShow && (
-          <DeleteOffer cardId={props._id} onClose={DeleteOfferCloseHandler} />
-        )}
         {islogin &&
           (userid === props.author._id || showUser?.kind === "admin") && (
             <button
